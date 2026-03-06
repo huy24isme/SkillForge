@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Sparkles, Users, CheckCircle, AlertCircle, TrendingUp } from 'lucide-react';
+import { Sparkles, CheckCircle, AlertCircle, TrendingUp } from 'lucide-react';
 
 const projects = [
   { id: 1, name: 'E-Commerce Platform v2.0', status: 'active', team: 'Đã ghép' },

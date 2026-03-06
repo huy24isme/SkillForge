@@ -5,6 +5,7 @@ import {
   FolderPlus, 
   Users, 
   FileText, 
+  ClipboardList,
   User, 
   Sparkles,
   Bell,
@@ -16,6 +17,7 @@ const navigation = [
   { name: 'Tạo dự án', href: '/pm/create-project', icon: FolderPlus },
   { name: 'AI Team Matching', href: '/pm/team-matching', icon: Sparkles },
   { name: 'Dự án', href: '/pm/projects', icon: Users },
+  { name: 'Chi tiết dự án', href: '/pm/project-details', icon: ClipboardList },
   { name: 'Báo cáo hằng ngày', href: '/pm/daily-report', icon: FileText },
   { name: 'Hồ sơ', href: '/pm/profile', icon: User },
 ];

@@ -1,4 +1,4 @@
-import { Mail, MapPin, Calendar, TrendingUp, Award, Briefcase, CheckCircle } from 'lucide-react';
+import { Mail, MapPin, Calendar, Award, Briefcase, CheckCircle } from 'lucide-react';
 
 const user = {
   name: 'Nguyen Van A',
@@ -191,28 +191,8 @@ export function UserProfile() {
           </div>
         </div>
 
-        {/* Phân tích AI & Recommendations */}
+        {/* Recommendations */}
         <div className="space-y-6">
-          {/* AI Confidence Indicator */}
-          <div className="bg-gradient-to-br from-[#3AE7E1]/10 to-[#0B1C2D]/5 rounded-xl p-6 border border-[#3AE7E1]/20">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-[#3AE7E1]/20 flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-[#3AE7E1]" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900">AI Skill Confidence</h3>
-                <p className="text-xs text-gray-600">Dựa trên hiệu suất dự án</p>
-              </div>
-            </div>
-            <div className="flex items-end justify-center gap-2 mb-3">
-              <span className="text-5xl font-bold text-[#3AE7E1]">88</span>
-              <span className="text-2xl text-gray-500 mb-2">%</span>
-            </div>
-            <p className="text-sm text-gray-600 text-center">
-              Your skills match well with senior-level expectations
-            </p>
-          </div>
-
           {/* Growth Recommendations */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <div className="flex items-center gap-3 mb-4">

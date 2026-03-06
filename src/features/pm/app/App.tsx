@@ -4,6 +4,7 @@ import { Dashboard } from '@/features/pm/app/screens/Dashboard';
 import { CreateProject } from '@/features/pm/app/screens/CreateProject';
 import { TeamMatching } from '@/features/pm/app/screens/TeamMatching';
 import { ProjectOverview } from '@/features/pm/app/screens/ProjectOverview';
+import { ProjectDetails } from '@/features/pm/app/screens/ProjectDetails';
 import { DailyReport } from '@/features/pm/app/screens/DailyReport';
 import { UserProfile } from '@/features/pm/app/screens/UserProfile';
 
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="create-project" element={<CreateProject />} />
         <Route path="team-matching" element={<TeamMatching />} />
         <Route path="projects" element={<ProjectOverview />} />
+        <Route path="project-details" element={<ProjectDetails />} />
         <Route path="daily-report" element={<DailyReport />} />
         <Route path="profile" element={<UserProfile />} />
       </Routes>
