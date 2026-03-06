@@ -53,10 +53,10 @@ const skills = [
 ];
 
 const projectHistory = [
-  { id: 1, name: 'E-Commerce Platform v2.0', role: 'Frontend Lead', status: 'In Progress', date: '2026-01 - Present' },
-  { id: 2, name: 'Mobile Banking App', role: 'Senior Developer', status: 'Completed', date: '2025-09 - 2025-12' },
-  { id: 3, name: 'CRM System Upgrade', role: 'Frontend Developer', status: 'Completed', date: '2025-06 - 2025-08' },
-  { id: 4, name: 'Analytics Dashboard', role: 'Lead Developer', status: 'Completed', date: '2025-03 - 2025-05' },
+  { id: 1, name: 'E-Commerce Platform v2.0', role: 'Frontend Lead', status: 'Đang thực hiện', date: '2026-01 - Present' },
+  { id: 2, name: 'Mobile Banking App', role: 'Senior Developer', status: 'Hoàn thành', date: '2025-09 - 2025-12' },
+  { id: 3, name: 'CRM System Upgrade', role: 'Frontend Developer', status: 'Hoàn thành', date: '2025-06 - 2025-08' },
+  { id: 4, name: 'Analytics Tổng quan', role: 'Lead Developer', status: 'Hoàn thành', date: '2025-03 - 2025-05' },
 ];
 
 const recommendations = [
@@ -68,7 +68,7 @@ const recommendations = [
 export function UserProfile() {
   return (
     <div className="max-w-6xl mx-auto space-y-6">
-      {/* Profile Header */}
+      {/* Hồ sơ Header */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="h-32 bg-gradient-to-r from-[#0B1C2D] to-[#3AE7E1]"></div>
         <div className="px-8 pb-6">
@@ -95,7 +95,7 @@ export function UserProfile() {
               </div>
             </div>
             <button className="mt-16 px-6 py-2.5 bg-[#3AE7E1] text-white rounded-lg hover:bg-[#3AE7E1]/90 transition-colors">
-              Edit Profile
+              Chỉnh sửa hồ sơ
             </button>
           </div>
         </div>
@@ -133,7 +133,7 @@ export function UserProfile() {
                     </div>
                     <div className="text-right">
                       <p className="text-2xl font-semibold text-gray-900">{skill.progress}%</p>
-                      <p className="text-xs text-gray-500">{skill.projects} projects</p>
+                      <p className="text-xs text-gray-500">{skill.projects} dự án</p>
                     </div>
                   </div>
                   <div className="space-y-1">
@@ -153,18 +153,18 @@ export function UserProfile() {
             </div>
           </div>
 
-          {/* Project History */}
+          {/* Lịch sử dự án */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-6">Project History</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-6">Lịch sử dự án</h3>
             <div className="space-y-4">
               {projectHistory.map((project, idx) => (
                 <div key={project.id} className="flex items-start gap-4">
                   <div className="flex flex-col items-center">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                      project.status === 'In Progress' ? 'bg-[#3AE7E1]/20' : 'bg-[#2ECC71]/20'
+                      project.status === 'Đang thực hiện' ? 'bg-[#3AE7E1]/20' : 'bg-[#2ECC71]/20'
                     }`}>
                       <div className={`w-4 h-4 rounded-full ${
-                        project.status === 'In Progress' ? 'bg-[#3AE7E1]' : 'bg-[#2ECC71]'
+                        project.status === 'Đang thực hiện' ? 'bg-[#3AE7E1]' : 'bg-[#2ECC71]'
                       }`} />
                     </div>
                     {idx < projectHistory.length - 1 && (
@@ -175,7 +175,7 @@ export function UserProfile() {
                     <div className="flex items-start justify-between mb-1">
                       <h4 className="font-medium text-gray-900">{project.name}</h4>
                       <span className={`text-xs px-2 py-1 rounded ${
-                        project.status === 'In Progress' 
+                        project.status === 'Đang thực hiện' 
                           ? 'bg-[#3AE7E1]/10 text-[#3AE7E1]' 
                           : 'bg-[#2ECC71]/10 text-[#2ECC71]'
                       }`}>
@@ -191,7 +191,7 @@ export function UserProfile() {
           </div>
         </div>
 
-        {/* AI Insights & Recommendations */}
+        {/* Phân tích AI & Recommendations */}
         <div className="space-y-6">
           {/* AI Confidence Indicator */}
           <div className="bg-gradient-to-br from-[#3AE7E1]/10 to-[#0B1C2D]/5 rounded-xl p-6 border border-[#3AE7E1]/20">
@@ -201,7 +201,7 @@ export function UserProfile() {
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900">AI Skill Confidence</h3>
-                <p className="text-xs text-gray-600">Based on project performance</p>
+                <p className="text-xs text-gray-600">Dựa trên hiệu suất dự án</p>
               </div>
             </div>
             <div className="flex items-end justify-center gap-2 mb-3">
@@ -235,10 +235,10 @@ export function UserProfile() {
 
           {/* Stats */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-            <h3 className="font-semibold text-gray-900 mb-4">Statistics</h3>
+            <h3 className="font-semibold text-gray-900 mb-4">Thống kê</h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Projects Completed</span>
+                <span className="text-sm text-gray-600">Dự án đã hoàn thành</span>
                 <span className="text-lg font-semibold text-gray-900">28</span>
               </div>
               <div className="flex items-center justify-between">

@@ -90,7 +90,7 @@ export function ExecutiveProjects() {
           <h2 className="text-xl font-bold text-[#0B1C2D]">Danh sách dự án</h2>
           <div className="flex gap-2">
             <span className="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-medium text-slate-600 cursor-pointer hover:border-[#3AE7E1]">Tất cả</span>
-            <span className="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-medium text-slate-600 cursor-pointer hover:border-[#3AE7E1]">Critical</span>
+            <span className="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-medium text-slate-600 cursor-pointer hover:border-[#3AE7E1]">Nghiêm trọng</span>
             <span className="px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-medium text-slate-600 cursor-pointer hover:border-[#3AE7E1]">Rủi ro</span>
           </div>
         </div>

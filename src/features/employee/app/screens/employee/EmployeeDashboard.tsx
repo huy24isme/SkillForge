@@ -133,9 +133,9 @@ export function EmployeeDashboard() {
         </div>
       </div>
 
-      {/* Quick Actions */}
+      {/* Thao tác nhanh */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Thao tác nhanh</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <Link 
             to="/employee/daily-report"
@@ -145,7 +145,7 @@ export function EmployeeDashboard() {
               <div className="w-10 h-10 rounded-lg bg-[#3AE7E1]/10 flex items-center justify-center group-hover:bg-[#3AE7E1] transition-colors">
                 <FileText className="w-5 h-5 text-[#3AE7E1] group-hover:text-white transition-colors" />
               </div>
-              <h4 className="font-semibold text-gray-900">Daily Report</h4>
+              <h4 className="font-semibold text-gray-900">Báo cáo hằng ngày</h4>
             </div>
             <p className="text-sm text-gray-600">Submit today's progress</p>
           </Link>
@@ -204,7 +204,7 @@ export function EmployeeDashboard() {
               </div>
               <span className="px-3 py-1 bg-[#2ECC71]/10 text-[#2ECC71] text-xs rounded-full flex items-center gap-1">
                 <div className="w-1.5 h-1.5 rounded-full bg-[#2ECC71]" />
-                Healthy
+                Ổn định
               </span>
             </div>
             <div className="space-y-2">

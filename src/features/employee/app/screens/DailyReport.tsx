@@ -24,10 +24,10 @@ export function DailyReport() {
   return (
     <div className="max-w-6xl mx-auto space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Daily Report Form */}
+        {/* Báo cáo hằng ngày Form */}
         <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 p-6">
           <div className="mb-6">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-1">Daily Report</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-1">Báo cáo hằng ngày</h2>
             <p className="text-sm text-gray-600">Share your progress and earn XP!</p>
           </div>
 
@@ -41,7 +41,7 @@ export function DailyReport() {
                 onChange={(e) => setReport({ ...report, workDone: e.target.value })}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3AE7E1] focus:border-transparent resize-none"
                 rows={5}
-                placeholder="Describe your accomplishments, tasks completed, progress made..."
+                placeholder="Mô tả thành tựu, công việc đã hoàn thành và tiến độ đạt được..."
               />
             </div>
 
@@ -86,7 +86,7 @@ export function DailyReport() {
               className="w-full px-6 py-3 bg-[#3AE7E1] text-white rounded-lg hover:bg-[#3AE7E1]/90 transition-colors flex items-center justify-center gap-2"
             >
               <Trophy className="w-5 h-5" />
-              Submit Report & Earn 50 XP
+              Gửi báo cáo và nhận 50 XP
             </button>
           </form>
         </div>

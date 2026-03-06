@@ -12,12 +12,12 @@ import {
 } from 'lucide-react';
 
 const navigation = [
-  { name: 'Dashboard', href: '/pm', icon: LayoutDashboard },
-  { name: 'Create Project', href: '/pm/create-project', icon: FolderPlus },
+  { name: 'Tổng quan', href: '/pm', icon: LayoutDashboard },
+  { name: 'Tạo dự án', href: '/pm/create-project', icon: FolderPlus },
   { name: 'AI Team Matching', href: '/pm/team-matching', icon: Sparkles },
-  { name: 'Projects', href: '/pm/projects', icon: Users },
-  { name: 'Daily Report', href: '/pm/daily-report', icon: FileText },
-  { name: 'Profile', href: '/pm/profile', icon: User },
+  { name: 'Dự án', href: '/pm/projects', icon: Users },
+  { name: 'Báo cáo hằng ngày', href: '/pm/daily-report', icon: FileText },
+  { name: 'Hồ sơ', href: '/pm/profile', icon: User },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -76,7 +76,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-lg font-semibold text-gray-900">
-                {navigation.find((item) => item.href === location.pathname)?.name || 'Dashboard'}
+                {navigation.find((item) => item.href === location.pathname)?.name || 'Tổng quan'}
               </h2>
               <p className="text-sm text-gray-500">AI-Powered Talent & Project Operating System</p>
             </div>

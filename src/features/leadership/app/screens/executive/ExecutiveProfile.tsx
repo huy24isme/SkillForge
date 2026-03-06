@@ -10,7 +10,7 @@ export function ExecutiveProfile() {
         </div>
         <div className="flex-1">
           <h2 className="text-2xl font-bold text-[#0B1C2D] mb-1">Nguyễn Văn A</h2>
-          <p className="text-slate-500 mb-4">Chief Executive Officer (CEO)</p>
+          <p className="text-slate-500 mb-4">Giám đốc điều hành (CEO)</p>
           <div className="flex gap-4">
             <span className="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs font-medium flex items-center gap-2">
               <Mail className="w-3 h-3" /> ceo@skillforge.io
@@ -34,7 +34,7 @@ export function ExecutiveProfile() {
           </div>
           <div className="space-y-4">
             {[
-              { label: 'Cảnh báo rủi ro dự án (Critical)', checked: true },
+              { label: 'Cảnh báo rủi ro dự án (Nghiêm trọng)', checked: true },
               { label: 'Báo cáo tóm tắt hằng ngày (Daily Digest)', checked: true },
               { label: 'Thông báo nhân sự quá tải', checked: false },
               { label: 'Đề xuất phê duyệt mới', checked: true },

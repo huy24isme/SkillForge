@@ -10,12 +10,12 @@ import {
 } from 'lucide-react';
 
 const navigation = [
-  { name: 'Dashboard', href: '/employee/admin', icon: LayoutDashboard },
-  { name: 'Create Project', href: '/employee/admin/create-project', icon: FolderPlus },
+  { name: 'Tổng quan', href: '/employee/admin', icon: LayoutDashboard },
+  { name: 'Tạo dự án', href: '/employee/admin/create-project', icon: FolderPlus },
   { name: 'AI Team Matching', href: '/employee/admin/team-matching', icon: Sparkles },
-  { name: 'Projects', href: '/employee/admin/projects', icon: Users },
-  { name: 'Daily Report', href: '/employee/admin/daily-report', icon: FileText },
-  { name: 'Profile', href: '/employee/admin/profile', icon: User },
+  { name: 'Dự án', href: '/employee/admin/projects', icon: Users },
+  { name: 'Báo cáo hằng ngày', href: '/employee/admin/daily-report', icon: FileText },
+  { name: 'Hồ sơ', href: '/employee/admin/profile', icon: User },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -73,7 +73,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-lg font-semibold text-gray-900">
-                {navigation.find((item) => item.href === location.pathname)?.name || 'Dashboard'}
+                {navigation.find((item) => item.href === location.pathname)?.name || 'Tổng quan'}
               </h2>
               <p className="text-sm text-gray-500">AI-Powered Talent & Project Operating System</p>
             </div>

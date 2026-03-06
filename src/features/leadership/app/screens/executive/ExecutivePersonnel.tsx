@@ -80,7 +80,7 @@ export function ExecutivePersonnel() {
           </div>
           <div>
             <div className="text-2xl font-bold text-[#0B1C2D]">3</div>
-            <div className="text-sm text-slate-500">Vị trí Critical thiếu</div>
+            <div className="text-sm text-slate-500">Vị trí Nghiêm trọng thiếu</div>
           </div>
         </div>
       </div>

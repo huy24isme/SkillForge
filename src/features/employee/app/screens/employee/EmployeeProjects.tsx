@@ -47,13 +47,13 @@ export function EmployeeProjects() {
   const getStatusConfig = (status: string) => {
     switch (status) {
       case 'healthy':
-        return { bg: 'bg-[#2ECC71]/10', text: 'text-[#2ECC71]', dot: 'bg-[#2ECC71]', label: 'Healthy', icon: CheckCircle };
+        return { bg: 'bg-[#2ECC71]/10', text: 'text-[#2ECC71]', dot: 'bg-[#2ECC71]', label: 'Ổn định', icon: CheckCircle };
       case 'at-risk':
-        return { bg: 'bg-[#F5A623]/10', text: 'text-[#F5A623]', dot: 'bg-[#F5A623]', label: 'At Risk', icon: AlertCircle };
+        return { bg: 'bg-[#F5A623]/10', text: 'text-[#F5A623]', dot: 'bg-[#F5A623]', label: 'Có rủi ro', icon: AlertCircle };
       case 'critical':
-        return { bg: 'bg-[#E74C3C]/10', text: 'text-[#E74C3C]', dot: 'bg-[#E74C3C]', label: 'Critical', icon: AlertCircle };
+        return { bg: 'bg-[#E74C3C]/10', text: 'text-[#E74C3C]', dot: 'bg-[#E74C3C]', label: 'Nghiêm trọng', icon: AlertCircle };
       default:
-        return { bg: 'bg-gray-100', text: 'text-gray-600', dot: 'bg-gray-400', label: 'Unknown', icon: Info };
+        return { bg: 'bg-gray-100', text: 'text-gray-600', dot: 'bg-gray-400', label: 'Không xác định', icon: Info };
     }
   };
 
@@ -80,7 +80,7 @@ export function EmployeeProjects() {
           onClick={() => setView('list')}
           className="text-[#3AE7E1] hover:text-[#3AE7E1]/80 flex items-center gap-2"
         >
-          ← Back to Projects
+          ← Quay lại dự án
         </button>
 
         {/* Project Header */}
@@ -92,14 +92,14 @@ export function EmployeeProjects() {
               <div className="flex items-center gap-4 text-sm">
                 <span className="flex items-center gap-1 text-gray-600">
                   <Users className="w-4 h-4" />
-                  {selectedProject.team} members
+                  {selectedProject.team} thành viên
                 </span>
                 <span className="flex items-center gap-1 text-gray-600">
                   <Clock className="w-4 h-4" />
-                  Due: {new Date(selectedProject.deadline).toLocaleDateString()}
+                  Hạn: {new Date(selectedProject.deadline).toLocaleDateString()}
                 </span>
                 <span className={`px-2 py-1 border rounded ${getPriorityColor(selectedProject.priority)}`}>
-                  {selectedProject.priority} Priority
+                  {selectedProject.priority} ưu tiên
                 </span>
               </div>
             </div>
@@ -112,7 +112,7 @@ export function EmployeeProjects() {
           {/* Progress */}
           <div className="space-y-2">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-600">Overall Progress</span>
+              <span className="text-gray-600">Tiến độ tổng thể</span>
               <span className="font-semibold text-gray-900">{selectedProject.progress}%</span>
             </div>
             <div className="w-full bg-gray-100 rounded-full h-3">
@@ -136,7 +136,7 @@ export function EmployeeProjects() {
                 <TrendingUp className="w-5 h-5 text-[#3AE7E1]" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Your Role</p>
+                <p className="text-sm text-gray-600">Vai trò của bạn</p>
                 <p className="font-semibold text-gray-900">{selectedProject.role}</p>
               </div>
             </div>
@@ -148,7 +148,7 @@ export function EmployeeProjects() {
                 <CheckCircle className="w-5 h-5 text-[#2ECC71]" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Tasks Completed</p>
+                <p className="text-sm text-gray-600">Nhiệm vụ đã hoàn thành</p>
                 <p className="font-semibold text-gray-900">{selectedProject.tasks.completed} / {selectedProject.tasks.total}</p>
               </div>
             </div>
@@ -160,9 +160,9 @@ export function EmployeeProjects() {
                 <Clock className="w-5 h-5 text-[#F5A623]" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Time Remaining</p>
+                <p className="text-sm text-gray-600">Thời gian còn lại</p>
                 <p className="font-semibold text-gray-900">
-                  {Math.ceil((new Date(selectedProject.deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))} days
+                  {Math.ceil((new Date(selectedProject.deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))} ngày
                 </p>
               </div>
             </div>
@@ -171,13 +171,13 @@ export function EmployeeProjects() {
 
         {/* Task Breakdown */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Your Recent Tasks</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Nhiệm vụ gần đây của bạn</h3>
           <div className="space-y-3">
             {[
-              { task: 'Implement user authentication flow', status: 'completed', date: '2026-01-30' },
-              { task: 'Design system integration', status: 'completed', date: '2026-01-29' },
-              { task: 'Payment gateway setup', status: 'in-progress', date: '2026-01-31' },
-              { task: 'Mobile responsiveness', status: 'pending', date: '-' },
+              { task: 'Triển khai luồng xác thực người dùng', status: 'completed', date: '2026-01-30' },
+              { task: 'Tích hợp design system', status: 'completed', date: '2026-01-29' },
+              { task: 'Thiết lập cổng thanh toán', status: 'in-progress', date: '2026-01-31' },
+              { task: 'Tối ưu hiển thị di động', status: 'pending', date: '-' },
             ].map((item, idx) => (
               <div key={idx} className="flex items-center gap-3 p-3 rounded-lg border border-gray-100">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
@@ -198,7 +198,7 @@ export function EmployeeProjects() {
                   item.status === 'in-progress' ? 'bg-[#3AE7E1]/10 text-[#3AE7E1]' :
                   'bg-gray-100 text-gray-600'
                 }`}>
-                  {item.status === 'completed' ? 'Done' : item.status === 'in-progress' ? 'In Progress' : 'To Do'}
+                  {item.status === 'completed' ? 'Xong' : item.status === 'in-progress' ? 'Đang thực hiện' : 'Cần làm'}
                 </span>
               </div>
             ))}
@@ -212,13 +212,13 @@ export function EmployeeProjects() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-semibold text-gray-900">My Projects</h2>
-          <p className="text-sm text-gray-600">You're actively contributing to {projects.length} projects</p>
+          <h2 className="text-2xl font-semibold text-gray-900">Dự án của tôi</h2>
+          <p className="text-sm text-gray-600">Bạn đang tham gia tích cực vào {projects.length} dự án</p>
         </div>
         <div className="flex gap-2">
-          <button className="px-4 py-2 bg-[#3AE7E1] text-white rounded-lg text-sm">All</button>
-          <button className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm">Active</button>
-          <button className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm">Completed</button>
+          <button className="px-4 py-2 bg-[#3AE7E1] text-white rounded-lg text-sm">Tất cả</button>
+          <button className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm">Đang hoạt động</button>
+          <button className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm">Hoàn thành</button>
         </div>
       </div>
 
@@ -256,7 +256,7 @@ export function EmployeeProjects() {
               <div className="space-y-3">
                 <div>
                   <div className="flex items-center justify-between text-sm mb-1">
-                    <span className="text-gray-600">Progress</span>
+                    <span className="text-gray-600">Tiến độ</span>
                     <span className="font-medium text-gray-900">{project.progress}%</span>
                   </div>
                   <div className="w-full bg-gray-100 rounded-full h-2">
@@ -274,17 +274,17 @@ export function EmployeeProjects() {
                 <div className="flex items-center justify-between text-sm text-gray-600 pt-2 border-t border-gray-100">
                   <span className="flex items-center gap-1">
                     <Users className="w-4 h-4" />
-                    {project.team} members
+                    {project.team} thành viên
                   </span>
                   <span className="flex items-center gap-1">
                     <Clock className="w-4 h-4" />
-                    Due {new Date(project.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                    Hạn {new Date(project.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                   </span>
                 </div>
 
                 <div className="flex items-center justify-between text-xs text-gray-500 pt-2">
-                  <span>Tasks: {project.tasks.completed}/{project.tasks.total}</span>
-                  <span className="text-[#3AE7E1] hover:underline">View details →</span>
+                  <span>Nhiệm vụ: {project.tasks.completed}/{project.tasks.total}</span>
+                  <span className="text-[#3AE7E1] hover:underline">Xem chi tiết →</span>
                 </div>
               </div>
             </div>

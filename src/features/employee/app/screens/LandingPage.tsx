@@ -219,7 +219,7 @@ export function LandingPage() {
             {[
               {
                 icon: Brain,
-                title: 'AI tóm tắt Daily Report',
+                title: 'AI tóm tắt Báo cáo hằng ngày',
                 description: 'Tự động phân tích và tổng hợp báo cáo hàng ngày của đội ngũ, phát hiện xu hướng và vấn đề',
               },
               {

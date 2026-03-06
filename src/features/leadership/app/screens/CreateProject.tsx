@@ -36,8 +36,8 @@ export function CreateProject() {
             <Sparkles className="w-6 h-6 text-[#3AE7E1]" />
           </div>
           <div>
-            <h2 className="text-2xl font-semibold text-gray-900">Create New Project</h2>
-            <p className="text-sm text-gray-600">AI will help match the best team for your project</p>
+            <h2 className="text-2xl font-semibold text-gray-900">Tạo dự án mới</h2>
+            <p className="text-sm text-gray-600">AI sẽ hỗ trợ ghép đội phù hợp nhất cho dự án của bạn</p>
           </div>
         </div>
 
@@ -45,7 +45,7 @@ export function CreateProject() {
           {/* Basic Information */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Project Name *
+              Tên dự án *
             </label>
             <input
               type="text"
@@ -59,14 +59,14 @@ export function CreateProject() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Description *
+              Mô tả *
             </label>
             <textarea
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3AE7E1] focus:border-transparent"
               rows={4}
-              placeholder="Describe your project goals, requirements, and expected outcomes..."
+              placeholder="Mô tả mục tiêu, yêu cầu và kết quả mong đợi của dự án..."
               required
             />
           </div>
@@ -74,7 +74,7 @@ export function CreateProject() {
           {/* Team Composition */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-3">
-              Team Roles *
+              Vai trò nhóm *
             </label>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {['BE', 'FE', 'PM', 'BA'].map((role) => (
@@ -82,7 +82,7 @@ export function CreateProject() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     {role === 'BE' && 'Backend'}
                     {role === 'FE' && 'Frontend'}
-                    {role === 'PM' && 'Project Manager'}
+                    {role === 'PM' && 'Quản lý dự án'}
                     {role === 'BA' && 'Business Analyst'}
                   </label>
                   <input
@@ -131,11 +131,11 @@ export function CreateProject() {
             </div>
           </div>
 
-          {/* Deadline */}
+          {/* Hạn chót */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Deadline *
+                Hạn chót *
               </label>
               <div className="relative">
                 <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -151,7 +151,7 @@ export function CreateProject() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Deadline Type
+                Loại hạn chót
               </label>
               <div className="flex gap-4">
                 <label className="flex items-center">
@@ -163,7 +163,7 @@ export function CreateProject() {
                     onChange={(e) => setFormData({ ...formData, deadlineType: e.target.value })}
                     className="mr-2"
                   />
-                  <span className="text-sm">Hard</span>
+                  <span className="text-sm">Cứng</span>
                 </label>
                 <label className="flex items-center">
                   <input
@@ -174,33 +174,33 @@ export function CreateProject() {
                     onChange={(e) => setFormData({ ...formData, deadlineType: e.target.value })}
                     className="mr-2"
                   />
-                  <span className="text-sm">Soft</span>
+                  <span className="text-sm">Mềm</span>
                 </label>
               </div>
             </div>
           </div>
 
-          {/* Business Priority */}
+          {/* Mức ưu tiên */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Business Priority
+                Mức ưu tiên
               </label>
               <select
                 value={formData.priority}
                 onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
                 className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3AE7E1] focus:border-transparent"
               >
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-                <option value="critical">Critical</option>
+                <option value="low">Thấp</option>
+                <option value="medium">Trung bình</option>
+                <option value="high">Cao</option>
+                <option value="critical">Nghiêm trọng</option>
               </select>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Project Type
+                Loại dự án
               </label>
               <select
                 value={formData.projectType}
@@ -208,10 +208,10 @@ export function CreateProject() {
                 className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3AE7E1] focus:border-transparent"
               >
                 <option value="e-commerce">E-commerce</option>
-                <option value="internal-tool">Internal Tool</option>
+                <option value="internal-tool">Công cụ nội bộ</option>
                 <option value="r-and-d">R&D</option>
-                <option value="mobile-app">Mobile App</option>
-                <option value="web-app">Web Application</option>
+                <option value="mobile-app">Ứng dụng di động</option>
+                <option value="web-app">Ứng dụng web</option>
               </select>
             </div>
           </div>
@@ -222,14 +222,14 @@ export function CreateProject() {
               type="button"
               className="px-6 py-2.5 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
             >
-              Cancel
+              Hủy
             </button>
             <button
               type="submit"
               className="px-6 py-2.5 bg-[#3AE7E1] text-white rounded-lg hover:bg-[#3AE7E1]/90 transition-colors flex items-center gap-2"
             >
               <Sparkles className="w-5 h-5" />
-              Create Project & Match Team
+              Tạo dự án và ghép đội
             </button>
           </div>
         </form>

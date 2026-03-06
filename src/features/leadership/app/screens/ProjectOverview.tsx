@@ -24,7 +24,7 @@ const project = {
 export function ProjectOverview() {
   return (
     <div className="space-y-6">
-      {/* Project Header */}
+      {/* Tiêu đề dự án */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
         <div className="flex items-start justify-between mb-4">
           <div>
@@ -32,21 +32,21 @@ export function ProjectOverview() {
             <div className="flex items-center gap-4 text-sm text-gray-600">
               <span className="flex items-center gap-1">
                 <Calendar className="w-4 h-4" />
-                Due: {new Date(project.deadline).toLocaleDateString()}
+                Hạn: {new Date(project.deadline).toLocaleDateString()}
               </span>
               <span className="flex items-center gap-1">
                 <Users className="w-4 h-4" />
-                {project.team.length} members
+                {project.team.length} thành viên
               </span>
             </div>
           </div>
-          <StatusBadge status={project.status}>At Risk</StatusBadge>
+          <StatusBadge status={project.status}>Có rủi ro</StatusBadge>
         </div>
 
-        {/* Progress Bar */}
+        {/* Tiến độ Bar */}
         <div className="mb-4">
           <div className="flex items-center justify-between text-sm mb-2">
-            <span className="text-gray-600">Overall Progress</span>
+            <span className="text-gray-600">Tiến độ tổng thể</span>
             <span className="font-medium text-gray-900">{project.progress}%</span>
           </div>
           <div className="w-full bg-gray-100 rounded-full h-3">
@@ -67,18 +67,18 @@ export function ProjectOverview() {
                 <Sparkles className="w-6 h-6 text-[#3AE7E1]" />
               </div>
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">AI Project Summary</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">Tóm tắt dự án bằng AI</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-2">
                     <TrendingUp className="w-5 h-5 text-[#2ECC71] flex-shrink-0 mt-0.5" />
                     <span className="text-sm text-gray-700">
-                      Project is <strong>50% completed</strong> with 6 weeks remaining
+                      Dự án đã <strong>hoàn thành 50%</strong>, còn 6 tuần nữa
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <AlertCircle className="w-5 h-5 text-[#E74C3C] flex-shrink-0 mt-0.5" />
                     <span className="text-sm text-gray-700">
-                      <strong>Backend task delayed</strong> due to database migration issues. Consider adding additional resources.
+                      <strong>Tác vụ backend bị chậm</strong> do vấn đề chuyển đổi cơ sở dữ liệu. Cân nhắc bổ sung nguồn lực.
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
@@ -92,9 +92,9 @@ export function ProjectOverview() {
             </div>
           </div>
 
-          {/* Milestone Timeline */}
+          {/* Mốc tiến độ */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Milestone Timeline</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Mốc tiến độ</h3>
             <div className="space-y-4">
               {project.milestones.map((milestone, idx) => (
                 <div key={milestone.id} className="flex items-start gap-4">
@@ -124,9 +124,9 @@ export function ProjectOverview() {
                     <h4 className="font-medium text-gray-900">{milestone.name}</h4>
                     <p className="text-sm text-gray-500 mt-1">
                       {new Date(milestone.date).toLocaleDateString()} • {
-                        milestone.status === 'completed' ? 'Completed' :
-                        milestone.status === 'in-progress' ? 'In Progress' :
-                        'Pending'
+                        milestone.status === 'completed' ? 'Hoàn thành' :
+                        milestone.status === 'in-progress' ? 'Đang thực hiện' :
+                        'Chờ xử lý'
                       }
                     </p>
                   </div>
@@ -136,12 +136,12 @@ export function ProjectOverview() {
           </div>
         </div>
 
-        {/* Team Members */}
+        {/* Thành viên nhóm */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">Team Members</h3>
+            <h3 className="text-lg font-semibold text-gray-900">Thành viên nhóm</h3>
             <button className="text-sm text-[#3AE7E1] hover:text-[#3AE7E1]/80">
-              Adjust Team
+              Điều chỉnh đội
             </button>
           </div>
           <div className="space-y-4">
@@ -162,7 +162,7 @@ export function ProjectOverview() {
           </div>
 
           <button className="w-full mt-4 px-4 py-2.5 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-[#3AE7E1] hover:text-[#3AE7E1] transition-colors">
-            + Add Member
+            + Thêm thành viên
           </button>
         </div>
       </div>
@@ -170,10 +170,10 @@ export function ProjectOverview() {
       {/* Action Buttons */}
       <div className="flex gap-3">
         <button className="px-6 py-2.5 bg-[#3AE7E1] text-white rounded-lg hover:bg-[#3AE7E1]/90 transition-colors">
-          View Reports
+          Xem báo cáo
         </button>
         <button className="px-6 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
-          Export Data
+          Xuất dữ liệu
         </button>
       </div>
     </div>

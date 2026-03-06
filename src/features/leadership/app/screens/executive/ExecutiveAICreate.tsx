@@ -146,7 +146,7 @@ export function ExecutiveAICreate() {
                <label className="block text-xs font-semibold text-slate-500 mb-1">Độ ưu tiên</label>
                <div className="flex items-center gap-1.5 text-xs font-bold text-red-600 bg-red-50 px-2 py-1.5 rounded border border-red-100">
                  <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                 Critical
+                 Nghiêm trọng
                </div>
              </div>
              <div>

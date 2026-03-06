@@ -3,12 +3,12 @@ import { Trophy, Star, Zap, Target, Gift, CheckCircle, Lock } from 'lucide-react
 
 const quests = {
   daily: [
-    { id: 1, name: 'Submit Daily Report', progress: 1, total: 1, xp: 50, badge: null, status: 'claimable', icon: Star },
+    { id: 1, name: 'Nộp báo cáo hằng ngày', progress: 1, total: 1, xp: 50, badge: null, status: 'claimable', icon: Star },
     { id: 2, name: 'Review 2 Pull Requests', progress: 1, total: 2, xp: 75, badge: null, status: 'in-progress', icon: Target },
     { id: 3, name: 'Complete 3 Code Reviews', progress: 0, total: 3, xp: 100, badge: 'Code Guardian', status: 'available', icon: Zap },
   ],
   weekly: [
-    { id: 4, name: 'Complete 5 Daily Reports', progress: 3, total: 5, xp: 250, badge: 'Consistent Contributor', status: 'in-progress', icon: Trophy },
+    { id: 4, name: 'Hoàn thành 5 báo cáo hằng ngày', progress: 3, total: 5, xp: 250, badge: 'Consistent Contributor', status: 'in-progress', icon: Trophy },
     { id: 5, name: 'Finish Project Milestone', progress: 2, total: 3, xp: 500, badge: 'Milestone Master', status: 'in-progress', icon: Target },
     { id: 6, name: 'Help 3 Team Members', progress: 1, total: 3, xp: 200, badge: 'Team Player', status: 'in-progress', icon: Star },
   ],

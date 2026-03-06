@@ -246,7 +246,7 @@ export function LandingPage() {
                 price: "$199",
                 features: [
                   "Up to 100 users",
-                  "AI Insights",
+                  "Phân tích AI",
                   "Advanced Reporting",
                   "Priority Support",
                 ],

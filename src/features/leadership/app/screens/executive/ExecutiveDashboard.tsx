@@ -174,9 +174,9 @@ export function ExecutiveDashboard() {
           </div>
         </div>
 
-        {/* Right Column: Quick Actions & Approvals */}
+        {/* Right Column: Thao tác nhanh & Approvals */}
         <div className="space-y-6">
-          {/* Quick Actions */}
+          {/* Thao tác nhanh */}
           <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
             <h3 className="font-bold text-[#0B1C2D] mb-4">Hành động nhanh</h3>
             <div className="space-y-3">

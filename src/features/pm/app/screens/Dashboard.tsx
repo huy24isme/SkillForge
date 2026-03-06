@@ -29,7 +29,7 @@ export function Dashboard() {
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <KPICard
-          title="Active Projects"
+          title="Dự án đang hoạt động"
           value={12}
           change="+3 this month"
           icon={FolderKanban}
@@ -37,7 +37,7 @@ export function Dashboard() {
           color="#3AE7E1"
         />
         <KPICard
-          title="Team Utilization"
+          title="Mức sử dụng nhân sự"
           value="87%"
           change="+5% from last week"
           icon={Users}
@@ -45,7 +45,7 @@ export function Dashboard() {
           color="#2ECC71"
         />
         <KPICard
-          title="At-Risk Projects"
+          title="Dự án rủi ro"
           value={3}
           change="2 require attention"
           icon={AlertTriangle}
@@ -62,14 +62,14 @@ export function Dashboard() {
         />
       </div>
 
-      {/* AI Insights Panel */}
+      {/* Phân tích AI Panel */}
       <div className="bg-gradient-to-br from-[#3AE7E1]/10 to-[#0B1C2D]/5 rounded-xl p-6 border border-[#3AE7E1]/20">
         <div className="flex items-start gap-4">
           <div className="w-12 h-12 rounded-lg bg-[#3AE7E1]/20 flex items-center justify-center flex-shrink-0">
             <Sparkles className="w-6 h-6 text-[#3AE7E1]" />
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-semibold text-gray-900 mb-3">AI Insights</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-3">Phân tích AI</h3>
             <ul className="space-y-2">
               <li className="flex items-start gap-2">
                 <AlertTriangle className="w-5 h-5 text-[#E74C3C] flex-shrink-0 mt-0.5" />
@@ -95,10 +95,10 @@ export function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Project Status List */}
+        {/* Trạng thái dự án List */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100">
           <div className="p-6 border-b border-gray-100">
-            <h3 className="text-lg font-semibold text-gray-900">Project Status</h3>
+            <h3 className="text-lg font-semibold text-gray-900">Trạng thái dự án</h3>
           </div>
           <div className="p-6">
             <div className="space-y-4">
@@ -119,9 +119,9 @@ export function Dashboard() {
                       </div>
                     </div>
                     <StatusBadge status={project.status}>
-                      {project.status === 'healthy' && 'Healthy'}
-                      {project.status === 'at-risk' && 'At Risk'}
-                      {project.status === 'critical' && 'Critical'}
+                      {project.status === 'healthy' && 'Ổn định'}
+                      {project.status === 'at-risk' && 'Có rủi ro'}
+                      {project.status === 'critical' && 'Nghiêm trọng'}
                     </StatusBadge>
                   </div>
                   <div className="space-y-2">

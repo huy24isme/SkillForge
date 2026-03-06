@@ -2,41 +2,41 @@ import { useState } from 'react';
 import { Sparkles, Users, CheckCircle, AlertCircle, TrendingUp } from 'lucide-react';
 
 const projects = [
-  { id: 1, name: 'E-Commerce Platform v2.0', status: 'active', team: 'Assigned' },
-  { id: 2, name: 'Mobile Banking App', status: 'active', team: 'Assigned' },
-  { id: 3, name: 'AI Analytics Dashboard', status: 'unassigned', team: 'Pending' },
-  { id: 4, name: 'CRM System Upgrade', status: 'active', team: 'Assigned' },
+  { id: 1, name: 'E-Commerce Platform v2.0', status: 'active', team: 'Đã ghép' },
+  { id: 2, name: 'Mobile Banking App', status: 'active', team: 'Đã ghép' },
+  { id: 3, name: 'AI Analytics Dashboard', status: 'unassigned', team: 'Chờ ghép' },
+  { id: 4, name: 'CRM System Upgrade', status: 'active', team: 'Đã ghép' },
 ];
 
 const chatMessages = [
   {
     id: 1,
     type: 'user',
-    content: 'I need a team for the new AI Analytics Dashboard project',
+    content: 'Tôi cần một đội cho dự án AI Analytics Dashboard mới',
   },
   {
     id: 2,
     type: 'ai',
-    content: 'I\'ve analyzed the project requirements. Here\'s my recommended team composition:',
+    content: 'Tôi đã phân tích yêu cầu dự án. Đây là đề xuất đội phù hợp:',
   },
   {
     id: 3,
     type: 'ai-suggestion',
     members: [
-      { name: 'Nguyen Van A', role: 'Frontend Lead', fit: 92, level: 'Senior', avatar: 'NA', skills: ['React', 'TypeScript'], notes: 'Excellent track record with dashboard interfaces' },
-      { name: 'Le Hong Duc', role: 'Backend Developer', fit: 85, level: 'Mid-level', avatar: 'LD', skills: ['Go', 'PostgreSQL'], notes: 'Strong in data processing pipelines' },
-      { name: 'Tran Thi B', role: 'UI/UX Designer', fit: 88, level: 'Senior', avatar: 'TB', skills: ['Figma', 'Design Systems'], notes: 'Specializes in analytics interfaces' },
-      { name: 'Pham Van C', role: 'Data Engineer', fit: 78, level: 'Junior', avatar: 'PC', skills: ['Python', 'ML'], notes: '⚠️ Junior level, needs mentor support' },
+      { name: 'Nguyen Van A', role: 'Frontend Lead', fit: 92, level: 'Senior', avatar: 'NA', skills: ['React', 'TypeScript'], notes: 'Kinh nghiệm rất tốt với giao diện dashboard' },
+      { name: 'Le Hong Duc', role: 'Backend Developer', fit: 85, level: 'Mid-level', avatar: 'LD', skills: ['Go', 'PostgreSQL'], notes: 'Mạnh về pipeline xử lý dữ liệu' },
+      { name: 'Tran Thi B', role: 'UI/UX Designer', fit: 88, level: 'Senior', avatar: 'TB', skills: ['Figma', 'Design Systems'], notes: 'Chuyên về giao diện phân tích' },
+      { name: 'Pham Van C', role: 'Data Engineer', fit: 78, level: 'Junior', avatar: 'PC', skills: ['Python', 'ML'], notes: '⚠️ Cấp độ Junior, cần mentor hỗ trợ' },
     ],
   },
   {
     id: 4,
     type: 'ai-analysis',
-    content: `**Project Difficulty Analysis:**
-- Complexity: High
-- Estimated Duration: 12 weeks
-- Risk Factors: Integration with existing systems, real-time data processing
-- Recommendation: Strong team match with 85% overall confidence`,
+    content: `**Phân tích độ khó dự án:**
+- Độ phức tạp: Cao
+- Thời lượng ước tính: 12 tuần
+- Yếu tố rủi ro: Tích hợp với hệ thống hiện có, xử lý dữ liệu thời gian thực
+- Khuyến nghị: Đội ngũ phù hợp tốt với độ tin cậy tổng thể 85%`,
   },
 ];
 
@@ -55,13 +55,13 @@ export function TeamMatching() {
       {/* Project List */}
       <div className="lg:col-span-1 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="p-4 border-b border-gray-100 bg-gray-50">
-          <h3 className="font-semibold text-gray-900">Projects</h3>
+          <h3 className="font-semibold text-gray-900">Dự án</h3>
           <div className="flex gap-2 mt-3">
             <button className="px-3 py-1.5 bg-[#3AE7E1] text-white rounded-lg text-sm">
-              Unassigned
+              Chưa ghép
             </button>
             <button className="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-lg text-sm">
-              Active
+              Đang hoạt động
             </button>
           </div>
         </div>
@@ -98,7 +98,7 @@ export function TeamMatching() {
               <Sparkles className="w-5 h-5 text-[#3AE7E1]" />
             </div>
             <div>
-              <h3 className="font-semibold text-white">AI Team Matching Assistant</h3>
+              <h3 className="font-semibold text-white">Trợ lý AI ghép đội</h3>
               <p className="text-xs text-gray-300">Powered by SkillForge AI Engine</p>
             </div>
           </div>
@@ -165,10 +165,10 @@ export function TeamMatching() {
                     <div className="flex gap-3 pt-2">
                       <button className="flex-1 px-4 py-2.5 bg-[#3AE7E1] text-white rounded-lg hover:bg-[#3AE7E1]/90 transition-colors flex items-center justify-center gap-2">
                         <CheckCircle className="w-5 h-5" />
-                        Confirm Team
+                        Xác nhận đội
                       </button>
                       <button className="px-4 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
-                        Ask for Alternative
+                        Yêu cầu phương án khác
                       </button>
                     </div>
                   </div>
@@ -201,7 +201,7 @@ export function TeamMatching() {
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-              placeholder="Ask AI anything about team composition..."
+              placeholder="Hỏi AI bất kỳ điều gì về cơ cấu đội..."
               className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3AE7E1] focus:border-transparent"
             />
             <button

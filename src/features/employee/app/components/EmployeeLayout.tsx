@@ -15,12 +15,12 @@ import {
 import { useState } from 'react';
 
 const navigation = [
-  { name: 'Dashboard', href: '/employee/employee', icon: Home },
-  { name: 'Daily Report', href: '/employee/employee/daily-report', icon: FileText },
-  { name: 'My Projects', href: '/employee/employee/projects', icon: FolderKanban },
+  { name: 'Tổng quan', href: '/employee/employee', icon: Home },
+  { name: 'Báo cáo hằng ngày', href: '/employee/employee/daily-report', icon: FileText },
+  { name: 'Dự án của tôi', href: '/employee/employee/projects', icon: FolderKanban },
   { name: 'Quests', href: '/employee/employee/quests', icon: Trophy },
   { name: 'Rewards', href: '/employee/employee/rewards', icon: Gift },
-  { name: 'Profile', href: '/employee/employee/profile', icon: User },
+  { name: 'Hồ sơ', href: '/employee/employee/profile', icon: User },
 ];
 
 const notifications = [
@@ -100,7 +100,7 @@ export function EmployeeLayout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-lg font-semibold text-gray-900">
-                {navigation.find((item) => item.href === location.pathname)?.name || 'Dashboard'}
+                {navigation.find((item) => item.href === location.pathname)?.name || 'Tổng quan'}
               </h2>
               <p className="text-sm text-gray-500">
                 {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
@@ -114,7 +114,7 @@ export function EmployeeLayout({ children }: { children: React.ReactNode }) {
               >
                 <LogOut className="w-5 h-5" />
               </button>
-              {/* Notifications */}
+              {/* Thông báo */}
               <div className="relative">
                 <button 
                   onClick={() => setShowNotifications(!showNotifications)}
@@ -131,7 +131,7 @@ export function EmployeeLayout({ children }: { children: React.ReactNode }) {
                 {showNotifications && (
                   <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden">
                     <div className="p-4 border-b border-gray-100 bg-gray-50">
-                      <h3 className="font-semibold text-gray-900">Notifications</h3>
+                      <h3 className="font-semibold text-gray-900">Thông báo</h3>
                     </div>
                     <div className="max-h-96 overflow-y-auto">
                       {notifications.map((notif) => (
@@ -155,7 +155,7 @@ export function EmployeeLayout({ children }: { children: React.ReactNode }) {
                     </div>
                     <div className="p-3 bg-gray-50 text-center">
                       <button className="text-sm text-[#3AE7E1] hover:text-[#3AE7E1]/80">
-                        View all notifications
+                        Xem tất cả thông báo
                       </button>
                     </div>
                   </div>

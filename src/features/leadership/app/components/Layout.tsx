@@ -10,12 +10,12 @@ import {
 } from 'lucide-react';
 
 const navigation = [
-  { name: 'Dashboard', href: '/', icon: LayoutDashboard },
-  { name: 'Create Project', href: '/create-project', icon: FolderPlus },
+  { name: 'Tổng quan', href: '/', icon: LayoutDashboard },
+  { name: 'Tạo dự án', href: '/create-project', icon: FolderPlus },
   { name: 'AI Team Matching', href: '/team-matching', icon: Sparkles },
-  { name: 'Projects', href: '/projects', icon: Users },
-  { name: 'Daily Report', href: '/daily-report', icon: FileText },
-  { name: 'Profile', href: '/profile', icon: User },
+  { name: 'Dự án', href: '/projects', icon: Users },
+  { name: 'Báo cáo hằng ngày', href: '/daily-report', icon: FileText },
+  { name: 'Hồ sơ', href: '/profile', icon: User },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -73,7 +73,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-lg font-semibold text-gray-900">
-                {navigation.find((item) => item.href === location.pathname)?.name || 'Dashboard'}
+                {navigation.find((item) => item.href === location.pathname)?.name || 'Tổng quan'}
               </h2>
               <p className="text-sm text-gray-500">AI-Powered Talent & Project Operating System</p>
             </div>

@@ -43,7 +43,7 @@ export function ExecutiveLayout({ children }: ExecutiveLayoutProps) {
             <img src={logo} alt="SkillForge Logo" className="w-10 h-10 object-contain rounded-lg bg-white/5 p-1" />
             <div>
               <h1 className="text-white font-bold text-lg tracking-tight">SkillForge</h1>
-              <p className="text-[#3AE7E1] text-xs font-medium">Leadership Hub</p>
+              <p className="text-[#3AE7E1] text-xs font-medium">Trung tâm lãnh đạo</p>
             </div>
           </div>
         </div>
@@ -81,7 +81,7 @@ export function ExecutiveLayout({ children }: ExecutiveLayoutProps) {
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-white text-sm font-medium truncate">Nguyễn Văn A</p>
-              <p className="text-slate-400 text-xs truncate">Chief Executive</p>
+              <p className="text-slate-400 text-xs truncate">Giám đốc điều hành</p>
             </div>
           </div>
         </div>
@@ -92,7 +92,7 @@ export function ExecutiveLayout({ children }: ExecutiveLayoutProps) {
         <header className="flex items-center justify-between mb-8">
           <div>
             <h2 className="text-2xl font-bold text-[#0B1C2D]">
-              {menuItems.find(i => i.path === location.pathname)?.label || 'Dashboard'}
+              {menuItems.find(i => i.path === location.pathname)?.label || 'Tổng quan'}
             </h2>
             <p className="text-slate-500 text-sm mt-1">
               {new Date().toLocaleDateString('vi-VN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}

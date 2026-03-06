@@ -54,14 +54,14 @@ export function EmployeeDailyReport() {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Daily Report Form */}
+        {/* Báo cáo hằng ngày Form */}
         <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-12 h-12 rounded-lg bg-[#3AE7E1]/10 flex items-center justify-center">
               <Trophy className="w-6 h-6 text-[#3AE7E1]" />
             </div>
             <div>
-              <h2 className="text-2xl font-semibold text-gray-900">Daily Report</h2>
+              <h2 className="text-2xl font-semibold text-gray-900">Báo cáo hằng ngày</h2>
               <p className="text-sm text-gray-600">Share your progress and earn XP!</p>
             </div>
           </div>
