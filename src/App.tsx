@@ -6,6 +6,7 @@ import { AuthProvider, useAuth } from '@/auth/AuthContext'
 import { ProtectedRoute } from '@/auth/ProtectedRoute'
 import { LoginPage } from '@/features/auth/LoginPage'
 import { roleHomePath } from '@/auth/mockUsers'
+import { LandingPage } from './pages/LandingPage'
 
 function DefaultRedirect() {
   const { isAuthenticated, user } = useAuth()
@@ -22,7 +23,8 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<DefaultRedirect />} />
+          {/* Landing Page */}
+          <Route path="/" element={<LandingPage/>} />
           <Route path="/login" element={<LoginPage />} />
 
           <Route
