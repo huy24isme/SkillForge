@@ -1,4 +1,5 @@
 import { Users, TrendingUp, AlertCircle, Cpu, Megaphone, DollarSign, PenTool, Search } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const DEPARTMENTS = [
   {
@@ -52,6 +53,8 @@ const DEPARTMENTS = [
 ];
 
 export function ExecutivePersonnel() {
+  const navigate = useNavigate();
+
   return (
     <div className="space-y-6">
       {/* Header Stats */}
@@ -101,7 +104,11 @@ export function ExecutivePersonnel() {
       {/* Departments Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {DEPARTMENTS.map((dept) => (
-          <div key={dept.id} className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-all group">
+          <div 
+            key={dept.id} 
+            onClick={() => navigate(`/leadership/executive/personnel/${dept.id}`)}
+            className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-all group cursor-pointer"
+          >
             <div className="p-6">
               <div className="flex items-start justify-between mb-6">
                 <div className="flex items-center gap-4">

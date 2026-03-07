@@ -6,6 +6,7 @@ import { LandingPage } from './screens/LandingPage';
 import { ExecutiveLayout } from './components/ExecutiveLayout';
 import { ExecutiveDashboard } from './screens/executive/ExecutiveDashboard';
 import { ExecutivePersonnel } from './screens/executive/ExecutivePersonnel';
+import { DepartmentPersonnel } from './screens/executive/DepartmentPersonnel';
 import { ExecutiveProjects } from './screens/executive/ExecutiveProjects';
 import { ExecutiveAICreate } from './screens/executive/ExecutiveAICreate';
 import { ExecutiveApprovals } from './screens/executive/ExecutiveApprovals';
@@ -26,6 +27,7 @@ export default function App() {
           <Routes>
             <Route index element={<ExecutiveDashboard />} />
             <Route path="personnel" element={<ExecutivePersonnel />} />
+            <Route path="personnel/:deptId" element={<DepartmentPersonnel />} />
             <Route path="projects" element={<ExecutiveProjects />} />
             <Route path="ai-create" element={<ExecutiveAICreate />} />
             <Route path="approvals" element={<ExecutiveApprovals />} />
