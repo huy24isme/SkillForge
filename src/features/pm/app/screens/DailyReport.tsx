@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { Trophy, Star, Award, Zap } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Trophy, Star, Award, Zap, Plus } from 'lucide-react';
 import { WeeklyReport } from '@/features/pm/app/screens/WeeklyReport';
 
 export function DailyReport() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'daily' | 'weekly'>('daily');
   const [report, setReport] = useState({
     workDone: '',

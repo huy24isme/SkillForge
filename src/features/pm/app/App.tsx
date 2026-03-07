@@ -6,6 +6,7 @@ import { TeamMatching } from '@/features/pm/app/screens/TeamMatching';
 import { ProjectOverview } from '@/features/pm/app/screens/ProjectOverview';
 import { ProjectDetails } from '@/features/pm/app/screens/ProjectDetails';
 import { DailyReport } from '@/features/pm/app/screens/DailyReport';
+import { CreateWeeklyReport } from '@/features/pm/app/screens/CreateWeeklyReport';
 import { UserProfile } from '@/features/pm/app/screens/UserProfile';
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="projects" element={<ProjectOverview />} />
         <Route path="project-details" element={<ProjectDetails />} />
         <Route path="daily-report" element={<DailyReport />} />
+        <Route path="create-weekly-report" element={<CreateWeeklyReport />} />
         <Route path="profile" element={<UserProfile />} />
       </Routes>
     </Layout>

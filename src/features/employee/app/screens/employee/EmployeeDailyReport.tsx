@@ -2,16 +2,17 @@ import { useState } from 'react';
 import { Trophy, Calendar, CheckCircle, Clock } from 'lucide-react';
 
 const reportHistory = [
-  { id: 1, date: '2026-01-31', tasks: 'Completed user authentication module', difficulty: 'Medium', xp: 50 },
-  { id: 2, date: '2026-01-30', tasks: 'Fixed 3 critical bugs in payment flow', difficulty: 'Hard', xp: 75 },
-  { id: 3, date: '2026-01-29', tasks: 'Code review for 2 pull requests', difficulty: 'Easy', xp: 30 },
-  { id: 4, date: '2026-01-28', tasks: 'Implemented dashboard analytics', difficulty: 'Hard', xp: 75 },
-  { id: 5, date: '2026-01-27', tasks: 'Team meeting and sprint planning', difficulty: 'Easy', xp: 30 },
+  { id: 1, date: '2026-01-31', tasks: 'Completed user authentication module', tomorrowPlan: 'Implement password reset feature', difficulty: 'Medium', xp: 50 },
+  { id: 2, date: '2026-01-30', tasks: 'Fixed 3 critical bugs in payment flow', tomorrowPlan: 'Work on user authentication module', difficulty: 'Hard', xp: 75 },
+  { id: 3, date: '2026-01-29', tasks: 'Code review for 2 pull requests', tomorrowPlan: 'Fix payment flow bugs', difficulty: 'Easy', xp: 30 },
+  { id: 4, date: '2026-01-28', tasks: 'Implemented dashboard analytics', tomorrowPlan: 'Review team PRs', difficulty: 'Hard', xp: 75 },
+  { id: 5, date: '2026-01-27', tasks: 'Team meeting and sprint planning', tomorrowPlan: 'Start dashboard analytics', difficulty: 'Easy', xp: 30 },
 ];
 
 export function EmployeeDailyReport() {
   const [formData, setFormData] = useState({
     tasksCompleted: '',
+    tomorrowPlan: '',
     challenges: '',
     difficulty: 'medium',
   });
@@ -23,7 +24,7 @@ export function EmployeeDailyReport() {
     setShowSuccess(true);
     setTimeout(() => {
       setShowSuccess(false);
-      setFormData({ tasksCompleted: '', challenges: '', difficulty: 'medium' });
+      setFormData({ tasksCompleted: '', tomorrowPlan: '', challenges: '', difficulty: 'medium' });
     }, 3000);
   };
 
@@ -44,11 +45,15 @@ export function EmployeeDailyReport() {
     <div className="max-w-6xl mx-auto space-y-6">
       {/* Success Message */}
       {showSuccess && (
-        <div className="bg-gradient-to-r from-[#2ECC71] to-[#2ECC71]/90 text-white rounded-xl p-4 flex items-center gap-3 animate-slideDown">
-          <CheckCircle className="w-6 h-6" />
-          <div>
-            <p className="font-semibold">Report Submitted Successfully!</p>
-            <p className="text-sm opacity-90">You earned 50 XP and maintained your streak! 🔥</p>
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 animate-slideDown">
+          <div className="bg-gradient-to-r from-[#2ECC71] to-[#27AE60] text-white rounded-xl p-6 flex items-center gap-4 shadow-2xl border-2 border-white/20 min-w-[500px]">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center animate-bounce">
+              <CheckCircle className="w-7 h-7" />
+            </div>
+            <div className="flex-1">
+              <p className="font-bold text-lg mb-1">🎉 Report Submitted Successfully!</p>
+              <p className="text-sm opacity-90">You earned {formData.difficulty === 'easy' ? '30' : formData.difficulty === 'hard' ? '75' : '50'} XP and maintained your streak! 🔥</p>
+            </div>
           </div>
         </div>
       )}
@@ -80,6 +85,21 @@ export function EmployeeDailyReport() {
                 required
               />
               <p className="text-xs text-gray-500 mt-1">Be specific about your accomplishments</p>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                What do you plan to work on tomorrow? *
+              </label>
+              <textarea
+                value={formData.tomorrowPlan}
+                onChange={(e) => setFormData({ ...formData, tomorrowPlan: e.target.value })}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3AE7E1] focus:border-transparent resize-none"
+                rows={4}
+                placeholder="e.g., Implement password reset feature, Start working on dashboard UI..."
+                required
+              />
+              <p className="text-xs text-gray-500 mt-1">Help the team know your focus for tomorrow</p>
             </div>
 
             <div>
@@ -189,14 +209,20 @@ export function EmployeeDailyReport() {
               </div>
               <div className="flex-1">
                 <div className="flex items-start justify-between mb-2">
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">{report.tasks}</p>
-                    <p className="text-xs text-gray-500 flex items-center gap-1 mt-1">
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-gray-900 mb-1">{report.tasks}</p>
+                    {report.tomorrowPlan && (
+                      <p className="text-xs text-gray-600 mb-2 flex items-start gap-1.5">
+                        <span className="text-[#3AE7E1] font-semibold">→</span>
+                        <span className="flex-1">Next: {report.tomorrowPlan}</span>
+                      </p>
+                    )}
+                    <p className="text-xs text-gray-500 flex items-center gap-1">
                       <Clock className="w-3 h-3" />
                       {new Date(report.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                     </p>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 ml-4">
                     <span className={`px-2 py-1 rounded text-xs font-medium ${getDifficultyColor(report.difficulty)}`}>
                       {report.difficulty}
                     </span>

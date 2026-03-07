@@ -9,12 +9,10 @@ import {
   CheckSquare, 
   User,
   LogOut,
-  Bell
+  Bell,
+  FileText,
+  Calendar
 } from 'lucide-react';
-import logo from '@/features/leadership/assets/e5ac96d9a4833c4a4aed8f597c1743c3e98b61b0.png';
-
-// Use the provided logo asset
-
 
 interface ExecutiveLayoutProps {
   children: ReactNode;
@@ -27,6 +25,8 @@ export function ExecutiveLayout({ children }: ExecutiveLayoutProps) {
   const menuItems = [
     { icon: LayoutDashboard, label: 'Tổng quan', path: '/leadership/executive', exact: true },
     { icon: Users, label: 'Nhân sự', path: '/leadership/executive/personnel' },
+    { icon: FileText, label: 'Báo cáo Ngày', path: '/leadership/executive/daily-report' },
+    { icon: Calendar, label: 'Báo cáo Tuần', path: '/leadership/executive/weekly-report' },
     { icon: Briefcase, label: 'Dự án', path: '/leadership/executive/projects' },
     { icon: Sparkles, label: 'AI Phân tích', path: '/leadership/executive/ai-create' },
     { icon: CheckSquare, label: 'Phê duyệt', path: '/leadership/executive/approvals' },
@@ -40,7 +40,9 @@ export function ExecutiveLayout({ children }: ExecutiveLayoutProps) {
         {/* Logo Area */}
         <div className="h-20 flex items-center px-6 border-b border-white/10">
           <div className="flex items-center gap-3">
-            <img src={logo} alt="SkillForge Logo" className="w-10 h-10 object-contain rounded-lg bg-white/5 p-1" />
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#3AE7E1] to-[#2ECC71] flex items-center justify-center">
+              <Sparkles className="w-6 h-6 text-[#0B1C2D]" />
+            </div>
             <div>
               <h1 className="text-white font-bold text-lg tracking-tight">SkillForge</h1>
               <p className="text-[#3AE7E1] text-xs font-medium">Trung tâm lãnh đạo</p>
