@@ -9,10 +9,10 @@ import {
   User,
   Bell,
   Settings,
-  Sparkles,
   LogOut
 } from 'lucide-react';
 import { useState } from 'react';
+import logo1 from '@/assets/logo1.png';
 
 const navigation = [
   { name: 'Tổng quan', href: '/employee/employee', icon: Home },
@@ -41,15 +41,15 @@ export function EmployeeLayout({ children }: { children: React.ReactNode }) {
       <div className="fixed left-0 top-0 bottom-0 w-64 bg-gradient-to-b from-[#0B1C2D] to-[#0B1C2D]/95 text-white shadow-xl">
         <div className="p-6">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-8 h-8 text-[#3AE7E1]" />
+            
             <div>
-              <h1 className="text-xl font-semibold">SkillForge</h1>
-              <p className="text-xs text-[#3AE7E1]">Employee Hub</p>
+             <img src={logo1} alt="SkillForge Logo" className="text-xl font-semibold" />
+              <p className="text-xs text-[#3AE7E1] text-center">Employee Hub</p>
             </div>
           </div>
         </div>
 
-        <nav className="px-3 mt-6">
+        <nav className="px-3 mt-1">
           {navigation.map((item) => {
             const isActive = location.pathname === item.href;
             return (
