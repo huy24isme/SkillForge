@@ -11,6 +11,7 @@ import {
   Bell,
   LogOut
 } from 'lucide-react';
+import logo1 from '@/assets/logo1.png';
 
 const navigation = [
   { name: 'Tổng quan', href: '/pm', icon: LayoutDashboard },
@@ -32,13 +33,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <div className="fixed left-0 top-0 bottom-0 w-64 bg-[#0B1C2D] text-white">
         <div className="p-6">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-8 h-8 text-[#3AE7E1]" />
-            <h1 className="text-xl font-semibold">SkillForge</h1>
+            <img
+                src={logo1}
+                alt="SkillForge Logo"
+                className="text-xl font-semibold"
+              />
+
           </div>
-          <p className="text-xs text-gray-400 mt-1">PM 4.0</p>
+          <p className="text-xs text-[#3AE7E1] mt-1 text-center">PM 4.0</p>
         </div>
 
-        <nav className="px-3 mt-6">
+        <nav className="px-3 mt-1">
           {navigation.map((item) => {
             const isActive = location.pathname === item.href;
             return (
