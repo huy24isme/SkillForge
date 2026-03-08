@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Badge } from '@/features/pm/app/components/ui/badge';
-import { ChevronDown, ChevronRight, CalendarDays, ClipboardList, Lightbulb, Plus } from 'lucide-react';
+import { ChevronDown, ChevronRight, CalendarDays, ClipboardList, Lightbulb, Plus, Download } from 'lucide-react';
+import { downloadWeeklyReportPdf } from '@/features/pm/app/utils/weeklyReportPdf';
 
 type ProjectStatus = 'Good' | 'Monitoring' | 'Risk';
 
@@ -193,6 +194,28 @@ export function WeeklyReport() {
 
               {isOpen && (
                 <div className="px-6 pb-6 space-y-5 border-t border-gray-100">
+                  <div className="pt-5 flex justify-end">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        downloadWeeklyReportPdf({
+                          projectName: weekly.projectName,
+                          weekRange: weekly.weekRange,
+                          progressSummary: weekly.progressSummary,
+                          members: weekly.members,
+                          projectStatusLabel: statusLabel(weekly.projectEvaluation.status),
+                          projectReason: weekly.projectEvaluation.reason,
+                          memberEvaluation: weekly.memberEvaluation,
+                          recommendations: weekly.recommendations,
+                        })
+                      }
+                      className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-[#0B1C2D] border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                    >
+                      <Download className="w-4 h-4" />
+                      Tải xuống PDF
+                    </button>
+                  </div>
+
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 pt-5">
                     <div className="lg:col-span-2 rounded-lg border border-gray-200 p-4">
                       <div className="flex items-center gap-2 mb-3">

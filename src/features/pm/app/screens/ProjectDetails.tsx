@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { CalendarDays, FileText, ClipboardList, TrendingUp } from 'lucide-react';
+import { CalendarDays, FileText, ClipboardList, TrendingUp, Download } from 'lucide-react';
+import { downloadWeeklyReportPdf } from '@/features/pm/app/utils/weeklyReportPdf';
 
 type ProjectStatus = 'Good' | 'Monitoring' | 'Risk';
 type TabKey = 'overview' | 'members' | 'reports' | 'tasks';
@@ -237,7 +238,23 @@ export function ProjectDetails() {
             <div className="space-y-3">
               {weeklyReports.map((report) => (
                 <div key={report.id} className="p-4 border border-gray-200 rounded-lg">
-                  <p className="text-xs text-gray-500 mb-1">Tuần: {report.week}</p>
+                  <div className="flex items-start justify-between gap-3 mb-2">
+                    <p className="text-xs text-gray-500">Tuần: {report.week}</p>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        downloadWeeklyReportPdf({
+                          projectName: project.name,
+                          weekRange: report.week,
+                          summary: report.summary,
+                        })
+                      }
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-[#0B1C2D] border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      Tải PDF
+                    </button>
+                  </div>
                   <p className="text-sm text-gray-800">{report.summary}</p>
                 </div>
               ))}

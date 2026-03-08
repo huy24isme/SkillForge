@@ -42,6 +42,8 @@ export default function App() {
             <Route index element={<EmployeeDashboard />} />
             <Route path="daily-report" element={<EmployeeDailyReport />} />
             <Route path="projects" element={<EmployeeProjects />} />
+            <Route path="projects/active" element={<EmployeeProjects />} />
+            <Route path="projects/completed" element={<EmployeeProjects />} />
             <Route path="quests" element={<EmployeeQuests />} />
             <Route path="rewards" element={<EmployeeRewards />} />
             <Route path="profile" element={<EmployeeProfile />} />

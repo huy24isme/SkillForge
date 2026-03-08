@@ -51,7 +51,10 @@ export function EmployeeLayout({ children }: { children: React.ReactNode }) {
 
         <nav className="px-3 mt-1">
           {navigation.map((item) => {
-            const isActive = location.pathname === item.href;
+            const isRootItem = item.href === '/employee/employee';
+            const isActive = isRootItem
+              ? location.pathname === item.href
+              : location.pathname === item.href || location.pathname.startsWith(`${item.href}/`);
             return (
               <Link
                 key={item.name}
@@ -100,7 +103,12 @@ export function EmployeeLayout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-lg font-semibold text-gray-900">
-                {navigation.find((item) => item.href === location.pathname)?.name || 'Tổng quan'}
+                {navigation.find((item) => {
+                  if (item.href === '/employee/employee') {
+                    return location.pathname === item.href;
+                  }
+                  return location.pathname === item.href || location.pathname.startsWith(`${item.href}/`);
+                })?.name || 'Tổng quan'}
               </h2>
               <p className="text-sm text-gray-500">
                 {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}

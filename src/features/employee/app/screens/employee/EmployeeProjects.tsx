@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Clock, Users, TrendingUp, AlertCircle, CheckCircle, Info } from 'lucide-react';
+
+type ProjectLifecycle = 'active' | 'completed';
 
 const projects = [
   {
@@ -13,6 +16,7 @@ const projects = [
     priority: 'High',
     tasks: { completed: 12, total: 18 },
     description: 'Building next-generation e-commerce platform with modern tech stack',
+    lifecycle: 'active' as ProjectLifecycle,
   },
   {
     id: 2,
@@ -25,24 +29,45 @@ const projects = [
     priority: 'Critical',
     tasks: { completed: 8, total: 20 },
     description: 'Secure mobile banking application for iOS and Android',
+    lifecycle: 'active' as ProjectLifecycle,
   },
   {
     id: 3,
     name: 'Analytics Dashboard',
     role: 'Frontend Developer',
     status: 'healthy' as const,
-    progress: 85,
+    progress: 100,
     deadline: '2026-02-10',
     team: 3,
     priority: 'Medium',
-    tasks: { completed: 15, total: 17 },
+    tasks: { completed: 17, total: 17 },
     description: 'Real-time analytics dashboard for business intelligence',
+    lifecycle: 'completed' as ProjectLifecycle,
   },
 ];
 
 export function EmployeeProjects() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [selectedProject, setSelectedProject] = useState(projects[0]);
   const [view, setView] = useState<'list' | 'detail'>('list');
+
+  const currentTab = useMemo<'all' | 'active' | 'completed'>(() => {
+    if (location.pathname.endsWith('/active')) {
+      return 'active';
+    }
+    if (location.pathname.endsWith('/completed')) {
+      return 'completed';
+    }
+    return 'all';
+  }, [location.pathname]);
+
+  const filteredProjects = useMemo(() => {
+    if (currentTab === 'all') {
+      return projects;
+    }
+    return projects.filter((project) => project.lifecycle === currentTab);
+  }, [currentTab]);
 
   const getStatusConfig = (status: string) => {
     switch (status) {
@@ -162,7 +187,9 @@ export function EmployeeProjects() {
               <div>
                 <p className="text-sm text-gray-600">Thời gian còn lại</p>
                 <p className="font-semibold text-gray-900">
-                  {Math.ceil((new Date(selectedProject.deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))} ngày
+                  {selectedProject.lifecycle === 'completed'
+                    ? 'Đã hoàn thành'
+                    : `${Math.ceil((new Date(selectedProject.deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))} ngày`}
                 </p>
               </div>
             </div>
@@ -213,20 +240,50 @@ export function EmployeeProjects() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-semibold text-gray-900">Dự án của tôi</h2>
-          <p className="text-sm text-gray-600">Bạn đang tham gia tích cực vào {projects.length} dự án</p>
+          <p className="text-sm text-gray-600">Hiển thị {filteredProjects.length} dự án trong mục {currentTab === 'all' ? 'Tất cả' : currentTab === 'active' ? 'Đang hoạt động' : 'Hoàn thành'}</p>
         </div>
         <div className="flex gap-2">
-          <button className="px-4 py-2 bg-[#3AE7E1] text-white rounded-lg text-sm">Tất cả</button>
-          <button className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm">Đang hoạt động</button>
-          <button className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm">Hoàn thành</button>
+          <button
+            onClick={() => navigate('/employee/employee/projects')}
+            className={`px-4 py-2 rounded-lg text-sm border transition-colors ${
+              currentTab === 'all'
+                ? 'bg-[#3AE7E1] text-white border-[#3AE7E1]'
+                : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
+            }`}
+          >
+            Tất cả
+          </button>
+          <button
+            onClick={() => navigate('/employee/employee/projects/active')}
+            className={`px-4 py-2 rounded-lg text-sm border transition-colors ${
+              currentTab === 'active'
+                ? 'bg-[#3AE7E1] text-white border-[#3AE7E1]'
+                : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
+            }`}
+          >
+            Đang hoạt động
+          </button>
+          <button
+            onClick={() => navigate('/employee/employee/projects/completed')}
+            className={`px-4 py-2 rounded-lg text-sm border transition-colors ${
+              currentTab === 'completed'
+                ? 'bg-[#3AE7E1] text-white border-[#3AE7E1]'
+                : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
+            }`}
+          >
+            Hoàn thành
+          </button>
         </div>
       </div>
 
-      {/* Projects Grid */}
+      {filteredProjects.length === 0 ? (
+        <div className="bg-white rounded-xl border border-gray-200 p-8 text-center text-gray-500">
+          Chưa có dự án trong mục này.
+        </div>
+      ) : (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {projects.map((project) => {
+        {filteredProjects.map((project) => {
           const statusConfig = getStatusConfig(project.status);
-          const StatusIcon = statusConfig.icon;
 
           return (
             <div 
@@ -278,7 +335,9 @@ export function EmployeeProjects() {
                   </span>
                   <span className="flex items-center gap-1">
                     <Clock className="w-4 h-4" />
-                    Hạn {new Date(project.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                    {project.lifecycle === 'completed'
+                      ? 'Đã hoàn thành'
+                      : `Hạn ${new Date(project.deadline).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`}
                   </span>
                 </div>
 
@@ -291,6 +350,7 @@ export function EmployeeProjects() {
           );
         })}
       </div>
+      )}
     </div>
   );
 }
