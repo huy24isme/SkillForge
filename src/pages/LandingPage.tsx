@@ -489,6 +489,84 @@ export function LandingPage() {
         </div>
       </motion.section>
 
+      {/* Logo Marquee - Trusted Partners */}
+      <section className="mt-8 py-16 bg-[#0B1C2D] relative overflow-hidden">
+        <motion.div
+          className="text-center mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="inline-flex items-center gap-3 mb-3">
+            <motion.span
+              className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#3AE7E1]/10 border border-[#3AE7E1]/30 text-[#3AE7E1] text-sm font-bold"
+              animate={{ boxShadow: ['0 0 8px rgba(58,231,225,0.2)', '0 0 16px rgba(58,231,225,0.4)', '0 0 8px rgba(58,231,225,0.2)'] }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              500+
+            </motion.span>
+            <span className="text-slate-300 text-sm md:text-base font-medium">
+              doanh nghiệp đã tin dùng <span className="text-[#3AE7E1] font-bold">SkillForge</span>
+            </span>
+          </div>
+        </motion.div>
+
+        {/* Fade edges */}
+        <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-32 z-10 bg-gradient-to-r from-[#0B1C2D] to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-32 z-10 bg-gradient-to-l from-[#0B1C2D] to-transparent" />
+
+        {/* Row 1 - scroll left */}
+        <div className="mb-6 overflow-hidden">
+          <motion.div
+            className="flex items-center gap-16 w-max"
+            animate={{ x: ['0%', '-50%'] }}
+            transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+          >
+            {[...Array(2)].flatMap((_, dupeIdx) =>
+              [
+                'ACB', 'VietjetAir', '247Express', 'Nippon Express', 'WinCommerce',
+                'VTVcab', 'PetroVietnam', 'FPT Software', 'Viettel', 'Masan Group',
+              ].map((name, i) => (
+                <div
+                  key={`r1-${dupeIdx}-${i}`}
+                  className="flex-shrink-0 flex items-center justify-center h-14 px-8 rounded-xl bg-white/[0.04] border border-white/[0.06] hover:bg-white/[0.08] hover:border-white/[0.12] transition-all duration-300 select-none"
+                >
+                  <span className="text-[15px] font-bold tracking-wide text-slate-400 hover:text-white transition-colors whitespace-nowrap">
+                    {name}
+                  </span>
+                </div>
+              ))
+            )}
+          </motion.div>
+        </div>
+
+        {/* Row 2 - scroll right */}
+        <div className="overflow-hidden">
+          <motion.div
+            className="flex items-center gap-16 w-max"
+            animate={{ x: ['-50%', '0%'] }}
+            transition={{ duration: 35, repeat: Infinity, ease: 'linear' }}
+          >
+            {[...Array(2)].flatMap((_, dupeIdx) =>
+              [
+                'Jollibee', 'Thaihabooks', 'Vingroup', 'Techcombank', 'CỘNG Cà Phê',
+                'ITviec', 'Stella', 'MoMo', 'VNPay', 'Shopee Vietnam',
+              ].map((name, i) => (
+                <div
+                  key={`r2-${dupeIdx}-${i}`}
+                  className="flex-shrink-0 flex items-center justify-center h-14 px-8 rounded-xl bg-white/[0.04] border border-white/[0.06] hover:bg-white/[0.08] hover:border-white/[0.12] transition-all duration-300 select-none"
+                >
+                  <span className="text-[15px] font-bold tracking-wide text-slate-400 hover:text-white transition-colors whitespace-nowrap">
+                    {name}
+                  </span>
+                </div>
+              ))
+            )}
+          </motion.div>
+        </div>
+      </section>
+
       {/* Solution Section */}
       <section id="solution" className="py-24 px-6 relative overflow-hidden">
         {/* Background decoration */}
