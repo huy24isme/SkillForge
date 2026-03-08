@@ -9,14 +9,7 @@ export function LandingPage() {
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
-  // Floating sticker data
-  const floatingStickers = [
-    { icon: Award, label: 'Top Rated', position: 'top-1/4 left-[10%]', delay: 0 },
-    { icon: TrendingUp, label: '200% Growth', position: 'top-1/3 right-[15%]', delay: 0.3 },
-    { icon: Star, label: '5 Stars', position: 'bottom-1/3 left-[8%]', delay: 0.6 },
-    { icon: Target, label: '99% Uptime', position: 'bottom-1/4 right-[12%]', delay: 0.9 },
-    { icon: Sparkles, label: 'AI Powered', position: 'top-1/2 right-[5%]', delay: 1.2 },
-  ];
+
 
   return (
     <div className="min-h-screen bg-[#0B1C2D] text-white font-sans selection:bg-[#3AE7E1] selection:text-[#0B1C2D] overflow-x-hidden">
@@ -113,32 +106,6 @@ export function LandingPage() {
           transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
         />
 
-        {/* Floating Stickers */}
-        {floatingStickers.map((sticker, idx) => (
-          <motion.div
-            key={idx}
-            className={`hidden lg:block absolute ${sticker.position} z-20`}
-            initial={{ opacity: 0, scale: 0, rotate: -180 }}
-            animate={{ 
-              opacity: 1, 
-              scale: 1, 
-              rotate: 0,
-              y: [0, -20, 0],
-            }}
-            transition={{
-              opacity: { delay: sticker.delay + 0.5, duration: 0.5 },
-              scale: { delay: sticker.delay + 0.5, duration: 0.5, type: 'spring' },
-              rotate: { delay: sticker.delay + 0.5, duration: 0.8 },
-              y: { duration: 3, repeat: Infinity, ease: 'easeInOut', delay: sticker.delay },
-            }}
-            whileHover={{ scale: 1.2, rotate: 10 }}
-          >
-            <div className="bg-gradient-to-br from-[#3AE7E1]/20 to-[#2563EB]/20 backdrop-blur-md border border-[#3AE7E1]/30 rounded-2xl px-4 py-3 shadow-lg flex items-center gap-2">
-              <sticker.icon className="w-5 h-5 text-[#3AE7E1]" />
-              <span className="text-sm font-bold text-white">{sticker.label}</span>
-            </div>
-          </motion.div>
-        ))}
         
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
           <motion.div
@@ -191,7 +158,10 @@ export function LandingPage() {
                 whileHover={{ scale: 1.05, borderColor: 'rgba(58, 231, 225, 0.3)' }}
                 whileTap={{ scale: 0.95 }}
               >
-                Xem Demo
+                <Link to ="/executive" className="flex items-center gap-2">
+                  Xem Demo
+                </Link>
+                
               </motion.button>
             </motion.div>
           </motion.div>
