@@ -4,7 +4,8 @@ import { useAuth } from '@/auth/AuthContext'
 import { mockUsers, roleHomePath } from '@/auth/mockUsers'
 import { motion, AnimatePresence } from 'motion/react'
 import { Lock, User, ArrowRight, Sparkles, Shield, Zap } from 'lucide-react'
-import logo from '@/assets/logo.png'
+import logo from '@/assets/logo1.png'
+import { FloatingContactButtons } from '@/components/FloatingContactButtons'
 
 export function LoginPage() {
   const { login, isAuthenticated, user, logout } = useAuth()
@@ -63,6 +64,7 @@ export function LoginPage() {
   }
 
   return (
+    <>
     <div className="min-h-screen bg-[#0B1C2D] text-white font-sans overflow-hidden relative">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -663,5 +665,7 @@ export function LoginPage() {
         </div>
       </div>
     </div>
+    <FloatingContactButtons />
+    </>
   )
 }

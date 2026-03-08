@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle, Shield, Zap, BarChart3, Users, Layers, Globe, Award, TrendingUp, Star, Target, Sparkles } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'motion/react';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo1.png';
+import { FloatingContactButtons } from '../components/FloatingContactButtons';
 
 
 export function LandingPage() {
@@ -12,6 +13,7 @@ export function LandingPage() {
 
 
   return (
+    <>
     <div className="min-h-screen bg-[#0B1C2D] text-white font-sans selection:bg-[#3AE7E1] selection:text-[#0B1C2D] overflow-x-hidden">
       {/* Animated Background Particles */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
@@ -750,5 +752,7 @@ export function LandingPage() {
         </motion.p>
       </motion.footer>
     </div>
+    <FloatingContactButtons />
+    </>
   );
 }
