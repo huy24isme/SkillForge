@@ -102,7 +102,7 @@ export function Dashboard() {
   return (
     <div className="space-y-6">
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <KPICard
           title="Dự án đang hoạt động"
           value={12}
@@ -126,14 +126,6 @@ export function Dashboard() {
           icon={AlertTriangle}
           trend="down"
           color="#F5A623"
-        />
-        <KPICard
-          title="Tỷ lệ giữ chân thực tập sinh"
-          value="94%"
-          change="+2% trong quý này"
-          icon={TrendingUp}
-          trend="up"
-          color="#3AE7E1"
         />
       </div>
 
