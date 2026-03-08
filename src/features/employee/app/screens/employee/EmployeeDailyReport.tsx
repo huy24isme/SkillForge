@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Trophy, Calendar, CheckCircle, Clock } from 'lucide-react';
+import { Trophy, Calendar, CheckCircle, Clock, ClipboardList } from 'lucide-react';
+import { EmployeeWeeklyReport } from '@/features/employee/app/screens/employee/EmployeeWeeklyReport';
 
 const reportHistory = [
   { id: 1, date: '2026-01-31', tasks: 'Completed user authentication module', tomorrowPlan: 'Implement password reset feature', difficulty: 'Medium', xp: 50 },
@@ -10,6 +11,7 @@ const reportHistory = [
 ];
 
 export function EmployeeDailyReport() {
+  const [reportType, setReportType] = useState<'daily' | 'weekly'>('daily');
   const [formData, setFormData] = useState({
     tasksCompleted: '',
     tomorrowPlan: '',
@@ -43,6 +45,37 @@ export function EmployeeDailyReport() {
 
   return (
     <div className="max-w-6xl mx-auto space-y-6">
+      <div className="bg-white rounded-xl border border-gray-200 p-2 inline-flex gap-2">
+        <button
+          type="button"
+          onClick={() => setReportType('daily')}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-2 ${
+            reportType === 'daily'
+              ? 'bg-[#3AE7E1] text-white'
+              : 'text-gray-600 hover:bg-gray-100'
+          }`}
+        >
+          <Trophy className="w-4 h-4" />
+          Báo cáo hằng ngày
+        </button>
+        <button
+          type="button"
+          onClick={() => setReportType('weekly')}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-2 ${
+            reportType === 'weekly'
+              ? 'bg-[#0B1C2D] text-white'
+              : 'text-gray-600 hover:bg-gray-100'
+          }`}
+        >
+          <ClipboardList className="w-4 h-4" />
+          Báo cáo tuần
+        </button>
+      </div>
+
+      {reportType === 'weekly' ? (
+        <EmployeeWeeklyReport />
+      ) : (
+        <>
       {/* Success Message */}
       {showSuccess && (
         <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 animate-slideDown">
@@ -236,6 +269,8 @@ export function EmployeeDailyReport() {
           ))}
         </div>
       </div>
+        </>
+      )}
     </div>
   );
 }
