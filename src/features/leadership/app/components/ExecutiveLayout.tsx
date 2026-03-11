@@ -57,7 +57,6 @@ export function ExecutiveLayout({ children }: ExecutiveLayoutProps) {
       icon: LayoutDashboard,
       label: "BSC Dashboard",
       path: "/leadership/executive",
-      exact: true,
     },
     {
       icon: Wallet,
@@ -80,19 +79,9 @@ export function ExecutiveLayout({ children }: ExecutiveLayoutProps) {
       path: "/leadership/executive/learning"
     },
     {
-      icon: Sparkles,
-      label: "Bản đồ Chiến lược",
-      path: "/leadership/executive/strategy-map",
-    },
-    {
       icon: MessageSquareShare,
       label: "BSC Chatbot",
       path: "/leadership/executive/chatbot",
-    },
-    {
-      icon: Calculator,
-      label: "Cấu hình Chi phí",
-      path: "/leadership/executive/cost-config",
     },
     { icon: User, label: "Cá nhân", path: "/leadership/executive/profile" },
   ];
@@ -118,17 +107,18 @@ export function ExecutiveLayout({ children }: ExecutiveLayoutProps) {
         <nav className="px-3 mt-1">
           {" "}
           {menuItems.map((item) => {
-            const isActive = item.exact
-              ? location.pathname === item.path
+            const isDashboard = item.path === "/leadership/executive";
+            const isActive = isDashboard 
+              ? location.pathname === item.path 
               : location.pathname.startsWith(item.path);
 
             return (
               <NavLink
                 key={item.path}
                 to={item.path}
-                className={({ isActive: active }) => `
+                className={`
                   flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200
-                  ${active
+                  ${isActive
                     ? "bg-[#3AE7E1] text-[#0B1C2D] shadow-[0_0_15px_rgba(58,231,225,0.3)]"
                     : "text-slate-400 hover:text-white hover:bg-white/5"
                   }

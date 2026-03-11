@@ -1,702 +1,428 @@
-import { useMemo, useState } from 'react';
-import {
-    TrendingUp,
-    Users,
-    PieChart as PieChartIcon,
-    ArrowUpRight,
-    TrendingDown,
-    Info,
+import { useState } from 'react';
+import { 
+    TrendingUp, 
+    TrendingDown, 
+    DollarSign, 
+    PieChart as PieChartIcon, 
+    ArrowUpRight, 
+    ArrowDownRight,
+    Activity,
+    Target,
+    Zap,
+    Briefcase,
+    ShieldCheck,
+    AlertCircle,
+    Flame,
+    Navigation,
+    Calculator,
+    BarChart3,
     ChevronDown,
     ChevronUp,
-    Layers,
-    Workflow,
-    GraduationCap,
+    Info,
+    LayoutDashboard,
     Sparkles
 } from 'lucide-react';
-import {
-    AreaChart,
-    Area,
-    LineChart,
-    Line,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
+import { 
+    LineChart, 
+    Line, 
+    AreaChart, 
+    Area, 
+    XAxis, 
+    YAxis, 
+    CartesianGrid, 
+    Tooltip, 
     ResponsiveContainer,
+    BarChart,
+    Bar,
+    Cell
 } from 'recharts';
 
-const FINANCIAL_DATA = [
-    { month: 'Jan', revenue: 1.2, cost: 0.8, profit: 0.4 },
-    { month: 'Feb', revenue: 1.5, cost: 0.9, profit: 0.6 },
-    { month: 'Mar', revenue: 1.3, cost: 0.85, profit: 0.45 },
-    { month: 'Apr', revenue: 1.8, cost: 1.0, profit: 0.8 },
-    { month: 'May', revenue: 2.2, cost: 1.1, profit: 1.1 },
-    { month: 'Jun', revenue: 2.1, cost: 1.2, profit: 0.9 },
-    { month: 'Jul', revenue: 3.2, cost: 1.4, profit: 1.8 },
+const revenueData = [
+  { month: 'Jan', revenue: 45000, expenses: 32000, profit: 13000 },
+  { month: 'Feb', revenue: 52000, expenses: 34000, profit: 18000 },
+  { month: 'Mar', revenue: 48000, expenses: 35000, profit: 13000 },
+  { month: 'Apr', revenue: 61000, expenses: 38000, profit: 23000 },
+  { month: 'May', revenue: 55000, expenses: 40000, profit: 15000 },
+  { month: 'Jun', revenue: 67000, expenses: 42000, profit: 25000 },
 ];
 
-type ProjectPortfolio = {
-    name: string;
-    revenue: number;
-    cost: number;
-    client: string;
-    deliveryEfficiency: number;
-    teamProductivity: number;
-    teamAllocation: { team: string; value: number }[];
-    costBreakdown: { name: string; value: number }[];
-    revenueBreakdown: { name: string; value: number }[];
-    roiTrend: { month: string; value: number }[];
-};
-
-const PROJECT_PORTFOLIO: ProjectPortfolio[] = [
-    {
-        name: 'E-commerce App',
-        revenue: 1200,
-        cost: 480,
-        client: 'Global Retail Inc',
-        deliveryEfficiency: 88,
-        teamProductivity: 91,
-        teamAllocation: [
-            { team: 'Engineering', value: 45 },
-            { team: 'Product', value: 20 },
-            { team: 'QA', value: 15 },
-            { team: 'Ops', value: 20 },
-        ],
-        costBreakdown: [
-            { name: 'Engineering', value: 260 },
-            { name: 'Infrastructure', value: 120 },
-            { name: 'Operations', value: 100 },
-        ],
-        revenueBreakdown: [
-            { name: 'Online Sales', value: 840 },
-            { name: 'Marketplace', value: 210 },
-            { name: 'Ads/Media', value: 150 },
-        ],
-        roiTrend: [
-            { month: 'Feb', value: 118 },
-            { month: 'Mar', value: 124 },
-            { month: 'Apr', value: 133 },
-            { month: 'May', value: 141 },
-            { month: 'Jun', value: 147 },
-            { month: 'Jul', value: 150 },
-        ],
-    },
-    {
-        name: 'Fintech Web',
-        revenue: 520,
-        cost: 250,
-        client: 'Financier Bank',
-        deliveryEfficiency: 81,
-        teamProductivity: 84,
-        teamAllocation: [
-            { team: 'Engineering', value: 50 },
-            { team: 'Compliance', value: 20 },
-            { team: 'QA', value: 15 },
-            { team: 'Support', value: 15 },
-        ],
-        costBreakdown: [
-            { name: 'Engineering', value: 140 },
-            { name: 'Security', value: 70 },
-            { name: 'Operations', value: 40 },
-        ],
-        revenueBreakdown: [
-            { name: 'Licensing', value: 260 },
-            { name: 'Transaction Fee', value: 190 },
-            { name: 'Support Plan', value: 70 },
-        ],
-        roiTrend: [
-            { month: 'Feb', value: 90 },
-            { month: 'Mar', value: 95 },
-            { month: 'Apr', value: 98 },
-            { month: 'May', value: 103 },
-            { month: 'Jun', value: 107 },
-            { month: 'Jul', value: 108 },
-        ],
-    },
-    {
-        name: 'AI Support Platform',
-        revenue: 330,
-        cost: 140,
-        client: 'TechCorp Solutions',
-        deliveryEfficiency: 85,
-        teamProductivity: 89,
-        teamAllocation: [
-            { team: 'AI Engineering', value: 40 },
-            { team: 'Data Ops', value: 25 },
-            { team: 'Product', value: 20 },
-            { team: 'Support', value: 15 },
-        ],
-        costBreakdown: [
-            { name: 'AI Engineering', value: 70 },
-            { name: 'Cloud GPU', value: 45 },
-            { name: 'Operations', value: 25 },
-        ],
-        revenueBreakdown: [
-            { name: 'Subscription', value: 170 },
-            { name: 'Enterprise Pack', value: 120 },
-            { name: 'Professional Service', value: 40 },
-        ],
-        roiTrend: [
-            { month: 'Feb', value: 92 },
-            { month: 'Mar', value: 108 },
-            { month: 'Apr', value: 114 },
-            { month: 'May', value: 123 },
-            { month: 'Jun', value: 131 },
-            { month: 'Jul', value: 136 },
-        ],
-    },
-    {
-        name: 'Logistics Portal',
-        revenue: 180,
-        cost: 120,
-        client: 'Logistics Pro',
-        deliveryEfficiency: 75,
-        teamProductivity: 78,
-        teamAllocation: [
-            { team: 'Engineering', value: 52 },
-            { team: 'QA', value: 18 },
-            { team: 'PM', value: 15 },
-            { team: 'Ops', value: 15 },
-        ],
-        costBreakdown: [
-            { name: 'Engineering', value: 70 },
-            { name: 'Infrastructure', value: 30 },
-            { name: 'Operations', value: 20 },
-        ],
-        revenueBreakdown: [
-            { name: 'Contract', value: 130 },
-            { name: 'Maintenance', value: 50 },
-        ],
-        roiTrend: [
-            { month: 'Feb', value: 26 },
-            { month: 'Mar', value: 31 },
-            { month: 'Apr', value: 38 },
-            { month: 'May', value: 42 },
-            { month: 'Jun', value: 47 },
-            { month: 'Jul', value: 50 },
-        ],
-    },
-    {
-        name: 'Internal ERP',
-        revenue: 70,
-        cost: 110,
-        client: 'Internal Transformation',
-        deliveryEfficiency: 68,
-        teamProductivity: 72,
-        teamAllocation: [
-            { team: 'Engineering', value: 55 },
-            { team: 'Data', value: 20 },
-            { team: 'QA', value: 15 },
-            { team: 'Change Mgmt', value: 10 },
-        ],
-        costBreakdown: [
-            { name: 'Engineering', value: 65 },
-            { name: 'Data Migration', value: 30 },
-            { name: 'Training', value: 15 },
-        ],
-        revenueBreakdown: [
-            { name: 'Process Savings', value: 50 },
-            { name: 'Shared Services', value: 20 },
-        ],
-        roiTrend: [
-            { month: 'Feb', value: -62 },
-            { month: 'Mar', value: -55 },
-            { month: 'Apr', value: -50 },
-            { month: 'May', value: -44 },
-            { month: 'Jun', value: -39 },
-            { month: 'Jul', value: -36 },
-        ],
-    },
-    {
-        name: 'Marketing Site',
-        revenue: 50,
-        cost: 35,
-        client: 'EcoPower Ltd',
-        deliveryEfficiency: 86,
-        teamProductivity: 87,
-        teamAllocation: [
-            { team: 'Design', value: 40 },
-            { team: 'Engineering', value: 35 },
-            { team: 'Growth', value: 25 },
-        ],
-        costBreakdown: [
-            { name: 'Design', value: 15 },
-            { name: 'Engineering', value: 12 },
-            { name: 'Growth Campaigns', value: 8 },
-        ],
-        revenueBreakdown: [
-            { name: 'Lead Generation', value: 38 },
-            { name: 'Cross-sell', value: 12 },
-        ],
-        roiTrend: [
-            { month: 'Feb', value: 25 },
-            { month: 'Mar', value: 28 },
-            { month: 'Apr', value: 31 },
-            { month: 'May', value: 35 },
-            { month: 'Jun', value: 38 },
-            { month: 'Jul', value: 43 },
-        ],
-    },
-    {
-        name: 'Data Lake Initiative',
-        revenue: 0,
-        cost: 25,
-        client: 'Internal Analytics',
-        deliveryEfficiency: 60,
-        teamProductivity: 69,
-        teamAllocation: [
-            { team: 'Data Engineering', value: 50 },
-            { team: 'Architecture', value: 30 },
-            { team: 'Governance', value: 20 },
-        ],
-        costBreakdown: [
-            { name: 'Infrastructure', value: 12 },
-            { name: 'Data Engineering', value: 9 },
-            { name: 'Governance', value: 4 },
-        ],
-        revenueBreakdown: [
-            { name: 'No direct revenue', value: 0 },
-        ],
-        roiTrend: [
-            { month: 'Feb', value: -100 },
-            { month: 'Mar', value: -100 },
-            { month: 'Apr', value: -100 },
-            { month: 'May', value: -100 },
-            { month: 'Jun', value: -100 },
-            { month: 'Jul', value: -100 },
-        ],
-    },
+const burnRateData = [
+  { month: 'Jan', burn: 32000 },
+  { month: 'Feb', burn: 31000 },
+  { month: 'Mar', burn: 35000 },
+  { month: 'Apr', burn: 34000 },
+  { month: 'May', burn: 38000 },
+  { month: 'Jun', burn: 36000 },
 ];
 
-const TOP_COLORS = ['#10B981', '#2563EB', '#7C3AED'];
+const PORTFOLIO_PROJECTS = [
+    { name: 'E-commerce Platform Migration', revenue: 1200000, cost: 450000, roi: 166, share: 45, color: '#10B981', client: 'Retail Global' },
+    { name: 'Cloud Infrastructure Upgrade', revenue: 550000, cost: 280000, roi: 96, share: 20, color: '#3B82F6', client: 'TechFlow' },
+    { name: 'AI Voice Assistant Integration', revenue: 420000, cost: 180000, roi: 133, share: 15, color: '#8B5CF6', client: 'HomeSmart' },
+    { name: 'Legacy Data Cleanup', revenue: 150000, cost: 80000, roi: 87, share: 6, color: '#94A3B8', client: 'Internal' },
+    { name: 'Mobile App Polish', revenue: 120000, cost: 50000, roi: 140, share: 5, color: '#94A3B8', client: 'FitTrack' },
+    { name: 'API Security Audit', revenue: 110000, cost: 90000, roi: 22, share: 4, color: '#94A3B8', client: 'CyberShield' },
+    { name: 'Marketing Tooling', revenue: 100000, cost: 30000, roi: 233, share: 5, color: '#94A3B8', client: 'Internal' },
+];
 
-const formatMoney = (value: number) => {
-    if (value >= 1000) {
-        return `${(value / 1000).toFixed(2)}B`;
-    }
-    return `${value}M`;
-};
+const totalRevenue = PORTFOLIO_PROJECTS.reduce((sum, p) => sum + p.revenue, 0);
+const totalCost = PORTFOLIO_PROJECTS.reduce((sum, p) => sum + p.cost, 0);
+const portfolioRoi = ((totalRevenue - totalCost) / totalCost) * 100;
 
-const calcRoi = (revenue: number, cost: number) => {
-    if (cost === 0) {
-        return 0;
-    }
-    return ((revenue - cost) / cost) * 100;
-};
+const top3 = PORTFOLIO_PROJECTS.slice(0, 3);
+const others = PORTFOLIO_PROJECTS.slice(3);
+const othersRevenue = others.reduce((sum, p) => sum + p.revenue, 0);
+const othersShare = (othersRevenue / totalRevenue) * 100;
+
+// Portfolio Advanced KPIs
+const totalProfit = totalRevenue - totalCost;
+const avgRoi = portfolioRoi;
+const maxRoiProject = [...PORTFOLIO_PROJECTS].sort((a, b) => b.roi - a.roi)[0];
+const minRoiProject = [...PORTFOLIO_PROJECTS].sort((a, b) => a.roi - b.roi)[0];
 
 export default function FinancialPerspective() {
-    const [showOtherDetails, setShowOtherDetails] = useState(false);
-    const [selectedProject, setSelectedProject] = useState<ProjectPortfolio | null>(null);
+  const [timeframe, setTimeframe] = useState('6M');
+  const [showOthers, setShowOthers] = useState(false);
 
-    const portfolio = useMemo(() => {
-        const totalRevenue = PROJECT_PORTFOLIO.reduce((sum, project) => sum + project.revenue, 0);
-        const totalCost = PROJECT_PORTFOLIO.reduce((sum, project) => sum + project.cost, 0);
-        const portfolioRoi = calcRoi(totalRevenue, totalCost);
+  const metrics = [
+    { 
+      label: "Doanh thu tháng (MRR)", 
+      value: "$67,200", 
+      change: "+12.4%", 
+      isPositive: true, 
+      icon: DollarSign, 
+      color: "text-emerald-600",
+      bg: "bg-emerald-50"
+    },
+    { 
+      label: "EBITDA Lũy kế", 
+      value: "$107,300", 
+      change: "+8.1%", 
+      isPositive: true, 
+      icon: TrendingUp, 
+      color: "text-blue-600",
+      bg: "bg-blue-50"
+    },
+    { 
+      label: "Burn Rate Trung bình", 
+      value: "$34,500", 
+      change: "-2.3%", 
+      isPositive: true, 
+      icon: Flame, 
+      color: "text-orange-600",
+      bg: "bg-orange-50"
+    },
+    { 
+      label: "Runway Dự kiến", 
+      value: "14.2 Tháng", 
+      change: "+1.5", 
+      isPositive: true, 
+      icon: Navigation, 
+      color: "text-purple-600",
+      bg: "bg-purple-50"
+    },
+  ];
 
-        const ranked = [...PROJECT_PORTFOLIO].sort((a, b) => b.revenue - a.revenue);
-        const topProjects = ranked.slice(0, 3).map((project, index) => ({
-            ...project,
-            color: TOP_COLORS[index],
-            revenueShare: totalRevenue === 0 ? 0 : (project.revenue / totalRevenue) * 100,
-            roi: calcRoi(project.revenue, project.cost),
-        }));
+  const advancedMetrics = [
+    { label: "LTV (Lifetime Value)", value: "$4,200", icon: Target },
+    { label: "CAC (Acquisition Cost)", value: "$850", icon: Zap },
+    { label: "LTV/CAC Ratio", value: "4.9x", icon: Activity, status: 'Lý tưởng' },
+    { label: "Gross Margin", value: "68%", icon: ShieldCheck },
+  ];
 
-        const otherProjects = ranked.slice(3).map((project) => ({
-            ...project,
-            roi: calcRoi(project.revenue, project.cost),
-            revenueShare: totalRevenue === 0 ? 0 : (project.revenue / totalRevenue) * 100,
-        }));
-        const allProjects = ranked.map((project) => ({
-            ...project,
-            roi: calcRoi(project.revenue, project.cost),
-            revenueShare: totalRevenue === 0 ? 0 : (project.revenue / totalRevenue) * 100,
-        }));
-        const otherRevenue = otherProjects.reduce((sum, project) => sum + project.revenue, 0);
-
-        const highestRoi = [...PROJECT_PORTFOLIO]
-            .map((project) => ({ ...project, roi: calcRoi(project.revenue, project.cost) }))
-            .sort((a, b) => b.roi - a.roi)[0];
-
-        const marginDestroyer = [...PROJECT_PORTFOLIO]
-            .map((project) => ({ ...project, margin: project.revenue - project.cost }))
-            .sort((a, b) => a.margin - b.margin)[0];
-
-        const topRevenueProject = ranked[0];
-        const concentrationRisk = totalRevenue === 0 ? 0 : (topRevenueProject.revenue / totalRevenue) * 100;
-
-        const clientRevenue = PROJECT_PORTFOLIO.filter(
-            (project) => !project.client.toLowerCase().includes('internal')
-        ).reduce((sum, project) => sum + project.revenue, 0);
-        const avgDeliveryEfficiency =
-            PROJECT_PORTFOLIO.reduce((sum, project) => sum + project.deliveryEfficiency, 0) / PROJECT_PORTFOLIO.length;
-        const avgTeamProductivity =
-            PROJECT_PORTFOLIO.reduce((sum, project) => sum + project.teamProductivity, 0) / PROJECT_PORTFOLIO.length;
-
-        return {
-            totalRevenue,
-            totalCost,
-            portfolioRoi,
-            topProjects,
-            allProjects,
-            otherProjects,
-            otherRevenue,
-            topRevenueProject,
-            highestRoi,
-            marginDestroyer,
-            concentrationRisk,
-            clientRevenue,
-            avgDeliveryEfficiency,
-            avgTeamProductivity,
-        };
-    }, []);
-
-    return (
-        <div className="space-y-6 animate-in fade-in duration-500">
-            {/* Top Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                    <div className="flex items-center justify-between mb-2">
-                        <span className="text-slate-500 text-sm">Monthly Revenue</span>
-                        <div className="p-1.5 bg-green-50 rounded-lg text-green-600">
-                            <TrendingUp className="w-4 h-4" />
-                        </div>
-                    </div>
-                    <div className="text-2xl font-bold text-[#0B1C2D]">{formatMoney(FINANCIAL_DATA[FINANCIAL_DATA.length - 1].revenue * 1000)} VND</div>
-                    <div className="text-xs text-green-500 mt-2 flex items-center gap-1">
-                        <ArrowUpRight className="w-3 h-3" /> +15% from last month
-                    </div>
-                </div>
-
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                    <div className="flex items-center justify-between mb-2">
-                        <span className="text-slate-500 text-sm">Operating Cost</span>
-                        <div className="p-1.5 bg-red-50 rounded-lg text-red-600">
-                            <TrendingDown className="w-4 h-4" />
-                        </div>
-                    </div>
-                    <div className="text-2xl font-bold text-[#0B1C2D]">{formatMoney(FINANCIAL_DATA[FINANCIAL_DATA.length - 1].cost * 1000)} VND</div>
-                    <div className="text-xs text-red-500 mt-2 flex items-center gap-1">
-                        <ArrowUpRight className="w-3 h-3" /> +8% from last month
-                    </div>
-                </div>
-
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                    <div className="flex items-center justify-between mb-2">
-                        <span className="text-slate-500 text-sm">Profit Margin</span>
-                        <div className="p-1.5 bg-blue-50 rounded-lg text-blue-600">
-                            <PieChartIcon className="w-4 h-4" />
-                        </div>
-                    </div>
-                    <div className="text-2xl font-bold text-[#0B1C2D]">{Math.round(((portfolio.totalRevenue - portfolio.totalCost) / portfolio.totalRevenue) * 100)}%</div>
-                    <div className="text-xs text-blue-500 mt-2 flex items-center gap-1">
-                        On track for Q3 goals
-                    </div>
-                </div>
-
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                    <div className="flex items-center justify-between mb-2">
-                        <span className="text-slate-500 text-sm">Portfolio ROI</span>
-                        <div className="p-1.5 bg-orange-50 rounded-lg text-orange-600">
-                            <TrendingUp className="w-4 h-4" />
-                        </div>
-                    </div>
-                    <div className="text-2xl font-bold text-[#0B1C2D]">{portfolio.portfolioRoi > 0 ? '+' : ''}{Math.round(portfolio.portfolioRoi)}%</div>
-                    <div className="text-xs text-slate-500 mt-2">
-                        Portfolio-level benchmark
-                    </div>
-                </div>
+  return (
+    <div className="space-y-6 animate-in fade-in duration-500 pb-12">
+      {/* Metrics Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {metrics.map((m, i) => (
+          <div key={i} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+            <div className="flex items-center justify-between mb-4">
+              <div className={`p-2 rounded-xl ${m.bg}`}>
+                <m.icon className={`w-5 h-5 ${m.color}`} />
+              </div>
+              <div className={`flex items-center gap-1 text-xs font-bold ${m.isPositive ? 'text-emerald-500' : 'text-red-500'}`}>
+                {m.isPositive ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
+                {m.change}
+              </div>
             </div>
+            <div className="text-2xl font-bold text-[#0B1C2D] mb-1">{m.value}</div>
+            <div className="text-xs text-slate-500 font-medium uppercase tracking-wider">{m.label}</div>
+          </div>
+        ))}
+      </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="order-2 lg:col-span-3 bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
-                    <h3 className="font-bold text-[#0B1C2D] mb-8">Revenue vs Operating Cost</h3>
-                    <div className="h-80">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <AreaChart data={FINANCIAL_DATA}>
-                                <defs>
-                                    <linearGradient id="colorRev" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#3AE7E1" stopOpacity={0.1} />
-                                        <stop offset="95%" stopColor="#3AE7E1" stopOpacity={0} />
-                                    </linearGradient>
-                                    <linearGradient id="colorCost" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#EF4444" stopOpacity={0.1} />
-                                        <stop offset="95%" stopColor="#EF4444" stopOpacity={0} />
-                                    </linearGradient>
-                                </defs>
-                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                                <XAxis dataKey="month" tick={{ fill: '#64748B', fontSize: 12 }} axisLine={false} tickLine={false} />
-                                <YAxis tick={{ fill: '#64748B', fontSize: 12 }} axisLine={false} tickLine={false} tickFormatter={(v) => `${v}B`} />
-                                <Tooltip
-                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}
-                                    itemStyle={{ fontWeight: 'bold' }}
-                                />
-                                <Area type="monotone" dataKey="revenue" name="Revenue" stroke="#3AE7E1" fillOpacity={1} fill="url(#colorRev)" strokeWidth={3} />
-                                <Area type="monotone" dataKey="cost" name="Cost" stroke="#EF4444" fillOpacity={1} fill="url(#colorCost)" strokeWidth={2} strokeDasharray="5 5" />
-                            </AreaChart>
-                        </ResponsiveContainer>
-                    </div>
-                </div>
-
-                <div className="order-1 lg:col-span-3 bg-white p-10 rounded-2xl shadow-md border-2 border-[#3AE7E1]/30">
-                    <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-bold text-[#0B1C2D] text-xl">CEO Portfolio Intelligence</h3>
-                        <span className="text-xs px-2 py-1 rounded-full bg-slate-100 text-slate-600">Financial Perspective</span>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
-                        <div className="p-3 rounded-xl border border-slate-100 bg-slate-50">
-                            <div className="text-[11px] uppercase tracking-wider text-slate-500">Total Revenue</div>
-                            <div className="text-xl font-bold text-[#0B1C2D]">{formatMoney(portfolio.totalRevenue)}</div>
-                        </div>
-                        <div className="p-3 rounded-xl border border-slate-100 bg-slate-50">
-                            <div className="text-[11px] uppercase tracking-wider text-slate-500">Total Cost</div>
-                            <div className="text-xl font-bold text-[#0B1C2D]">{formatMoney(portfolio.totalCost)}</div>
-                        </div>
-                        <div className="p-3 rounded-xl border border-slate-100 bg-slate-50">
-                            <div className="text-[11px] uppercase tracking-wider text-slate-500">Portfolio ROI</div>
-                            <div className={`text-xl font-bold ${portfolio.portfolioRoi >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
-                                {portfolio.portfolioRoi >= 0 ? '+' : ''}{Math.round(portfolio.portfolioRoi)}%
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="mb-4">
-                        <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
-                            <span>Portfolio Revenue Mix (Top 3 + Other Projects)</span>
-                            <span>Total Revenue: {formatMoney(portfolio.totalRevenue)}</span>
-                        </div>
-                        <div className="w-full h-10 rounded-xl overflow-hidden border border-slate-200 flex bg-slate-100 relative z-0">
-                            {portfolio.topProjects.map((project) => (
-                                <button
-                                    key={project.name}
-                                    onClick={() => setSelectedProject(project)}
-                                    className="h-full relative z-10 group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-400"
-                                    style={{ width: `${project.revenueShare}%`, backgroundColor: project.color }}
-                                    title={`${project.name} - ${project.revenueShare.toFixed(1)}% of total revenue`}
-                                >
-                                    <span className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 bg-black/10 transition-opacity" />
-                                </button>
-                            ))}
-                            <button
-                                onClick={() => setShowOtherDetails((prev) => !prev)}
-                                className="h-full relative z-10 bg-slate-200 hover:bg-slate-300 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-400"
-                                style={{ width: `${Math.max(0, 100 - portfolio.topProjects.reduce((sum, p) => sum + p.revenueShare, 0))}%` }}
-                                title={`Other Projects - ${(portfolio.otherRevenue / portfolio.totalRevenue * 100).toFixed(1)}% of total revenue`}
-                            />
-                        </div>
-                    </div>
-
-                    <div className="space-y-2 text-xs mb-5">
-                        {portfolio.topProjects.map((project) => (
-                            <button
-                                key={project.name}
-                                onClick={() => setSelectedProject(project)}
-                                className="w-full p-2 rounded-lg border border-slate-100 bg-slate-50 hover:bg-slate-100 flex items-center justify-between"
-                            >
-                                <span className="flex items-center gap-2 text-[#0B1C2D] font-medium">
-                                    <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: project.color }} />
-                                    {project.name}
-                                </span>
-                                <span className="text-slate-600">{project.revenueShare.toFixed(1)}% rev share</span>
-                            </button>
-                        ))}
-                        <button
-                            onClick={() => setShowOtherDetails((prev) => !prev)}
-                            className="w-full p-2 rounded-lg border border-slate-100 bg-white hover:bg-slate-50 flex items-center justify-between"
-                        >
-                            <span className="flex items-center gap-2 text-[#0B1C2D] font-medium">
-                                <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
-                                Details (All Projects)
-                            </span>
-                            <span className="text-slate-600 flex items-center gap-1">
-                                {portfolio.allProjects.length} projects | {portfolio.totalRevenue === 0 ? '0.0' : ((portfolio.otherRevenue / portfolio.totalRevenue) * 100).toFixed(1)}% in Other
-                                {showOtherDetails ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-                            </span>
-                        </button>
-                    </div>
-
-                    {showOtherDetails && (
-                        <div className="mb-5 p-3 rounded-xl border border-slate-200 bg-slate-50 overflow-x-auto">
-                            <div className="text-xs font-semibold text-slate-600 mb-2">Details: Full Portfolio Breakdown</div>
-                            <table className="w-full text-xs">
-                                <thead>
-                                    <tr className="text-slate-500 border-b border-slate-200">
-                                        <th className="text-left py-2">Project Name</th>
-                                        <th className="text-right py-2">Cost</th>
-                                        <th className="text-right py-2">Revenue</th>
-                                        <th className="text-right py-2">ROI %</th>
-                                        <th className="text-right py-2">Portfolio Contribution</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {portfolio.allProjects.map((project) => (
-                                        <tr key={project.name} className="border-b last:border-b-0 border-slate-100 text-slate-700">
-                                            <td className="py-2">{project.name}</td>
-                                            <td className="py-2 text-right">{formatMoney(project.cost)}</td>
-                                            <td className="py-2 text-right">{formatMoney(project.revenue)}</td>
-                                            <td className={`py-2 text-right font-semibold ${project.roi >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
-                                                {project.roi >= 0 ? '+' : ''}{Math.round(project.roi)}%
-                                            </td>
-                                            <td className="py-2 text-right">{project.revenueShare.toFixed(1)}%</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    )}
-
-                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                        <div className="flex gap-2 items-start">
-                            <Sparkles className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />
-                            <div className="text-xs text-slate-600 leading-relaxed space-y-1">
-                                <p><span className="font-bold text-blue-600">AI Strategic Insight:</span> {portfolio.topRevenueProject.name} generates the most revenue at {portfolio.concentrationRisk.toFixed(1)}% of the portfolio.</p>
-                                <p>Highest ROI project: <b>{portfolio.highestRoi.name}</b> ({Math.round(portfolio.highestRoi.roi)}%).</p>
-                                <p>Margin destroyer: <b>{portfolio.marginDestroyer.name}</b> with {formatMoney(portfolio.marginDestroyer.revenue - portfolio.marginDestroyer.cost)} operating gap.</p>
-                                <p>Revenue concentration risk: Top project contributes {portfolio.concentrationRisk.toFixed(1)}%. Diversification initiatives should be considered if concentration remains above 50%.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      {/* Main Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Revenue & Expenses Area Chart */}
+        <div className="lg:col-span-2 bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h3 className="font-bold text-[#0B1C2D] text-lg">Phân tích Dòng tiền & Lợi nhuận</h3>
+              <p className="text-xs text-slate-400 mt-1">Dữ liệu so sánh Doanh thu (Gross) và Chi phí vận hành (OpEx)</p>
             </div>
-
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                <h3 className="font-bold text-[#0B1C2D] mb-4 flex items-center gap-2">
-                    <Layers className="w-4 h-4 text-[#3AE7E1]" />
-                    Balanced Scorecard Alignment
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 text-sm">
-                    <div className="p-4 rounded-xl border border-emerald-100 bg-emerald-50/50">
-                        <div className="font-semibold text-emerald-700 mb-1">Financial Perspective</div>
-                        <div className="text-slate-700">Revenue {formatMoney(portfolio.totalRevenue)}, Cost {formatMoney(portfolio.totalCost)}, ROI {Math.round(portfolio.portfolioRoi)}%.</div>
-                    </div>
-                    <div className="p-4 rounded-xl border border-blue-100 bg-blue-50/50">
-                        <div className="font-semibold text-blue-700 mb-1 flex items-center gap-1"><Users className="w-4 h-4" />Customer Perspective</div>
-                        <div className="text-slate-700">Client-driven revenue: {formatMoney(portfolio.clientRevenue)} ({((portfolio.clientRevenue / portfolio.totalRevenue) * 100).toFixed(1)}%).</div>
-                    </div>
-                    <div className="p-4 rounded-xl border border-violet-100 bg-violet-50/50">
-                        <div className="font-semibold text-violet-700 mb-1 flex items-center gap-1"><Workflow className="w-4 h-4" />Internal Process Perspective</div>
-                        <div className="text-slate-700">Average delivery efficiency across projects: {portfolio.avgDeliveryEfficiency.toFixed(1)}%.</div>
-                    </div>
-                    <div className="p-4 rounded-xl border border-orange-100 bg-orange-50/50">
-                        <div className="font-semibold text-orange-700 mb-1 flex items-center gap-1"><GraduationCap className="w-4 h-4" />Learning & Growth Perspective</div>
-                        <div className="text-slate-700">Average team productivity index: {portfolio.avgTeamProductivity.toFixed(1)}%.</div>
-                    </div>
-                </div>
+            <div className="flex bg-slate-50 p-1 rounded-xl">
+              {['1M', '3M', '6M', '1Y'].map(t => (
+                <button 
+                  key={t}
+                  onClick={() => setTimeframe(t)}
+                  className={`px-3 py-1 text-[10px] font-bold rounded-lg transition-all ${timeframe === t ? 'bg-white shadow-sm text-[#0B1C2D]' : 'text-slate-400 hover:text-slate-600'}`}
+                >
+                  {t}
+                </button>
+              ))}
             </div>
-
-            {selectedProject && (
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                    <div className="flex items-start justify-between gap-3 mb-5">
-                        <div>
-                            <h3 className="font-bold text-[#0B1C2D] text-lg">Project Analytics Drill-down: {selectedProject.name}</h3>
-                            <p className="text-xs text-slate-500 mt-1">ROI trend, cost/revenue structure, delivery performance, and team allocation for strategic review.</p>
-                        </div>
-                        <button
-                            onClick={() => setSelectedProject(null)}
-                            className="text-xs px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50"
-                        >
-                            Close
-                        </button>
-                    </div>
-
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <div className="p-4 rounded-xl border border-slate-100 bg-slate-50">
-                            <div className="text-sm font-semibold text-[#0B1C2D] mb-3">ROI Trend Over Time</div>
-                            <div className="h-48">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <LineChart data={selectedProject.roiTrend}>
-                                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                                        <XAxis dataKey="month" tick={{ fill: '#64748B', fontSize: 11 }} axisLine={false} tickLine={false} />
-                                        <YAxis tick={{ fill: '#64748B', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v) => `${v}%`} />
-                                        <Tooltip formatter={(v: number | string) => `${v}%`} />
-                                        <Line type="monotone" dataKey="value" stroke="#0EA5E9" strokeWidth={2.5} dot={{ r: 3 }} name="ROI" />
-                                    </LineChart>
-                                </ResponsiveContainer>
-                            </div>
-                        </div>
-
-                        <div className="p-4 rounded-xl border border-slate-100 bg-slate-50">
-                            <div className="text-sm font-semibold text-[#0B1C2D] mb-3">Performance Snapshot</div>
-                            <div className="grid grid-cols-2 gap-3 text-xs">
-                                <div className="p-3 rounded-lg bg-white border border-slate-100">
-                                    <div className="text-slate-500">Revenue</div>
-                                    <div className="font-bold text-[#0B1C2D] text-lg">{formatMoney(selectedProject.revenue)}</div>
-                                </div>
-                                <div className="p-3 rounded-lg bg-white border border-slate-100">
-                                    <div className="text-slate-500">Cost</div>
-                                    <div className="font-bold text-[#0B1C2D] text-lg">{formatMoney(selectedProject.cost)}</div>
-                                </div>
-                                <div className="p-3 rounded-lg bg-white border border-slate-100">
-                                    <div className="text-slate-500">Delivery Performance</div>
-                                    <div className="font-bold text-emerald-600 text-lg">{selectedProject.deliveryEfficiency}%</div>
-                                </div>
-                                <div className="p-3 rounded-lg bg-white border border-slate-100">
-                                    <div className="text-slate-500">Team Productivity</div>
-                                    <div className="font-bold text-blue-600 text-lg">{selectedProject.teamProductivity}%</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-6 text-xs">
-                        <div className="p-4 rounded-xl border border-slate-100">
-                            <div className="font-semibold text-[#0B1C2D] mb-2">Cost Breakdown</div>
-                            <div className="space-y-2">
-                                {selectedProject.costBreakdown.map((item) => (
-                                    <div key={item.name} className="flex justify-between">
-                                        <span className="text-slate-600">{item.name}</span>
-                                        <span className="font-semibold text-slate-800">{formatMoney(item.value)}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                        <div className="p-4 rounded-xl border border-slate-100">
-                            <div className="font-semibold text-[#0B1C2D] mb-2">Revenue Breakdown</div>
-                            <div className="space-y-2">
-                                {selectedProject.revenueBreakdown.map((item) => (
-                                    <div key={item.name} className="flex justify-between">
-                                        <span className="text-slate-600">{item.name}</span>
-                                        <span className="font-semibold text-slate-800">{formatMoney(item.value)}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                        <div className="p-4 rounded-xl border border-slate-100">
-                            <div className="font-semibold text-[#0B1C2D] mb-2">Team Allocation</div>
-                            <div className="space-y-2">
-                                {selectedProject.teamAllocation.map((item) => (
-                                    <div key={item.team}>
-                                        <div className="flex justify-between mb-1">
-                                            <span className="text-slate-600">{item.team}</span>
-                                            <span className="font-semibold text-slate-800">{item.value}%</span>
-                                        </div>
-                                        <div className="h-1.5 w-full rounded-full bg-slate-100 overflow-hidden">
-                                            <div className="h-full bg-[#3AE7E1]" style={{ width: `${item.value}%` }} />
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                <div className="flex items-start gap-2">
-                    <Info className="w-4 h-4 text-slate-500 mt-0.5" />
-                    <div>
-                        <h3 className="font-semibold text-[#0B1C2D] mb-1">Scalability Ready</h3>
-                        <p className="text-sm text-slate-600 mb-3">The portfolio module is structured for future strategic capabilities without redesigning the information architecture.</p>
-                        <div className="flex flex-wrap gap-2 text-xs">
-                            <span className="px-2.5 py-1 rounded-full border border-slate-200 bg-slate-50">Time filtering (Quarter / Year)</span>
-                            <span className="px-2.5 py-1 rounded-full border border-slate-200 bg-slate-50">ROI forecasting</span>
-                            <span className="px-2.5 py-1 rounded-full border border-slate-200 bg-slate-50">Scenario simulation</span>
-                            <span className="px-2.5 py-1 rounded-full border border-slate-200 bg-slate-50">Strategic project tagging</span>
-                            <span className="px-2.5 py-1 rounded-full border border-slate-200 bg-slate-50">Client vs Internal comparison</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
+          <div className="h-80">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={revenueData}>
+                <defs>
+                  <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#3AE7E1" stopOpacity={0.3}/>
+                    <stop offset="95%" stopColor="#3AE7E1" stopOpacity={0}/>
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{fill: '#64748B', fontSize: 12}} dy={10} />
+                <YAxis axisLine={false} tickLine={false} tick={{fill: '#64748B', fontSize: 12}} tickFormatter={v => `$${v/1000}k`} />
+                <Tooltip 
+                  contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }}
+                  formatter={(v: number) => [`$${v.toLocaleString()}`, '']}
+                />
+                <Area type="monotone" dataKey="revenue" name="Doanh thu" stroke="#3AE7E1" strokeWidth={3} fillOpacity={1} fill="url(#colorRevenue)" />
+                <Area type="monotone" dataKey="expenses" name="Chi phí" stroke="#94A3B8" strokeWidth={2} strokeDasharray="5 5" fill="transparent" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
         </div>
-    );
+      </div>
+
+      {/* Expanded Portfolio ROI Intelligence Dashboard - Full Width */}
+      <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col space-y-10">
+          <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                  <div className="p-3 bg-[#3AE7E1]/10 rounded-2xl">
+                      <LayoutDashboard className="w-8 h-8 text-[#3AE7E1]" />
+                  </div>
+                  <div>
+                      <h3 className="font-black text-[#0B1C2D] text-2xl tracking-tight">Trung tâm Phân tích ROI Danh mục</h3>
+                      <p className="text-sm text-slate-400 font-medium">Portfolio Intelligence Intelligence Dashboard • Real-time Data</p>
+                  </div>
+              </div>
+              <div className="flex items-center gap-3">
+                  <span className="px-4 py-2 bg-slate-100 rounded-xl text-[10px] uppercase font-black text-slate-500 tracking-widest border border-slate-200">
+                    Q1 2026 Strategy
+                  </span>
+                  <div className="p-2 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100 transition-colors">
+                      <Info className="w-5 h-5 text-slate-400" />
+                  </div>
+              </div>
+          </div>
+
+          {/* KPI Summary Row - Redesigned */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+              {[
+                  { label: "ROI Danh mục", value: `+${portfolioRoi.toFixed(0)}%`, color: "text-emerald-600", bg: "bg-emerald-50", icon: TrendingUp },
+                  { label: "Tổng Doanh thu", value: `${(totalRevenue / 1000000).toFixed(2)}B`, color: "text-[#0B1C2D]", bg: "bg-slate-50", icon: DollarSign },
+                  { label: "Tổng Chi phí", value: `${(totalCost / 1000000).toFixed(2)}B`, color: "text-slate-500", bg: "bg-slate-50", icon: Activity },
+                  { label: "Lợi nhuận gộp", value: `${(totalProfit / 1000000).toFixed(2)}B`, color: "text-blue-600", bg: "bg-blue-50", icon: Calculator },
+                  { label: "ROI Cao nhất", value: `${maxRoiProject.roi}%`, sub: maxRoiProject.name, color: "text-emerald-600", bg: "bg-emerald-50/50" },
+                  { label: "ROI Thấp nhất", value: `${minRoiProject.roi}%`, sub: minRoiProject.name, color: "text-red-600", bg: "bg-red-50/50" },
+              ].map((kpi, idx) => (
+                  <div key={idx} className={`${kpi.bg} p-5 rounded-3xl border border-slate-100 transition-all hover:scale-[1.02] cursor-default`}>
+                      <div className="text-[10px] text-slate-400 font-black uppercase tracking-widest mb-2 flex items-center justify-between">
+                          {kpi.label}
+                          {kpi.icon && <kpi.icon className="w-3.5 h-3.5 opacity-40 text-slate-900" />}
+                      </div>
+                      <div className={`text-2xl font-black ${kpi.color}`}>{kpi.value}</div>
+                      {kpi.sub && <div className="text-[9px] text-slate-400 truncate mt-1 font-bold">{kpi.sub}</div>}
+                  </div>
+              ))}
+          </div>
+
+          {/* Large Visualization Section */}
+          <div className="space-y-6">
+              <div className="flex justify-between items-end">
+                  <div>
+                      <h4 className="font-bold text-[#0B1C2D]">Phân bổ Portfolio 100%</h4>
+                      <p className="text-xs text-slate-400 mt-0.5">Tỷ trọng doanh thu đóng góp từ các dự án chiến lược</p>
+                  </div>
+                  <div className="flex gap-4">
+                    {top3.map(p => (
+                        <div key={p.name} className="flex items-center gap-2">
+                             <div className="w-3 h-3 rounded-full shadow-sm" style={{ backgroundColor: p.color }} />
+                             <span className="text-[10px] font-bold text-slate-600 uppercase tracking-tighter">{p.name.split(' ')[0]}...</span>
+                        </div>
+                    ))}
+                    <div className="flex items-center gap-2 text-slate-400">
+                         <div className="w-3 h-3 rounded-full bg-slate-300" />
+                         <span className="text-[10px] font-bold uppercase tracking-tighter">Dự án khác</span>
+                    </div>
+                  </div>
+              </div>
+
+              <div className="h-20 w-full flex rounded-[1.25rem] overflow-hidden shadow-2xl shadow-slate-100 bg-slate-100 border-4 border-white">
+                  {top3.map(p => (
+                      <div 
+                          key={p.name}
+                          className="h-full transition-all hover:brightness-110 cursor-pointer relative group flex items-center justify-center"
+                          style={{ width: `${p.share}%`, backgroundColor: p.color }}
+                      >
+                          <div className="text-white text-[10px] font-black opacity-0 group-hover:opacity-100 transition-opacity bg-black/20 px-2 py-1 rounded-full backdrop-blur-sm">
+                              {p.share}%
+                          </div>
+                      </div>
+                  ))}
+                  <div 
+                      className="h-full bg-slate-300 relative group cursor-pointer flex items-center justify-center transition-all hover:bg-slate-400/50"
+                      style={{ width: `${othersShare}%` }}
+                  >
+                      <div className="text-slate-600 text-[10px] font-black opacity-0 group-hover:opacity-100 transition-opacity bg-white/40 px-2 py-1 rounded-full backdrop-blur-sm">
+                          {othersShare.toFixed(0)}%
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          {/* Detailed Data Table */}
+          <div className="bg-slate-50/50 rounded-[2rem] border border-slate-100 overflow-hidden">
+              <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-white/50">
+                  <h4 className="font-bold text-[#0B1C2D] flex items-center gap-2">
+                      <BarChart3 className="w-5 h-5 text-blue-500" />
+                      Chi tiết Hiệu suất Dự án
+                  </h4>
+                  <button className="text-xs font-bold text-blue-600 hover:underline">Xuất báo cáo PDF</button>
+              </div>
+              <table className="w-full text-left border-collapse">
+                  <thead>
+                      <tr className="text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100">
+                          <th className="px-8 py-4">Tên Dự án</th>
+                          <th className="px-4 py-4">Khách hàng</th>
+                          <th className="px-4 py-4 text-right">Doanh thu</th>
+                          <th className="px-4 py-4 text-right">Chi phí</th>
+                          <th className="px-4 py-4 text-center">ROI (%)</th>
+                          <th className="px-8 py-4 text-right">Tỷ trọng (%)</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {PORTFOLIO_PROJECTS.map((p, idx) => (
+                          <tr key={idx} className="group hover:bg-white transition-colors border-b border-slate-50 last:border-0 lowercase">
+                              <td className="px-8 py-5">
+                                  <div className="flex items-center gap-3">
+                                      <div className="w-2 h-2 rounded-full" style={{ backgroundColor: p.color }} />
+                                      <span className="font-bold text-[#0B1C2D] capitalize">{p.name}</span>
+                                  </div>
+                              </td>
+                              <td className="px-4 py-5 text-slate-500 font-medium capitalize">{p.client}</td>
+                              <td className="px-4 py-5 text-right font-bold text-slate-700">${(p.revenue / 1000).toFixed(0)}k</td>
+                              <td className="px-4 py-5 text-right text-slate-400 font-medium">${(p.cost / 1000).toFixed(0)}k</td>
+                              <td className="px-4 py-5 text-center">
+                                  <span className={`px-2 py-1 rounded-full text-[10px] font-black ${p.roi > 50 ? 'bg-emerald-100 text-emerald-700' : 'bg-orange-100 text-orange-700'}`}>
+                                      +{p.roi}%
+                                  </span>
+                              </td>
+                              <td className="px-8 py-5 text-right">
+                                  <div className="flex items-center justify-end gap-2">
+                                      <span className="font-black text-[#0B1C2D]">{p.share}%</span>
+                                      <div className="w-16 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                          <div className="h-full rounded-full" style={{ width: `${p.share}%`, backgroundColor: p.color }} />
+                                      </div>
+                                  </div>
+                              </td>
+                          </tr>
+                      ))}
+                  </tbody>
+              </table>
+          </div>
+
+          {/* AI Strategic Insights - Moved to Bottom of Module */}
+          <div className="bg-[#0B1C2D] rounded-[2rem] p-8 text-white relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-8 opacity-10">
+                    <Sparkles className="w-32 h-32 text-[#3AE7E1]" />
+                </div>
+                <div className="relative z-10">
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="p-2 bg-[#3AE7E1]/20 rounded-xl border border-[#3AE7E1]/30">
+                            <Sparkles className="w-5 h-5 text-[#3AE7E1]" />
+                        </div>
+                        <h4 className="text-sm font-black uppercase tracking-[0.2em] text-[#3AE7E1]">Executive Strategic Insights</h4>
+                    </div>
+                
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div className="space-y-2">
+                            <div className="text-xs font-black text-orange-400 uppercase tracking-widest">Rủi ro tập trung</div>
+                            <p className="text-xs text-slate-300 leading-relaxed font-medium">
+                                <b>45% doanh thu</b> đến từ dự án E-commerce. Danh mục hiện đang phụ thuộc lớn vào một khách hàng duy nhất. Cần cân đối tỷ trọng trong Q2.
+                            </p>
+                        </div>
+                        <div className="space-y-2">
+                            <div className="text-xs font-black text-emerald-400 uppercase tracking-widest">Cơ hội mở rộng</div>
+                            <p className="text-xs text-slate-300 leading-relaxed font-medium">
+                                <b>ROI Đột phá (233%):</b> Công cụ Marketing Tool mang lại hiệu quả cực cao mặc dù vốn thấp. Đề xuất tăng ngân sách marketing 15%.
+                            </p>
+                        </div>
+                        <div className="space-y-2">
+                            <div className="text-xs font-black text-red-400 uppercase tracking-widest">Cảnh báo Biên lợi nhuận</div>
+                            <p className="text-xs text-slate-300 leading-relaxed font-medium">
+                                <b>Margin Destroyer:</b> Dự án Security Audit (ROI 22%) chiếm dụng nguồn lực cấp cao nhưng biên lợi nhuận mỏng. Cần review lại nhân sự.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+          </div>
+      </div>
+
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {advancedMetrics.map((m, i) => (
+          <div key={i} className="bg-slate-50/50 p-5 rounded-2xl border border-slate-100">
+            <div className="flex items-center gap-3 mb-2">
+              <m.icon className="w-4 h-4 text-slate-400" />
+              <span className="text-xs font-bold text-slate-500 uppercase tracking-tight">{m.label}</span>
+            </div>
+            <div className="flex items-end justify-between">
+              <div className="text-xl font-bold text-[#0B1C2D]">{m.value}</div>
+              {m.status && (
+                <span className="text-[10px] px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-full font-bold">
+                  {m.status}
+                </span>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* AI Financial Strategy Advisor */}
+      <div className="bg-[#0B1C2D] rounded-3xl p-8 text-white relative overflow-hidden shadow-2xl">
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-8">
+          <div className="md:w-1/3 text-center md:text-left">
+             <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#3AE7E1]/20 rounded-full mb-4 border border-[#3AE7E1]/30">
+               <Calculator className="w-4 h-4 text-[#3AE7E1]" />
+               <span className="text-[10px] font-bold text-[#3AE7E1] uppercase tracking-widest">Financial AI Advisor</span>
+             </div>
+             <h2 className="text-3xl font-bold mb-4">Chiến lược Tài chính Quý 3</h2>
+             <p className="text-slate-400 text-sm leading-relaxed mb-6">Dựa trên dòng tiền hiện tại và dự báo MRR, SkillForge đề xuất tối ưu hóa OpEx thông qua tự động hóa quy trình nội bộ.</p>
+             <button className="px-6 py-3 bg-[#3AE7E1] text-[#0B1C2D] rounded-xl font-bold hover:scale-105 transition-all shadow-lg shadow-[#3AE7E1]/20">Xem Báo Cáo Chi Tiết</button>
+          </div>
+          
+          <div className="md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-5 rounded-2xl bg-white/5 border border-white/10">
+              <div className="flex items-center gap-2 mb-3 text-[#3AE7E1] font-bold">
+                 <BarChart3 className="w-4 h-4" />
+                 <span className="text-xs uppercase">Dự báo Điểm Hòa Vốn</span>
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed">Theo tốc độ tăng trưởng 12%/tháng, điểm hòa vốn dự kiến sẽ đạt được vào **phần đầu Tháng 10/2026**.</p>
+            </div>
+            <div className="p-5 rounded-2xl bg-white/5 border border-white/10">
+              <div className="flex items-center gap-2 mb-3 text-[#3AE7E1] font-bold">
+                 <Zap className="w-4 h-4" />
+                 <span className="text-xs uppercase">Tối ưu Chi phí Acquisition</span>
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed">Tăng tỷ lệ Referral từ khách hàng hiện tại có thể giúp giảm CAC thêm **15%** trong 3 tháng tới.</p>
+            </div>
+          </div>
+        </div>
+        <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-[#3AE7E1] opacity-5 rounded-full blur-3xl"></div>
+      </div>
+    </div>
+  );
 }

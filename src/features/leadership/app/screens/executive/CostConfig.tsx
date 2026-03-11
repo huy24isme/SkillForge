@@ -1,182 +1,261 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import {
     Calculator,
     TrendingUp,
-    DollarSign,
     Briefcase,
-    ArrowRight,
     HelpCircle,
-    RefreshCcw,
-    Target
+    Target,
+    Sparkles,
+    DollarSign,
+    Users,
+    Layers,
+    ShieldAlert,
+    ChevronDown,
+    ArrowLeft
 } from 'lucide-react';
+import {
+    BarChart,
+    Bar,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    Legend,
+    ResponsiveContainer,
+    PieChart,
+    Pie,
+    Cell
+} from 'recharts';
+import { useNavigate } from 'react-router-dom';
 
 export default function CostConfig() {
-    const [capEx, setCapEx] = useState(500); // Fixed investment (M VND)
-    const [fixedOpEx, setFixedOpEx] = useState(250); // Monthly salary, rent (M VND)
-    const [variableRate, setVariableRate] = useState(0.2); // 20% of revenue goes to variable costs
-    const [targetPaybackMonths, setTargetPaybackMonths] = useState(12);
-    const [expectedClients, setExpectedClients] = useState(10);
+    const navigate = useNavigate();
+    
+    // Core Investment (CapEx)
+    const [capEx, setCapEx] = useState(500);
 
-    // Calculations
-    const calculateResults = () => {
-        // Break-even revenue per month to cover fixed OpEx + variable costs
-        // Rev = OpEx + 0.2*Rev => Rev(1-0.2) = OpEx => Rev = OpEx / 0.8
-        const monthlyOpExBreakEven = fixedOpEx / (1 - variableRate);
+    // Labor Breakdown
+    const [seniorCount, setSeniorCount] = useState(2);
+    const [midCount, setMidCount] = useState(3);
+    const [juniorCount, setJuniorCount] = useState(1);
+    const seniorRate = 45; // M VND
+    const midRate = 25;
+    const juniorRate = 12;
 
-        // Total needed to pay back CapEx over N months
-        const monthlyPaybackAmount = capEx / targetPaybackMonths;
+    const totalLabor = seniorCount * seniorRate + midCount * midRate + juniorCount * juniorRate;
 
-        // Total target revenue per month
-        const totalTargetMonthlyRevenue = monthlyOpExBreakEven + monthlyPaybackAmount;
+    // Overhead Breakdown
+    const [officeCost, setOfficeCost] = useState(30);
+    const [softwareCost, setSoftwareCost] = useState(20);
+    const [adminCost, setAdminCost] = useState(10);
+    const totalOverhead = officeCost + softwareCost + adminCost;
 
-        // Target price per client
-        const targetPricePerClient = totalTargetMonthlyRevenue / expectedClients;
+    // Risk Buffer
+    const [riskBufferPercent, setRiskBufferPercent] = useState(15);
+    const riskBufferAmount = (totalLabor + totalOverhead) * (riskBufferPercent / 100);
 
-        return {
-            monthlyOpExBreakEven,
-            totalTargetMonthlyRevenue,
-            targetPricePerClient
-        };
-    };
+    const monthlyOpEx = totalLabor + totalOverhead + riskBufferAmount;
 
-    const results = calculateResults();
+    // Strategic Goals
+    const [multiplier, setMultiplier] = useState<2 | 3>(2);
+    const [breakEvenMonths, setBreakEvenMonths] = useState(12);
+    const [clients, setClients] = useState(10);
+
+    const totalCostProject = capEx + monthlyOpEx * breakEvenMonths;
+    const targetRevenue = totalCostProject * multiplier;
+    const requiredMonthlyRevenue = targetRevenue / breakEvenMonths;
+    const recommendedPrice = requiredMonthlyRevenue / clients;
+
+    const costBreakdownData = [
+      { name: 'Nhân sự', value: totalLabor, color: '#3AE7E1' },
+      { name: 'Vận hành', value: totalOverhead, color: '#8B5CF6' },
+      { name: 'Dự phòng rủi ro', value: riskBufferAmount, color: '#F59E0B' },
+    ];
 
     return (
-        <div className="max-w-5xl mx-auto animate-in fade-in duration-500">
-            <div className="flex items-center gap-3 mb-8">
-                <div className="p-3 bg-blue-600 rounded-2xl text-white shadow-lg">
-                    <Calculator className="w-6 h-6" />
+        <div className="max-w-7xl mx-auto animate-in fade-in duration-500 space-y-6 pb-12">
+            {/* Navigation & Header */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                    <button onClick={() => navigate(-1)} className="p-2 hover:bg-slate-100 rounded-full transition-colors">
+                        <ArrowLeft className="w-5 h-5 text-slate-500" />
+                    </button>
+                    <div>
+                        <h1 className="text-2xl font-bold text-[#0B1C2D]">Cấu hình Chi phí Dự án chuyên sâu</h1>
+                        <p className="text-slate-500 text-sm italic">Mô hình phân rã chi phí Labor, Overhead và Resource Buffer.</p>
+                    </div>
                 </div>
-                <div>
-                    <h1 className="text-2xl font-bold text-[#0B1C2D]">Strategic Pricing & Break-even Calculator</h1>
-                    <p className="text-slate-500">Based on Mentor's Formula: CapEx + OpEx (Fixed + Variable) → Target Revenue</p>
+                <div className="flex bg-[#0B1C2D] text-white p-1 rounded-xl shadow-lg border border-white/10">
+                    <div className="px-4 py-2 flex items-center gap-2">
+                        <Calculator className="w-4 h-4 text-[#3AE7E1]" />
+                        <span className="text-sm font-bold">OpEx: {monthlyOpEx.toFixed(1)}M/th</span>
+                    </div>
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Left: Configuration */}
-                <div className="space-y-6">
-                    <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 space-y-6">
-                        <h3 className="font-bold text-[#0B1C2D] flex items-center gap-2 mb-4">
-                            <Briefcase className="w-5 h-5 text-blue-500" />
-                            Investment & Operating Costs
-                        </h3>
-
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-700 flex justify-between">
-                                <span>CapEx (Chi phí đầu tư ban đầu)</span>
-                                <span className="text-blue-600 font-bold">{capEx}M VND</span>
-                            </label>
-                            <input
-                                type="range" min="100" max="2000" step="50"
-                                value={capEx}
-                                onChange={(e) => setCapEx(Number(e.target.value))}
-                                className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                            />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* 1. Labor Configuration */}
+                <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 space-y-6">
+                    <h3 className="font-bold text-[#0B1C2D] flex items-center gap-2 border-b border-slate-50 pb-4">
+                        <Users className="w-5 h-5 text-[#3AE7E1]" />
+                        Cơ cấu Nhân sự (Labor)
+                    </h3>
+                    
+                    {[
+                        { label: 'Senior Developers', count: seniorCount, setter: setSeniorCount, rate: seniorRate },
+                        { label: 'Middle Developers', count: midCount, setter: setMidCount, rate: midRate },
+                        { label: 'Junior Developers', count: juniorCount, setter: setJuniorCount, rate: juniorRate },
+                    ].map((role) => (
+                        <div key={role.label} className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                            <div className="flex justify-between items-center mb-3">
+                                <span className="text-sm font-bold text-slate-700">{role.label}</span>
+                                <span className="text-xs text-slate-400 font-medium">${role.rate}M / người</span>
+                            </div>
+                            <div className="flex items-center gap-4">
+                                <input 
+                                    type="range" min="0" max="10" step="1" 
+                                    value={role.count} 
+                                    onChange={(e) => role.setter(Number(e.target.value))}
+                                    className="flex-1 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#3AE7E1]"
+                                />
+                                <span className="w-8 h-8 flex items-center justify-center bg-white border border-slate-200 rounded-lg font-bold text-[#0B1C2D]">
+                                    {role.count}
+                                </span>
+                            </div>
                         </div>
+                    ))}
+                    <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-100 flex justify-between">
+                        <span className="text-sm font-bold text-emerald-800 uppercase tracking-wider">Tổng quỹ lương</span>
+                        <span className="font-black text-emerald-600">{totalLabor}M VND</span>
+                    </div>
+                </div>
 
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-700 flex justify-between">
-                                <span>Monthly Fixed OpEx (Lương cố định + Thuê)</span>
-                                <span className="text-blue-600 font-bold">{fixedOpEx}M VND</span>
-                            </label>
-                            <input
-                                type="range" min="50" max="1000" step="10"
-                                value={fixedOpEx}
-                                onChange={(e) => setFixedOpEx(Number(e.target.value))}
-                                className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                            />
-                        </div>
+                {/* 2. Overhead & Buffer */}
+                <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 space-y-6">
+                    <h3 className="font-bold text-[#0B1C2D] flex items-center gap-2 border-b border-slate-50 pb-4">
+                        <Layers className="w-5 h-5 text-purple-600" />
+                        Chi phí Vận hành & Buffer
+                    </h3>
 
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-700 flex justify-between">
-                                <span>Variable Cost Rate (Biến phí %)</span>
-                                <span className="text-blue-600 font-bold">{Math.round(variableRate * 100)}%</span>
-                            </label>
-                            <input
-                                type="range" min="0" max="0.5" step="0.05"
-                                value={variableRate}
-                                onChange={(e) => setVariableRate(Number(e.target.value))}
-                                className="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                            />
-                        </div>
+                    <div className="space-y-4">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest block">Chi phí cố định (Overhead)</label>
+                        {[
+                          { label: 'Văn phòng / Điện nước', val: officeCost, set: setOfficeCost },
+                          { label: 'Software / API / Licenses', val: softwareCost, set: setSoftwareCost },
+                          { label: 'Hành chính / Khác', val: adminCost, set: setAdminCost },
+                        ].map(item => (
+                            <div key={item.label} className="flex items-center justify-between">
+                                <span className="text-sm text-slate-600">{item.label}</span>
+                                <input 
+                                    type="number" 
+                                    value={item.val} 
+                                    onChange={(e) => item.set(Number(e.target.value))}
+                                    className="w-20 p-2 bg-slate-50 border border-slate-100 rounded-xl text-right font-bold text-sm focus:ring-2 focus:ring-[#3AE7E1]"
+                                />
+                            </div>
+                        ))}
                     </div>
 
-                    <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 space-y-6">
-                        <h3 className="font-bold text-[#0B1C2D] flex items-center gap-2 mb-4">
-                            <Target className="w-5 h-5 text-orange-500" />
-                            Return on Investment Goals
-                        </h3>
-
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Payback Months</label>
-                                <div className="relative">
-                                    <input
-                                        type="number"
-                                        value={targetPaybackMonths}
-                                        onChange={(e) => setTargetPaybackMonths(Number(e.target.value))}
-                                        className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all font-bold"
-                                    />
-                                    <span className="absolute right-3 top-3 text-slate-400 text-sm">Months</span>
-                                </div>
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Planned Clients</label>
-                                <div className="relative">
-                                    <input
-                                        type="number"
-                                        value={expectedClients}
-                                        onChange={(e) => setExpectedClients(Number(e.target.value))}
-                                        className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all font-bold"
-                                    />
-                                    <span className="absolute right-3 top-3 text-slate-400 text-sm">Clients</span>
-                                </div>
-                            </div>
+                    <div className="pt-6 border-t border-slate-100 space-y-4">
+                        <div className="flex items-center justify-between">
+                            <label className="text-sm font-bold text-[#0B1C2D] flex items-center gap-2">
+                                <ShieldAlert className="w-4 h-4 text-orange-500" />
+                                Resource Buffer (%)
+                            </label>
+                            <span className="text-orange-600 font-bold">{riskBufferPercent}%</span>
+                        </div>
+                        <input 
+                            type="range" min="0" max="40" step="5" 
+                            value={riskBufferPercent} 
+                            onChange={(e) => setRiskBufferPercent(Number(e.target.value))}
+                            className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-orange-500"
+                        />
+                        <div className="text-[11px] text-slate-400">
+                            Dự phòng cho rủi ro nhân sự, biến động hạ tầng và trễ dự án.
                         </div>
                     </div>
                 </div>
 
-                {/* Right: Results */}
+                {/* 3. Results Summary */}
                 <div className="space-y-6">
-                    <div className="bg-gradient-to-br from-[#0B1C2D] to-[#1E3A5F] p-8 rounded-2xl shadow-xl text-white relative overflow-hidden h-full flex flex-col justify-between">
-                        <div className="absolute -top-12 -right-12 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl" />
-
-                        <div className="relative z-10">
-                            <div className="text-blue-400 text-xs font-bold uppercase tracking-[0.2em] mb-2">Target Pricing Model</div>
-                            <h4 className="text-3xl font-bold mb-8">Break-even Analysis</h4>
-
-                            <div className="space-y-8">
-                                <div className="flex justify-between items-end border-b border-white/10 pb-4">
-                                    <div className="text-slate-400 flex items-center gap-2">
-                                        Monthly Break-even Revenue <HelpCircle className="w-3 h-3" />
-                                    </div>
-                                    <div className="text-xl font-bold">{results.monthlyOpExBreakEven.toFixed(1)}M VND</div>
-                                </div>
-
-                                <div className="flex justify-between items-end border-b border-white/10 pb-4">
-                                    <div className="text-slate-400 flex items-center gap-2">
-                                        Strategic Target Revenue <HelpCircle className="w-3 h-3" />
-                                    </div>
-                                    <div className="text-xl font-bold text-[#3AE7E1]">{results.totalTargetMonthlyRevenue.toFixed(1)}M VND</div>
-                                </div>
-
-                                <div className="grid grid-cols-1 gap-4 mt-8">
-                                    <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20">
-                                        <div className="text-slate-300 text-sm mb-1 uppercase tracking-wider font-medium">Recommended Price / Client</div>
-                                        <div className="text-4xl font-black text-[#3AE7E1]">{results.targetPricePerClient.toFixed(1)}M <span className="text-lg font-normal text-slate-300">VND/Mo</span></div>
-                                    </div>
-                                </div>
+                    <div className="bg-[#0B1C2D] p-8 rounded-3xl text-white shadow-2xl relative overflow-hidden">
+                        <h3 className="font-bold text-[#3AE7E1] mb-6 flex items-center gap-2">
+                            <TrendingUp className="w-5 h-5" />
+                            Mô hình Định giá
+                        </h3>
+                        <div className="space-y-4 mb-8">
+                            <div className="flex justify-between items-end border-b border-white/10 pb-2">
+                                <span className="text-slate-400 text-xs uppercase">CapEx ban đầu</span>
+                                <span className="font-bold">{capEx}M</span>
+                            </div>
+                            <div className="flex justify-between items-end border-b border-white/10 pb-2">
+                                <span className="text-slate-400 text-xs uppercase">OpEx Hàng tháng</span>
+                                <span className="font-bold">{monthlyOpEx.toFixed(1)}M</span>
+                            </div>
+                            <div className="flex justify-between items-end border-b border-white/10 pb-2">
+                                <span className="text-slate-400 text-xs uppercase">Doanh thu cần/Tháng</span>
+                                <span className="font-bold">{requiredMonthlyRevenue.toFixed(1)}M</span>
                             </div>
                         </div>
 
-                        <div className="mt-8 relative z-10 p-4 bg-[#3AE7E1]/5 rounded-xl border border-[#3AE7E1]/20">
-                            <p className="text-sm text-slate-300 italic">
-                                "Tổng 3 phí lại → Nhân 2 hoặc 3 tùy nhu cầu → Doanh thu kỳ vọng → Chia theo tháng thu hồi vốn."
-                            </p>
-                            <p className="text-[10px] text-[#3AE7E1] mt-2 font-bold uppercase">— Mentor Philosophy</p>
+                        <div className="p-5 bg-white/5 rounded-2xl border border-white/10">
+                            <label className="text-[10px] text-[#3AE7E1] font-bold uppercase tracking-widest block mb-1">Giá đề xuất / KH</label>
+                            <div className="text-4xl font-black text-[#3AE7E1]">
+                                {recommendedPrice.toFixed(1)}M
+                                <span className="text-base font-normal text-slate-400 ml-2">VND</span>
+                            </div>
+                            <div className="flex items-center gap-1 mt-2 text-[10px] text-slate-500">
+                                <Users className="w-3 h-3" /> Chia cho {clients} khách hàng
+                            </div>
                         </div>
                     </div>
+
+                    <div className="bg-white p-6 rounded-3xl border border-slate-100">
+                        <h4 className="font-bold text-xs text-slate-400 uppercase tracking-widest mb-4">Cơ cấu OpEx tháng</h4>
+                        <div className="h-40">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <PieChart>
+                                    <Pie
+                                        data={costBreakdownData}
+                                        innerRadius={30}
+                                        outerRadius={50}
+                                        paddingAngle={5}
+                                        dataKey="value"
+                                    >
+                                        {costBreakdownData.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={entry.color} />
+                                        ))}
+                                    </Pie>
+                                    <Tooltip contentStyle={{ borderRadius: '12px', border: 'none' }} />
+                                </PieChart>
+                            </ResponsiveContainer>
+                        </div>
+                        <div className="space-y-2 mt-4">
+                            {costBreakdownData.map(item => (
+                                <div key={item.name} className="flex items-center justify-between text-[11px]">
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-2 h-2 rounded-full" style={{ backgroundColor: item.color }} />
+                                        <span className="text-slate-500">{item.name}</span>
+                                    </div>
+                                    <span className="font-bold text-slate-700">{Math.round(item.value)}M</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* AI Advisor Context */}
+            <div className="bg-blue-50/50 p-6 rounded-3xl border border-blue-100 flex items-start gap-4">
+                <div className="p-3 bg-white rounded-2xl shadow-sm">
+                    <Sparkles className="w-6 h-6 text-blue-500" />
+                </div>
+                <div>
+                    <h4 className="font-bold text-blue-900 text-sm mb-1">Chiến lược tối ưu Chi phí</h4>
+                    <p className="text-xs text-blue-800/70 leading-relaxed">
+                        Với đội ngũ hiện tại ({seniorCount} Senior, {midCount} Mid, {juniorCount} Jr), tỷ lệ quỹ lương chiếm <b>{Math.round((totalLabor / monthlyOpEx) * 100)}%</b> tổng OpEx. 
+                        Để tối ưu hơn, SkillForge gợi ý chuyển 1 Middle sang Junior nếu phase Onboarding được tự động hóa, giúp tiết kiệm ~{midRate - juniorRate}M VND mỗi tháng.
+                    </p>
                 </div>
             </div>
         </div>

@@ -17,8 +17,9 @@ import FinancialPerspective from './screens/executive/bsc/FinancialPerspective';
 import CustomerPerspective from './screens/executive/bsc/CustomerPerspective';
 import InternalProcessPerspective from './screens/executive/bsc/InternalProcessPerspective';
 import LearningGrowthPerspective from './screens/executive/bsc/LearningGrowthPerspective';
-import StrategyMap from './screens/executive/bsc/StrategyMap';
 import BSCChatbot from './components/BSCChatbot';
+import CeoReviewScheduler from './screens/executive/bsc/CeoReviewScheduler';
+import ProcessOptimization from './screens/executive/bsc/ProcessOptimization';
 import CostConfig from './screens/executive/CostConfig';
 
 export default function App() {
@@ -39,9 +40,10 @@ export default function App() {
             <Route path="customer" element={<CustomerPerspective />} />
             <Route path="process" element={<InternalProcessPerspective />} />
             <Route path="learning" element={<LearningGrowthPerspective />} />
-            <Route path="strategy-map" element={<StrategyMap />} />
             <Route path="chatbot" element={<BSCChatbot />} />
             <Route path="cost-config" element={<CostConfig />} />
+            <Route path="ceo-review" element={<CeoReviewScheduler />} />
+            <Route path="optimize" element={<ProcessOptimization />} />
             <Route path="personnel" element={<ExecutivePersonnel />} />
             <Route path="personnel/:deptId" element={<DepartmentPersonnel />} />
             <Route path="daily-report" element={<ExecutiveDailyReport />} />
