@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useAuth } from "@/auth/AuthContext";
 import {
@@ -28,6 +28,34 @@ interface ExecutiveLayoutProps {
 export function ExecutiveLayout({ children }: ExecutiveLayoutProps) {
   const location = useLocation();
   const { logout } = useAuth();
+
+  useEffect(() => {
+    // Recover from stale Radix/Vaul overlays that can remain after hot-reload
+    // and block all pointer interactions.
+    const hasOpenModal = Boolean(
+      document.querySelector(
+        '[data-slot="dialog-content"][data-state="open"], [data-slot="alert-dialog-content"][data-state="open"], [data-slot="sheet-content"][data-state="open"], [data-slot="drawer-content"][data-state="open"]'
+      )
+    );
+
+    if (hasOpenModal) {
+      return;
+    }
+
+    const staleOverlays = document.querySelectorAll(
+      '[data-slot="dialog-overlay"], [data-slot="alert-dialog-overlay"], [data-slot="sheet-overlay"], [data-slot="drawer-overlay"]'
+    );
+
+    staleOverlays.forEach((overlay) => {
+      const state = overlay.getAttribute('data-state');
+      if (state !== 'open') {
+        overlay.remove();
+      }
+    });
+
+    document.body.style.pointerEvents = 'auto';
+    document.body.style.overflow = '';
+  }, [location.pathname]);
 
   const menuItems = [
     {
