@@ -20,7 +20,9 @@ import {
     ChevronUp,
     Info,
     LayoutDashboard,
-    Sparkles
+    Sparkles,
+    Banknote,
+    Wallet2
 } from 'lucide-react';
 import { 
     LineChart, 
@@ -34,7 +36,9 @@ import {
     ResponsiveContainer,
     BarChart,
     Bar,
-    Cell
+    Cell,
+    ComposedChart,
+    Legend
 } from 'recharts';
 
 const revenueData = [
@@ -151,48 +155,102 @@ export default function FinancialPerspective() {
         ))}
       </div>
 
-      {/* Main Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Revenue & Expenses Area Chart */}
-        <div className="lg:col-span-2 bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h3 className="font-bold text-[#0B1C2D] text-lg">Phân tích Dòng tiền & Lợi nhuận</h3>
-              <p className="text-xs text-slate-400 mt-1">Dữ liệu so sánh Doanh thu (Gross) và Chi phí vận hành (OpEx)</p>
+      {/* Cash Flow & Profit Analysis - Upgraded to Full Width */}
+      <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/40 border border-slate-100 flex flex-col space-y-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-slate-50">
+          <div className="flex items-center gap-4">
+            <div className="p-3 bg-blue-500/10 rounded-2xl">
+              <Banknote className="w-8 h-8 text-blue-600" />
             </div>
-            <div className="flex bg-slate-50 p-1 rounded-xl">
+            <div>
+              <h3 className="font-black text-[#0B1C2D] text-2xl tracking-tight">Phân tích Dòng tiền & Lợi nhuận</h3>
+              <p className="text-sm text-slate-400 font-medium">Báo cáo so sánh Doanh thu (Gross) và Chi phí vận hành (OpEx)</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <div className="flex bg-slate-100 p-1 rounded-xl">
               {['1M', '3M', '6M', '1Y'].map(t => (
                 <button 
                   key={t}
                   onClick={() => setTimeframe(t)}
-                  className={`px-3 py-1 text-[10px] font-bold rounded-lg transition-all ${timeframe === t ? 'bg-white shadow-sm text-[#0B1C2D]' : 'text-slate-400 hover:text-slate-600'}`}
+                  className={`px-4 py-1.5 text-xs font-black rounded-lg transition-all ${timeframe === t ? 'bg-white shadow-sm text-[#0B1C2D]' : 'text-slate-400 hover:text-slate-600'}`}
                 >
                   {t}
                 </button>
               ))}
             </div>
           </div>
-          <div className="h-80">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={revenueData}>
-                <defs>
-                  <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#3AE7E1" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="#3AE7E1" stopOpacity={0}/>
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{fill: '#64748B', fontSize: 12}} dy={10} />
-                <YAxis axisLine={false} tickLine={false} tick={{fill: '#64748B', fontSize: 12}} tickFormatter={v => `$${v/1000}k`} />
-                <Tooltip 
-                  contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }}
-                  formatter={(v: number) => [`$${v.toLocaleString()}`, '']}
-                />
-                <Area type="monotone" dataKey="revenue" name="Doanh thu" stroke="#3AE7E1" strokeWidth={3} fillOpacity={1} fill="url(#colorRevenue)" />
-                <Area type="monotone" dataKey="expenses" name="Chi phí" stroke="#94A3B8" strokeWidth={2} strokeDasharray="5 5" fill="transparent" />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
+        </div>
+
+        {/* Financial KPI Sub-cards */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          {[
+            { label: "Tổng Doanh thu", value: "$338,200", trend: "+12.2%", icon: DollarSign, color: "text-blue-600", bg: "bg-blue-50" },
+            { label: "Chi phí vận hành", value: "$221,000", trend: "-2.4%", icon: Wallet2, color: "text-slate-600", bg: "bg-slate-50" },
+            { label: "Lợi nhuận thuần", value: "$117,200", trend: "+18.5%", icon: TrendingUp, color: "text-emerald-600", bg: "bg-emerald-50" },
+            { label: "Biên lợi nhuận", value: "34.6%", trend: "+3.1%", icon: Activity, color: "text-purple-600", bg: "bg-purple-50" },
+          ].map((card, idx) => (
+            <div key={idx} className={`${card.bg} p-6 rounded-3xl border border-slate-100/50`}>
+               <div className="flex items-center justify-between mb-3">
+                  <card.icon className={`w-4 h-4 ${card.color}`} />
+                  <span className="text-[10px] font-black text-emerald-600 bg-white px-2 py-0.5 rounded-full shadow-sm">{card.trend}</span>
+               </div>
+               <div className="text-xl font-black text-[#0B1C2D]">{card.value}</div>
+               <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">{card.label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Combined Visualization */}
+        <div className="h-[450px] w-full mt-4">
+          <ResponsiveContainer width="100%" height="100%">
+            <ComposedChart data={revenueData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+              <defs>
+                <linearGradient id="colorRevenueFull" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.1}/>
+                  <stop offset="95%" stopColor="#3B82F6" stopOpacity={0}/>
+                </linearGradient>
+                <linearGradient id="colorProfit" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#10B981" stopOpacity={0.8}/>
+                  <stop offset="95%" stopColor="#10B981" stopOpacity={0.4}/>
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+              <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{fill: '#64748B', fontSize: 13, fontWeight: 700}} dy={10} />
+              <YAxis axisLine={false} tickLine={false} tick={{fill: '#64748B', fontSize: 12}} tickFormatter={v => `$${v/1000}k`} />
+              <Tooltip 
+                contentStyle={{ borderRadius: '20px', border: 'none', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.15)', padding: '15px' }}
+                cursor={{ stroke: '#e2e8f0', strokeWidth: 2 }}
+              />
+              <Legend verticalAlign="top" height={36} iconType="circle" />
+              
+              {/* Areas for Trends */}
+              <Area type="monotone" dataKey="revenue" name="Doanh thu" stroke="#3B82F6" strokeWidth={4} fill="url(#colorRevenueFull)" />
+              <Area type="monotone" dataKey="expenses" name="Chi phí (OpEx)" stroke="#94A3B8" strokeWidth={2} strokeDasharray="5 5" fill="none" />
+              
+              {/* Bar for Monthly Profit Comparison */}
+              <Bar dataKey="profit" name="Lợi nhuận" barSize={40} radius={[8, 8, 0, 0]}>
+                {revenueData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.profit >= 15000 ? '#10B981' : '#34D399'} fillOpacity={0.8} />
+                ))}
+              </Bar>
+            </ComposedChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* AI Insight Box for Cash Flow */}
+        <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100 flex items-start gap-4">
+           <div className="p-2 bg-emerald-100 rounded-xl">
+              <Sparkles className="w-5 h-5 text-emerald-600" />
+           </div>
+           <div>
+              <h4 className="text-sm font-bold text-[#0B1C2D] mb-1">AI Financial Insight</h4>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                Biên lợi nhuận của bạn đã tăng **4.2%** trong 3 tháng qua. Điều này cho thấy việc tối ưu hóa chi phí vận hành (OpEx) đang phát huy tác dụng tốt. 
+                Dự báo dòng tiền: Có thể tái đầu tư **$25k** vào Marketing trong tháng tới mà không ảnh hưởng đến Runway.
+              </p>
+           </div>
         </div>
       </div>
 
