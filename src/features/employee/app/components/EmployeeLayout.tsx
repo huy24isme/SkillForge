@@ -1,26 +1,19 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/auth/AuthContext';
 import { 
-  Home,
+  ListChecks,
   FileText,
   FolderKanban,
-  Trophy,
-  Gift,
-  User,
   Bell,
-  Settings,
   LogOut
 } from 'lucide-react';
 import { useState } from 'react';
 import logo1 from '@/assets/logo1.png';
 
 const navigation = [
-  { name: 'Tổng quan', href: '/employee/employee', icon: Home },
-  { name: 'Báo cáo hằng ngày', href: '/employee/employee/daily-report', icon: FileText },
+  { name: 'My Tasks', href: '/employee/employee/tasks', icon: ListChecks },
   { name: 'Dự án của tôi', href: '/employee/employee/projects', icon: FolderKanban },
-  { name: 'Quests', href: '/employee/employee/quests', icon: Trophy },
-  { name: 'Rewards', href: '/employee/employee/rewards', icon: Gift },
-  { name: 'Hồ sơ', href: '/employee/employee/profile', icon: User },
+  { name: 'Báo cáo hằng ngày', href: '/employee/employee/daily-report', icon: FileText },
 ];
 
 const notifications = [
@@ -72,15 +65,11 @@ export function EmployeeLayout({ children }: { children: React.ReactNode }) {
           })}
         </nav>
 
-        {/* XP Progress Mini Widget */}
         <div className="absolute bottom-20 left-0 right-0 mx-4 p-4 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs text-gray-300">Level 12</span>
-            <span className="text-xs font-medium text-[#3AE7E1]">2,450 / 3,000 XP</span>
-          </div>
-          <div className="w-full bg-white/20 rounded-full h-2">
-            <div className="h-2 bg-gradient-to-r from-[#3AE7E1] to-[#2ECC71] rounded-full" style={{ width: '82%' }} />
-          </div>
+          <p className="text-xs uppercase tracking-wide text-gray-300 mb-2">Execution Layer</p>
+          <p className="text-sm text-white leading-5">
+            Cập nhật task và báo cáo hằng ngày để dữ liệu vận hành tự động đổ về dashboard của Manager.
+          </p>
         </div>
 
         <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-white/10">
@@ -90,7 +79,7 @@ export function EmployeeLayout({ children }: { children: React.ReactNode }) {
             </div>
             <div className="flex-1">
               <p className="text-sm font-medium">Nguyen Van A</p>
-              <p className="text-xs text-gray-400">Senior Frontend Dev</p>
+              <p className="text-xs text-gray-400">Execution Contributor</p>
             </div>
           </div>
         </div>
@@ -110,9 +99,7 @@ export function EmployeeLayout({ children }: { children: React.ReactNode }) {
                   return location.pathname === item.href || location.pathname.startsWith(`${item.href}/`);
                 })?.name || 'Tổng quan'}
               </h2>
-              <p className="text-sm text-gray-500">
-                {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
-              </p>
+              <p className="text-sm text-gray-500">Employee execution workspace</p>
             </div>
             <div className="flex items-center gap-4">
               <button
@@ -170,10 +157,6 @@ export function EmployeeLayout({ children }: { children: React.ReactNode }) {
                 )}
               </div>
 
-              <button className="p-2 text-gray-400 hover:text-gray-600">
-                <Settings className="w-5 h-5" />
-              </button>
-              
               <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#3AE7E1] to-[#2ECC71] flex items-center justify-center">
                 <span className="text-xs font-bold text-white">NA</span>
               </div>

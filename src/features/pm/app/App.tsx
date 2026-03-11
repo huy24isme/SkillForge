@@ -1,24 +1,26 @@
 import { Routes, Route } from 'react-router-dom';
 import { Layout } from '@/features/pm/app/components/Layout';
-import { Dashboard } from '@/features/pm/app/screens/Dashboard';
+import { ManagerDashboard } from '@/features/pm/app/screens/ManagerDashboard';
+import { GoalContribution } from '@/features/pm/app/screens/GoalContribution';
+import { Customers } from '@/features/pm/app/screens/Customers';
+import { Projects } from '@/features/pm/app/screens/Projects';
+import { Tasks } from '@/features/pm/app/screens/Tasks';
+import { Team } from '@/features/pm/app/screens/Team';
+import { Reports } from '@/features/pm/app/screens/Reports';
 import { CreateProject } from '@/features/pm/app/screens/CreateProject';
-import { ProjectOverview } from '@/features/pm/app/screens/ProjectOverview';
-import { ProjectDetails } from '@/features/pm/app/screens/ProjectDetails';
-import { DailyReport } from '@/features/pm/app/screens/DailyReport';
-import { CreateWeeklyReport } from '@/features/pm/app/screens/CreateWeeklyReport';
-import { UserProfile } from '@/features/pm/app/screens/UserProfile';
 
 export default function App() {
   return (
     <Layout>
       <Routes>
-        <Route index element={<Dashboard />} />
+        <Route index element={<ManagerDashboard />} />
+        <Route path="goal-contribution" element={<GoalContribution />} />
+        <Route path="customers" element={<Customers />} />
+        <Route path="projects" element={<Projects />} />
+        <Route path="tasks" element={<Tasks />} />
+        <Route path="team" element={<Team />} />
+        <Route path="reports" element={<Reports />} />
         <Route path="create-project" element={<CreateProject />} />
-        <Route path="projects" element={<ProjectOverview />} />
-        <Route path="project-details" element={<ProjectDetails />} />
-        <Route path="daily-report" element={<DailyReport />} />
-        <Route path="create-weekly-report" element={<CreateWeeklyReport />} />
-        <Route path="profile" element={<UserProfile />} />
       </Routes>
     </Layout>
   );

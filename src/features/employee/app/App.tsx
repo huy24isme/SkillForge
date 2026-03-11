@@ -7,12 +7,9 @@ import { CreateProject } from '@/features/employee/app/screens/CreateProject';
 import { ProjectOverview } from '@/features/employee/app/screens/ProjectOverview';
 import { DailyReport } from '@/features/employee/app/screens/DailyReport';
 import { UserProfile } from '@/features/employee/app/screens/UserProfile';
-import { EmployeeDashboard } from '@/features/employee/app/screens/employee/EmployeeDashboard';
+import { EmployeeTasks } from '@/features/employee/app/screens/employee/EmployeeTasks';
 import { EmployeeDailyReport } from '@/features/employee/app/screens/employee/EmployeeDailyReport';
 import { EmployeeProjects } from '@/features/employee/app/screens/employee/EmployeeProjects';
-import { EmployeeQuests } from '@/features/employee/app/screens/employee/EmployeeQuests';
-import { EmployeeRewards } from '@/features/employee/app/screens/employee/EmployeeRewards';
-import { EmployeeProfile } from '@/features/employee/app/screens/employee/EmployeeProfile';
 
 export default function App() {
   return (
@@ -37,14 +34,12 @@ export default function App() {
       <Route path="employee/*" element={
         <EmployeeLayout>
           <Routes>
-            <Route index element={<EmployeeDashboard />} />
+            <Route index element={<EmployeeTasks />} />
+            <Route path="tasks" element={<EmployeeTasks />} />
             <Route path="daily-report" element={<EmployeeDailyReport />} />
             <Route path="projects" element={<EmployeeProjects />} />
             <Route path="projects/active" element={<EmployeeProjects />} />
             <Route path="projects/completed" element={<EmployeeProjects />} />
-            <Route path="quests" element={<EmployeeQuests />} />
-            <Route path="rewards" element={<EmployeeRewards />} />
-            <Route path="profile" element={<EmployeeProfile />} />
           </Routes>
         </EmployeeLayout>
       } />

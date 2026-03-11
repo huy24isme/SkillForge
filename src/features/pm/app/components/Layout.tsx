@@ -2,10 +2,12 @@ import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/auth/AuthContext';
 import {
   LayoutDashboard,
-  FolderPlus,
+  Target,
+  Building2,
   Users,
   FileText,
-  ClipboardList,
+  ListChecks,
+  Users2,
   User,
   Bell,
   LogOut
@@ -13,12 +15,13 @@ import {
 import logo1 from '@/assets/logo1.png';
 
 const navigation = [
-  { name: 'Tổng quan', href: '/pm', icon: LayoutDashboard },
-  { name: 'Tạo dự án', href: '/pm/create-project', icon: FolderPlus },
-  { name: 'Dự án', href: '/pm/projects', icon: Users },
-  { name: 'Chi tiết dự án', href: '/pm/project-details', icon: ClipboardList },
-  { name: 'Báo cáo hằng ngày', href: '/pm/daily-report', icon: FileText },
-  { name: 'Hồ sơ', href: '/pm/profile', icon: User },
+  { name: 'Dashboard', href: '/pm', icon: LayoutDashboard },
+  { name: 'Goal Contribution', href: '/pm/goal-contribution', icon: Target },
+  { name: 'Customers', href: '/pm/customers', icon: Building2 },
+  { name: 'Projects', href: '/pm/projects', icon: Users },
+  { name: 'Tasks', href: '/pm/tasks', icon: ListChecks },
+  { name: 'Team', href: '/pm/team', icon: Users2 },
+  { name: 'Reports', href: '/pm/reports', icon: FileText },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -67,8 +70,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <User className="w-5 h-5 text-[#3AE7E1]" />
             </div>
             <div>
-              <p className="text-sm font-medium">Admin User</p>
-              <p className="text-xs text-gray-400">admin@skillforge.ai</p>
+              <p className="text-sm font-medium">PM User</p>
+              <p className="text-xs text-gray-400">pm@skillforge.ai</p>
             </div>
           </div>
         </div>
@@ -81,7 +84,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-lg font-semibold text-gray-900">
-                {navigation.find((item) => item.href === location.pathname)?.name || 'Tổng quan'}
+                {navigation.find((item) => item.href === location.pathname)?.name || 'Dashboard'}
               </h2>
               <p className="text-sm text-gray-500">Strategic portfolio execution aligned to BSC</p>
             </div>
