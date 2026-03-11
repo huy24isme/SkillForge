@@ -129,14 +129,14 @@ export function Dashboard() {
         />
       </div>
 
-      {/* Phân tích AI Panel */}
+      {/* Strategic insights panel */}
       <div className="bg-gradient-to-br from-[#3AE7E1]/10 to-[#0B1C2D]/5 rounded-xl p-6 border border-[#3AE7E1]/20">
         <div className="flex items-start gap-4">
           <div className="w-12 h-12 rounded-lg bg-[#3AE7E1]/20 flex items-center justify-center flex-shrink-0">
             <Sparkles className="w-6 h-6 text-[#3AE7E1]" />
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-semibold text-gray-900 mb-3">Phân tích AI</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-3">Phân tích chiến lược</h3>
             <ul className="space-y-2">
               <li className="flex items-start gap-2">
                 <AlertTriangle className="w-5 h-5 text-[#E74C3C] flex-shrink-0 mt-0.5" />
@@ -153,7 +153,7 @@ export function Dashboard() {
               <li className="flex items-start gap-2">
                 <TrendingUp className="w-5 h-5 text-[#2ECC71] flex-shrink-0 mt-0.5" />
                 <span className="text-sm text-gray-700">
-                  Tốc độ xử lý công việc của đội đã tăng <strong>23%</strong> sau khi áp dụng ghép tác vụ bằng AI.
+                  Tốc độ xử lý công việc của đội đã tăng <strong>23%</strong> sau khi chuẩn hóa quy trình vận hành theo BSC.
                 </span>
               </li>
             </ul>

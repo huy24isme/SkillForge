@@ -1,13 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/auth/AuthContext';
-import { 
-  LayoutDashboard, 
-  FolderPlus, 
-  Users, 
-  FileText, 
+import {
+  LayoutDashboard,
+  FolderPlus,
+  Users,
+  FileText,
   ClipboardList,
-  User, 
-  Sparkles,
+  User,
   Bell,
   LogOut
 } from 'lucide-react';
@@ -16,7 +15,6 @@ import logo1 from '@/assets/logo1.png';
 const navigation = [
   { name: 'Tổng quan', href: '/pm', icon: LayoutDashboard },
   { name: 'Tạo dự án', href: '/pm/create-project', icon: FolderPlus },
-  { name: 'AI Team Matching', href: '/pm/team-matching', icon: Sparkles },
   { name: 'Dự án', href: '/pm/projects', icon: Users },
   { name: 'Chi tiết dự án', href: '/pm/project-details', icon: ClipboardList },
   { name: 'Báo cáo hằng ngày', href: '/pm/daily-report', icon: FileText },
@@ -85,7 +83,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <h2 className="text-lg font-semibold text-gray-900">
                 {navigation.find((item) => item.href === location.pathname)?.name || 'Tổng quan'}
               </h2>
-              <p className="text-sm text-gray-500">AI-Powered Talent & Project Operating System</p>
+              <p className="text-sm text-gray-500">Strategic portfolio execution aligned to BSC</p>
             </div>
             <div className="flex items-center gap-4">
               <button

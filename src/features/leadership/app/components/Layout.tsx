@@ -12,7 +12,6 @@ import {
 const navigation = [
   { name: 'Tổng quan', href: '/', icon: LayoutDashboard },
   { name: 'Tạo dự án', href: '/create-project', icon: FolderPlus },
-  { name: 'AI Team Matching', href: '/team-matching', icon: Sparkles },
   { name: 'Dự án', href: '/projects', icon: Users },
   { name: 'Báo cáo hằng ngày', href: '/daily-report', icon: FileText },
   { name: 'Hồ sơ', href: '/profile', icon: User },
@@ -75,7 +74,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <h2 className="text-lg font-semibold text-gray-900">
                 {navigation.find((item) => item.href === location.pathname)?.name || 'Tổng quan'}
               </h2>
-              <p className="text-sm text-gray-500">AI-Powered Talent & Project Operating System</p>
+              <p className="text-sm text-gray-500">Strategic portfolio execution aligned to BSC</p>
             </div>
             <div className="flex items-center gap-4">
               <button className="relative p-2 text-gray-400 hover:text-gray-600">

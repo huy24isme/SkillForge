@@ -19,7 +19,7 @@ const projects = [
 const activities = [
   { id: 1, user: 'Nguyen Van A', action: 'completed task "API Integration"', project: 'E-Commerce Platform', time: '5 min ago' },
   { id: 2, user: 'Le Hong Duc', action: 'reported blocker on "Database Migration"', project: 'Mobile Banking App', time: '23 min ago' },
-  { id: 3, user: 'AI System', action: 'suggested team rebalancing', project: 'AI Analytics Dashboard', time: '1 hour ago' },
+  { id: 3, user: 'PM Office', action: 'updated strategic resource allocation', project: 'AI Analytics Dashboard', time: '1 hour ago' },
   { id: 4, user: 'Tran Thi B', action: 'submitted daily report', project: 'CRM System Upgrade', time: '2 hours ago' },
 ];
 
@@ -53,9 +53,9 @@ export function Dashboard() {
           color="#F5A623"
         />
         <KPICard
-          title="Intern Retention Rate"
-          value="94%"
-          change="+2% this quarter"
+          title="BSC Goal Completion"
+          value="81%"
+          change="+4% this month"
           icon={TrendingUp}
           trend="up"
           color="#3AE7E1"
@@ -69,7 +69,7 @@ export function Dashboard() {
             <Sparkles className="w-6 h-6 text-[#3AE7E1]" />
           </div>
           <div className="flex-1">
-            <h3 className="text-lg font-semibold text-gray-900 mb-3">Phân tích AI</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-3">Phân tích chiến lược</h3>
             <ul className="space-y-2">
               <li className="flex items-start gap-2">
                 <AlertTriangle className="w-5 h-5 text-[#E74C3C] flex-shrink-0 mt-0.5" />
@@ -86,7 +86,7 @@ export function Dashboard() {
               <li className="flex items-start gap-2">
                 <TrendingUp className="w-5 h-5 text-[#2ECC71] flex-shrink-0 mt-0.5" />
                 <span className="text-sm text-gray-700">
-                  Team velocity improved by <strong>23%</strong> after implementing AI-based task matching.
+                  Team velocity improved by <strong>23%</strong> after aligning execution with BSC priorities.
                 </span>
               </li>
             </ul>

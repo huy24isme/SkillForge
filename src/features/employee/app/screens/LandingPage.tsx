@@ -244,8 +244,8 @@ export function LandingPage() {
               },
               {
                 icon: Target,
-                title: 'AI Team Matching',
-                description: 'Đề xuất đội ngũ tối ưu cho mỗi dự án dựa trên yêu cầu và năng lực',
+                title: 'Strategic Resource Allocation',
+                description: 'Phân bổ nguồn lực theo ưu tiên chiến lược, KPI và năng lực triển khai thực tế',
               },
             ].map((feature, idx) => (
               <div key={idx} className="bg-white rounded-xl p-8 border border-gray-200 hover:border-[#14B8A6] transition-all hover:shadow-xl">
@@ -294,8 +294,8 @@ export function LandingPage() {
                 },
                 {
                   step: '03',
-                  title: 'AI phân tích & đề xuất',
-                  description: 'Hệ thống AI tự động phân tích và gợi ý nhân sự',
+                  title: 'Đánh giá BSC & ưu tiên nguồn lực',
+                  description: 'PM rà soát KPI, năng lực và mục tiêu chiến lược để phân công nhân sự',
                 },
                 {
                   step: '04',

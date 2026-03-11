@@ -4,7 +4,6 @@ import { EmployeeLayout } from '@/features/employee/app/components/EmployeeLayou
 import { LandingPage } from '@/features/employee/app/screens/LandingPage';
 import { Dashboard } from '@/features/employee/app/screens/Dashboard';
 import { CreateProject } from '@/features/employee/app/screens/CreateProject';
-import { TeamMatching } from '@/features/employee/app/screens/TeamMatching';
 import { ProjectOverview } from '@/features/employee/app/screens/ProjectOverview';
 import { DailyReport } from '@/features/employee/app/screens/DailyReport';
 import { UserProfile } from '@/features/employee/app/screens/UserProfile';
@@ -27,7 +26,6 @@ export default function App() {
           <Routes>
             <Route index element={<Dashboard />} />
             <Route path="create-project" element={<CreateProject />} />
-            <Route path="team-matching" element={<TeamMatching />} />
             <Route path="projects" element={<ProjectOverview />} />
             <Route path="daily-report" element={<DailyReport />} />
             <Route path="profile" element={<UserProfile />} />

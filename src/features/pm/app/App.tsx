@@ -2,7 +2,6 @@ import { Routes, Route } from 'react-router-dom';
 import { Layout } from '@/features/pm/app/components/Layout';
 import { Dashboard } from '@/features/pm/app/screens/Dashboard';
 import { CreateProject } from '@/features/pm/app/screens/CreateProject';
-import { TeamMatching } from '@/features/pm/app/screens/TeamMatching';
 import { ProjectOverview } from '@/features/pm/app/screens/ProjectOverview';
 import { ProjectDetails } from '@/features/pm/app/screens/ProjectDetails';
 import { DailyReport } from '@/features/pm/app/screens/DailyReport';
@@ -15,7 +14,6 @@ export default function App() {
       <Routes>
         <Route index element={<Dashboard />} />
         <Route path="create-project" element={<CreateProject />} />
-        <Route path="team-matching" element={<TeamMatching />} />
         <Route path="projects" element={<ProjectOverview />} />
         <Route path="project-details" element={<ProjectDetails />} />
         <Route path="daily-report" element={<DailyReport />} />

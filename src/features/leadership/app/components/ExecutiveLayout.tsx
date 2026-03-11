@@ -3,15 +3,10 @@ import { NavLink, useLocation } from "react-router-dom";
 import { useAuth } from "@/auth/AuthContext";
 import {
   LayoutDashboard,
-  Users,
-  Briefcase,
   Sparkles,
-  CheckSquare,
   User,
   LogOut,
   Bell,
-  FileText,
-  Calendar,
   Wallet,
   Users2,
   Settings2,

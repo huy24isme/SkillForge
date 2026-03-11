@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Sparkles, Calendar, Users, Code } from 'lucide-react';
+import { FolderPlus, Calendar } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export function CreateProject() {
@@ -23,7 +23,7 @@ export function CreateProject() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate('/team-matching');
+    navigate('/employee/admin/projects');
   };
 
   const techOptions = ['React', 'Golang', 'Node.js', 'Python', 'PostgreSQL', 'MongoDB', 'AWS', 'Docker'];
@@ -33,11 +33,11 @@ export function CreateProject() {
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
         <div className="flex items-center gap-3 mb-6">
           <div className="w-12 h-12 rounded-lg bg-[#3AE7E1]/10 flex items-center justify-center">
-            <Sparkles className="w-6 h-6 text-[#3AE7E1]" />
+            <FolderPlus className="w-6 h-6 text-[#3AE7E1]" />
           </div>
           <div>
             <h2 className="text-2xl font-semibold text-gray-900">Tạo dự án mới</h2>
-            <p className="text-sm text-gray-600">AI sẽ hỗ trợ ghép đội phù hợp nhất cho dự án của bạn</p>
+            <p className="text-sm text-gray-600">Phân bổ nhân sự theo mục tiêu chiến lược và năng lực thực tế của đội</p>
           </div>
         </div>
 
@@ -228,8 +228,8 @@ export function CreateProject() {
               type="submit"
               className="px-6 py-2.5 bg-[#3AE7E1] text-white rounded-lg hover:bg-[#3AE7E1]/90 transition-colors flex items-center gap-2"
             >
-              <Sparkles className="w-5 h-5" />
-              Tạo dự án và ghép đội
+              <FolderPlus className="w-5 h-5" />
+              Tạo dự án và lưu kế hoạch phân bổ
             </button>
           </div>
         </form>

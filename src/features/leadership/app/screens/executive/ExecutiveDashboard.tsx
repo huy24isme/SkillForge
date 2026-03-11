@@ -3,27 +3,20 @@ import {
   AlertTriangle,
   Users,
   Sparkles,
-  ArrowRight,
-  Plus,
-  FileSearch,
   Wallet,
   Users2,
   Settings2,
   GraduationCap,
   ArrowUpRight,
-  ArrowDownRight,
+ 
   Activity
 } from 'lucide-react';
 import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
+  
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  LineChart,
-  Line,
+  
   AreaChart,
   Area
 } from 'recharts';
