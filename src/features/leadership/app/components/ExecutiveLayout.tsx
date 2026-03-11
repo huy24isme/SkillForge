@@ -12,6 +12,12 @@ import {
   Bell,
   FileText,
   Calendar,
+  Wallet,
+  Users2,
+  Settings2,
+  GraduationCap,
+  MessageSquareShare,
+  Calculator
 } from "lucide-react";
 import logo1 from "@/assets/logo1.png";
 
@@ -26,31 +32,44 @@ export function ExecutiveLayout({ children }: ExecutiveLayoutProps) {
   const menuItems = [
     {
       icon: LayoutDashboard,
-      label: "Tổng quan",
+      label: "BSC Dashboard",
       path: "/leadership/executive",
       exact: true,
     },
-    { icon: Users, label: "Nhân sự", path: "/leadership/executive/personnel" },
     {
-      icon: FileText,
-      label: "Báo cáo Ngày",
-      path: "/leadership/executive/daily-report",
+      icon: Wallet,
+      label: "Tài chính",
+      path: "/leadership/executive/financial"
     },
     {
-      icon: Calendar,
-      label: "Báo cáo Tuần",
-      path: "/leadership/executive/weekly-report",
+      icon: Users2,
+      label: "Khách hàng",
+      path: "/leadership/executive/customer"
     },
-    { icon: Briefcase, label: "Dự án", path: "/leadership/executive/projects" },
+    {
+      icon: Settings2,
+      label: "Quy trình nội bộ",
+      path: "/leadership/executive/process"
+    },
+    {
+      icon: GraduationCap,
+      label: "Học hỏi & Phát triển",
+      path: "/leadership/executive/learning"
+    },
     {
       icon: Sparkles,
-      label: "AI Phân tích",
-      path: "/leadership/executive/ai-create",
+      label: "Bản đồ Chiến lược",
+      path: "/leadership/executive/strategy-map",
     },
     {
-      icon: CheckSquare,
-      label: "Phê duyệt",
-      path: "/leadership/executive/approvals",
+      icon: MessageSquareShare,
+      label: "BSC Chatbot",
+      path: "/leadership/executive/chatbot",
+    },
+    {
+      icon: Calculator,
+      label: "Cấu hình Chi phí",
+      path: "/leadership/executive/cost-config",
     },
     { icon: User, label: "Cá nhân", path: "/leadership/executive/profile" },
   ];
@@ -86,10 +105,9 @@ export function ExecutiveLayout({ children }: ExecutiveLayoutProps) {
                 to={item.path}
                 className={({ isActive: active }) => `
                   flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200
-                  ${
-                    active
-                      ? "bg-[#3AE7E1] text-[#0B1C2D] shadow-[0_0_15px_rgba(58,231,225,0.3)]"
-                      : "text-slate-400 hover:text-white hover:bg-white/5"
+                  ${active
+                    ? "bg-[#3AE7E1] text-[#0B1C2D] shadow-[0_0_15px_rgba(58,231,225,0.3)]"
+                    : "text-slate-400 hover:text-white hover:bg-white/5"
                   }
                 `}
               >

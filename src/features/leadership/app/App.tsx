@@ -13,6 +13,13 @@ import { ExecutiveProjects } from './screens/executive/ExecutiveProjects';
 import { ExecutiveAICreate } from './screens/executive/ExecutiveAICreate';
 import { ExecutiveApprovals } from './screens/executive/ExecutiveApprovals';
 import { ExecutiveProfile } from './screens/executive/ExecutiveProfile';
+import FinancialPerspective from './screens/executive/bsc/FinancialPerspective';
+import CustomerPerspective from './screens/executive/bsc/CustomerPerspective';
+import InternalProcessPerspective from './screens/executive/bsc/InternalProcessPerspective';
+import LearningGrowthPerspective from './screens/executive/bsc/LearningGrowthPerspective';
+import StrategyMap from './screens/executive/bsc/StrategyMap';
+import BSCChatbot from './components/BSCChatbot';
+import CostConfig from './screens/executive/CostConfig';
 
 export default function App() {
   return (
@@ -28,6 +35,13 @@ export default function App() {
         <ExecutiveLayout>
           <Routes>
             <Route index element={<ExecutiveDashboard />} />
+            <Route path="financial" element={<FinancialPerspective />} />
+            <Route path="customer" element={<CustomerPerspective />} />
+            <Route path="process" element={<InternalProcessPerspective />} />
+            <Route path="learning" element={<LearningGrowthPerspective />} />
+            <Route path="strategy-map" element={<StrategyMap />} />
+            <Route path="chatbot" element={<BSCChatbot />} />
+            <Route path="cost-config" element={<CostConfig />} />
             <Route path="personnel" element={<ExecutivePersonnel />} />
             <Route path="personnel/:deptId" element={<DepartmentPersonnel />} />
             <Route path="daily-report" element={<ExecutiveDailyReport />} />
