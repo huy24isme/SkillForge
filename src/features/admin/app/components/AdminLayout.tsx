@@ -1,22 +1,42 @@
 import { useEffect, type ReactNode } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Building2, Users2, UserCog, UserSquare2, BriefcaseBusiness, Bell, LogOut, Search, ChevronRight } from 'lucide-react';
+import {
+  LayoutDashboard,
+  Users,
+  CreditCard,
+  CircleDollarSign,
+  Wallet,
+  BarChart3,
+  FileBarChart,
+  ScrollText,
+  Settings,
+  Bell,
+  LogOut,
+  Search,
+  ChevronRight,
+} from 'lucide-react';
 import { motion } from 'motion/react';
 import { useAuth } from '@/auth/AuthContext';
 import logo1 from '@/assets/logo1.png';
 
 const navigation = [
-  { name: 'Company Settings', href: '/admin/company-settings', icon: Building2 },
-  { name: 'Teams / Departments', href: '/admin/departments', icon: Users2 },
-  { name: 'Employees', href: '/admin/employees', icon: UserSquare2 },
-  { name: 'Users', href: '/admin/users', icon: UserCog },
-  { name: 'Customers', href: '/admin/customers', icon: BriefcaseBusiness },
+  { name: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
+  { name: 'Users', href: '/admin/users', icon: Users },
+  { name: 'Subscriptions', href: '/admin/subscriptions', icon: CreditCard },
+  { name: 'Revenue', href: '/admin/revenue', icon: CircleDollarSign },
+  { name: 'Payments', href: '/admin/payments', icon: Wallet },
+  { name: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
+  { name: 'Reports', href: '/admin/reports', icon: FileBarChart },
+  { name: 'System Logs', href: '/admin/system-logs', icon: ScrollText },
+  { name: 'Settings', href: '/admin/settings', icon: Settings },
 ];
 
 export function AdminLayout({ children }: { children: ReactNode }) {
   const location = useLocation();
   const { logout } = useAuth();
-  const currentPage = navigation.find((item) => item.href === location.pathname)?.name || 'Company Settings';
+  const currentPage =
+    navigation.find((item) => location.pathname === item.href || location.pathname.startsWith(`${item.href}/`))?.name ||
+    'Dashboard';
 
   useEffect(() => {
     const hasOpenModal = Boolean(
@@ -64,8 +84,8 @@ export function AdminLayout({ children }: { children: ReactNode }) {
 
         <nav className="px-3 mt-1 space-y-1 overflow-y-auto">
           {navigation.map((item, index) => {
-            const isRootDashboard = location.pathname === '/admin' && item.href === '/admin/company-settings';
-            const isActive = location.pathname === item.href || isRootDashboard;
+            const isRootDashboard = location.pathname === '/admin' && item.href === '/admin/dashboard';
+            const isActive = location.pathname === item.href || location.pathname.startsWith(`${item.href}/`) || isRootDashboard;
 
             return (
               <motion.div
