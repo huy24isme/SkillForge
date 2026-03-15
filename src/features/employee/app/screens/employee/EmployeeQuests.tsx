@@ -183,7 +183,7 @@ export function EmployeeQuests() {
 
               {/* Action Button */}
               <button
-                onClick={() => quest.status === 'claimable' && !isClaimed && handleClaimReward(quest.id, quest.xp)}
+                onClick={() => quest.status === 'claimable' && !isClaimed && handleClaimReward(quest.id)}
                 disabled={isClaimed || (quest.status !== 'claimable' && quest.status !== 'featured')}
                 className={`w-full px-4 py-3 rounded-lg font-medium transition-all flex items-center justify-center gap-2 ${config.button}`}
               >
