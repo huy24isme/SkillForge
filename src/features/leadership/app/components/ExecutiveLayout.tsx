@@ -3,7 +3,6 @@ import { NavLink, useLocation } from "react-router-dom";
 import { useAuth } from "@/auth/AuthContext";
 import {
   LayoutDashboard,
-  Sparkles,
   User,
   LogOut,
   Bell,
@@ -11,8 +10,7 @@ import {
   Users2,
   Settings2,
   GraduationCap,
-  MessageSquareShare,
-  Calculator
+  MessageSquareShare
 } from "lucide-react";
 import logo1 from "@/assets/logo1.png";
 
@@ -134,7 +132,7 @@ export function ExecutiveLayout({ children }: ExecutiveLayoutProps) {
         </nav>
 
         {/* User / Footer */}
-        <div className="p-4 border-t border-white/10 mt-35">
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-white/10">
           <div className="flex items-center gap-3 px-4 py-3 rounded-lg bg-white/5 border border-white/5">
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#3AE7E1] to-[#2563EB] flex items-center justify-center text-[#0B1C2D] font-bold text-xs">
               CEO

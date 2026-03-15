@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import EmployeeApp from '@/features/employee/app/App'
 import PMApp from '@/features/pm/app/App'
 import LeadershipApp from '@/features/leadership/app/App'
+import AdminApp from '@/features/admin/app/App'
 import { AuthProvider, useAuth } from '@/auth/AuthContext'
 import { ProtectedRoute } from '@/auth/ProtectedRoute'
 import { LoginPage } from '@/features/auth/LoginPage'
@@ -50,6 +51,15 @@ function App() {
             element={
               <ProtectedRoute role="leadership">
                 <LeadershipApp />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/admin/*"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminApp />
               </ProtectedRoute>
             }
           />

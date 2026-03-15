@@ -1,4 +1,4 @@
-export type UserRole = 'employee' | 'pm' | 'leadership'
+export type UserRole = 'employee' | 'pm' | 'leadership' | 'admin'
 
 export type MockUser = {
   username: string
@@ -26,10 +26,17 @@ export const mockUsers: MockUser[] = [
     role: 'leadership',
     displayName: 'Leadership User',
   },
+  {
+    username: 'admin01',
+    password: '123456',
+    role: 'admin',
+    displayName: 'System Admin User',
+  },
 ]
 
 export const roleHomePath: Record<UserRole, string> = {
   employee: '/employee/employee',
   pm: '/pm',
   leadership: '/leadership/executive',
+  admin: '/admin',
 }

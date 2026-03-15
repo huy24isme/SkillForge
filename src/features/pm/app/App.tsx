@@ -7,7 +7,6 @@ import { Projects } from '@/features/pm/app/screens/Projects';
 import { Tasks } from '@/features/pm/app/screens/Tasks';
 import { Team } from '@/features/pm/app/screens/Team';
 import { Reports } from '@/features/pm/app/screens/Reports';
-import { CreateProject } from '@/features/pm/app/screens/CreateProject';
 
 export default function App() {
   return (
@@ -20,7 +19,6 @@ export default function App() {
         <Route path="tasks" element={<Tasks />} />
         <Route path="team" element={<Team />} />
         <Route path="reports" element={<Reports />} />
-        <Route path="create-project" element={<CreateProject />} />
       </Routes>
     </Layout>
   );

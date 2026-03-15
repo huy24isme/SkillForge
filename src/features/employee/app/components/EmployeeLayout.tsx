@@ -12,8 +12,8 @@ import logo1 from '@/assets/logo1.png';
 
 const navigation = [
   { name: 'My Tasks', href: '/employee/employee/tasks', icon: ListChecks },
-  { name: 'Dự án của tôi', href: '/employee/employee/projects', icon: FolderKanban },
-  { name: 'Báo cáo hằng ngày', href: '/employee/employee/daily-report', icon: FileText },
+  { name: 'My Projects', href: '/employee/employee/projects', icon: FolderKanban },
+  { name: 'Daily Report', href: '/employee/employee/daily-report', icon: FileText },
 ];
 
 const notifications = [
@@ -65,12 +65,7 @@ export function EmployeeLayout({ children }: { children: React.ReactNode }) {
           })}
         </nav>
 
-        <div className="absolute bottom-20 left-0 right-0 mx-4 p-4 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
-          <p className="text-xs uppercase tracking-wide text-gray-300 mb-2">Execution Layer</p>
-          <p className="text-sm text-white leading-5">
-            Cập nhật task và báo cáo hằng ngày để dữ liệu vận hành tự động đổ về dashboard của Manager.
-          </p>
-        </div>
+        
 
         <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-white/10">
           <div className="flex items-center gap-3">

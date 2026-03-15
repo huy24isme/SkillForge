@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Trophy, Star, Zap, Target, Gift, CheckCircle, Lock } from 'lucide-react';
+import { Trophy, Star, Zap, Target, Gift, CheckCircle, } from 'lucide-react';
 
 const quests = {
   daily: [
@@ -25,7 +25,7 @@ export function EmployeeQuests() {
   const [activeTab, setActiveTab] = useState<'all' | 'daily' | 'weekly' | 'project'>('all');
   const [claimedQuests, setClaimedQuests] = useState<number[]>([]);
 
-  const handleClaimReward = (questId: number, xp: number) => {
+  const handleClaimReward = (questId: number) => {
     setClaimedQuests([...claimedQuests, questId]);
     // In real app, this would trigger XP addition and badge unlock
   };
