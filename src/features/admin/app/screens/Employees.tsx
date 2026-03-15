@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import { Plus } from 'lucide-react';
+import { useMemo, useState } from 'react';
+import { Plus, UsersRound, UserCheck, UserX } from 'lucide-react';
 import { DataTable } from '@/components/dashboard/DataTable';
 import { Modal } from '@/components/dashboard/Modal';
 import { PageHeader } from '@/components/dashboard/PageHeader';
 import { StatusBadge } from '@/components/dashboard/StatusBadge';
+import { StatCard } from '@/components/dashboard/StatCard';
 
 type Employee = {
   id: string;
@@ -22,6 +23,8 @@ export function Employees() {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Employee | null>(null);
   const [form, setForm] = useState({ name: '', email: '', role: '', department: '', status: 'Active' as Employee['status'] });
+  const activeCount = useMemo(() => items.filter((item) => item.status === 'Active').length, [items]);
+  const inactiveCount = useMemo(() => items.filter((item) => item.status === 'Inactive').length, [items]);
 
   const openCreate = () => {
     setEditing(null);
@@ -48,26 +51,46 @@ export function Employees() {
     <div className="space-y-6">
       <PageHeader
         title="Employees"
-        description="Manage employee records for execution roles and staffing visibility."
-        action={<button onClick={openCreate} className="px-4 py-2.5 bg-cyan-500 text-white rounded-lg inline-flex items-center gap-2"><Plus className="w-4 h-4" /> Add Employee</button>}
+        description="Manage workforce records, role assignments, and operational staffing status across the organization."
+        className="from-emerald-50 via-cyan-50 to-sky-50"
+        action={<button onClick={openCreate} className="px-4 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-lg inline-flex items-center gap-2 shadow-lg shadow-cyan-900/20"><Plus className="w-4 h-4" /> Add Employee</button>}
       />
 
-      <DataTable headers={['ID', 'Name', 'Email', 'Role', 'Department', 'Status', 'Actions']}>
-        {items.map((item) => (
-          <tr key={item.id}>
-            <td className="px-4 py-3 text-gray-700">{item.id}</td>
-            <td className="px-4 py-3 font-medium text-gray-900">{item.name}</td>
-            <td className="px-4 py-3 text-gray-700">{item.email}</td>
-            <td className="px-4 py-3 text-gray-700">{item.role}</td>
-            <td className="px-4 py-3 text-gray-700">{item.department}</td>
-            <td className="px-4 py-3"><StatusBadge label={item.status} tone={item.status === 'Active' ? 'success' : 'warning'} /></td>
-            <td className="px-4 py-3 space-x-3">
-              <button onClick={() => openEdit(item)} className="text-cyan-700 hover:underline">Edit</button>
-              <button onClick={() => setItems((prev) => prev.filter((x) => x.id !== item.id))} className="text-rose-600 hover:underline">Delete</button>
-            </td>
-          </tr>
-        ))}
-      </DataTable>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <StatCard label="Total Employees" value={items.length} hint="All workforce records" className="from-sky-50 to-cyan-100/60 border-cyan-200" />
+        <StatCard label="Active Employees" value={activeCount} hint="Operationally available" className="from-emerald-50 to-emerald-100/70 border-emerald-200" />
+        <StatCard label="Inactive Employees" value={inactiveCount} hint="Temporarily offline or archived" className="from-amber-50 to-orange-100/70 border-orange-200" />
+      </div>
+
+      <div className="rounded-2xl border border-cyan-100 bg-gradient-to-br from-white via-cyan-50/30 to-emerald-50/30 shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-cyan-100 bg-gradient-to-r from-cyan-50/80 to-emerald-50/70 flex items-center justify-between">
+          <div className="flex items-center gap-2 text-slate-800 font-semibold">
+            <UsersRound className="w-4 h-4 text-cyan-600" />
+            Workforce Directory
+          </div>
+          <div className="text-xs text-slate-500 inline-flex items-center gap-2">
+            <span className="inline-flex items-center gap-1"><UserCheck className="w-3.5 h-3.5 text-emerald-600" /> {activeCount} active</span>
+            <span className="inline-flex items-center gap-1"><UserX className="w-3.5 h-3.5 text-amber-600" /> {inactiveCount} inactive</span>
+          </div>
+        </div>
+
+        <DataTable headers={['ID', 'Name', 'Email', 'Role', 'Department', 'Status', 'Actions']}>
+          {items.map((item) => (
+            <tr key={item.id} className="hover:bg-slate-50/80 transition-colors">
+              <td className="px-4 py-3 text-gray-700">{item.id}</td>
+              <td className="px-4 py-3 font-medium text-gray-900">{item.name}</td>
+              <td className="px-4 py-3 text-gray-700">{item.email}</td>
+              <td className="px-4 py-3 text-gray-700">{item.role}</td>
+              <td className="px-4 py-3 text-gray-700">{item.department}</td>
+              <td className="px-4 py-3"><StatusBadge label={item.status} tone={item.status === 'Active' ? 'success' : 'warning'} /></td>
+              <td className="px-4 py-3 space-x-3">
+                <button onClick={() => openEdit(item)} className="text-cyan-700 hover:underline">Edit</button>
+                <button onClick={() => setItems((prev) => prev.filter((x) => x.id !== item.id))} className="text-rose-600 hover:underline">Delete</button>
+              </td>
+            </tr>
+          ))}
+        </DataTable>
+      </div>
 
       <Modal open={open} title={editing ? 'Edit Employee' : 'Add Employee'} onClose={() => setOpen(false)}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

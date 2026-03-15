@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { Plus } from 'lucide-react';
+import { useMemo, useState } from 'react';
+import { Plus, BriefcaseBusiness, Building2 } from 'lucide-react';
 import { DataTable } from '@/components/dashboard/DataTable';
 import { Modal } from '@/components/dashboard/Modal';
 import { PageHeader } from '@/components/dashboard/PageHeader';
+import { StatCard } from '@/components/dashboard/StatCard';
 
 type Customer = {
   id: string;
@@ -20,6 +21,8 @@ export function Customers() {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Customer | null>(null);
   const [form, setForm] = useState({ customerName: '', contactEmail: '', company: '', notes: '' });
+  const uniqueCompanies = useMemo(() => new Set(rows.map((row) => row.company)).size, [rows]);
+  const withNotes = useMemo(() => rows.filter((row) => row.notes.trim().length > 0).length, [rows]);
 
   const save = () => {
     if (editing) {
@@ -34,25 +37,45 @@ export function Customers() {
     <div className="space-y-6">
       <PageHeader
         title="Customers"
-        description="Admin-level customer master data management for system setup and demos."
-        action={<button onClick={() => { setEditing(null); setForm({ customerName: '', contactEmail: '', company: '', notes: '' }); setOpen(true); }} className="px-4 py-2.5 bg-cyan-500 text-white rounded-lg inline-flex items-center gap-2"><Plus className="w-4 h-4" /> Add Customer</button>}
+        description="Maintain customer master records used by PM, reporting, and executive performance views."
+        className="from-blue-50 via-cyan-50 to-emerald-50"
+        action={<button onClick={() => { setEditing(null); setForm({ customerName: '', contactEmail: '', company: '', notes: '' }); setOpen(true); }} className="px-4 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-lg inline-flex items-center gap-2 shadow-lg shadow-cyan-900/20"><Plus className="w-4 h-4" /> Add Customer</button>}
       />
 
-      <DataTable headers={['ID', 'Customer name', 'Contact email', 'Company', 'Notes', 'Actions']}>
-        {rows.map((row) => (
-          <tr key={row.id}>
-            <td className="px-4 py-3 text-gray-700">{row.id}</td>
-            <td className="px-4 py-3 font-medium text-gray-900">{row.customerName}</td>
-            <td className="px-4 py-3 text-gray-700">{row.contactEmail}</td>
-            <td className="px-4 py-3 text-gray-700">{row.company}</td>
-            <td className="px-4 py-3 text-gray-700">{row.notes}</td>
-            <td className="px-4 py-3 space-x-3">
-              <button onClick={() => { setEditing(row); setForm({ customerName: row.customerName, contactEmail: row.contactEmail, company: row.company, notes: row.notes }); setOpen(true); }} className="text-cyan-700 hover:underline">Edit</button>
-              <button onClick={() => setRows((prev) => prev.filter((x) => x.id !== row.id))} className="text-rose-600 hover:underline">Delete</button>
-            </td>
-          </tr>
-        ))}
-      </DataTable>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <StatCard label="Customer Records" value={rows.length} hint="Total master entries" className="from-sky-50 to-cyan-100/60 border-cyan-200" />
+        <StatCard label="Unique Companies" value={uniqueCompanies} hint="Distinct organizations" className="from-blue-50 to-indigo-100/60 border-indigo-200" />
+        <StatCard label="Documented Notes" value={withNotes} hint="Records with contextual metadata" className="from-emerald-50 to-teal-100/60 border-emerald-200" />
+      </div>
+
+      <div className="rounded-2xl border border-cyan-100 bg-gradient-to-br from-white via-cyan-50/25 to-emerald-50/25 shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-cyan-100 bg-gradient-to-r from-cyan-50/70 to-emerald-50/70 flex items-center justify-between">
+          <div className="flex items-center gap-2 text-slate-800 font-semibold">
+            <BriefcaseBusiness className="w-4 h-4 text-cyan-600" />
+            Customer Registry
+          </div>
+          <div className="text-xs text-slate-500 inline-flex items-center gap-1">
+            <Building2 className="w-3.5 h-3.5" />
+            {uniqueCompanies} companies
+          </div>
+        </div>
+
+        <DataTable headers={['ID', 'Customer name', 'Contact email', 'Company', 'Notes', 'Actions']}>
+          {rows.map((row) => (
+            <tr key={row.id} className="hover:bg-slate-50/80 transition-colors">
+              <td className="px-4 py-3 text-gray-700">{row.id}</td>
+              <td className="px-4 py-3 font-medium text-gray-900">{row.customerName}</td>
+              <td className="px-4 py-3 text-gray-700">{row.contactEmail}</td>
+              <td className="px-4 py-3 text-gray-700">{row.company}</td>
+              <td className="px-4 py-3 text-gray-700">{row.notes || '-'}</td>
+              <td className="px-4 py-3 space-x-3">
+                <button onClick={() => { setEditing(row); setForm({ customerName: row.customerName, contactEmail: row.contactEmail, company: row.company, notes: row.notes }); setOpen(true); }} className="text-cyan-700 hover:underline">Edit</button>
+                <button onClick={() => setRows((prev) => prev.filter((x) => x.id !== row.id))} className="text-rose-600 hover:underline">Delete</button>
+              </td>
+            </tr>
+          ))}
+        </DataTable>
+      </div>
 
       <Modal open={open} title={editing ? 'Edit Customer' : 'Add Customer'} onClose={() => setOpen(false)}>
         <div className="space-y-4">

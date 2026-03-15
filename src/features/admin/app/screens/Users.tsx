@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { Plus, RotateCcw } from 'lucide-react';
+import { useMemo, useState } from 'react';
+import { Plus, RotateCcw, UserCog, Shield, UserCheck } from 'lucide-react';
 import { DataTable } from '@/components/dashboard/DataTable';
 import { Modal } from '@/components/dashboard/Modal';
 import { PageHeader } from '@/components/dashboard/PageHeader';
+import { StatCard } from '@/components/dashboard/StatCard';
 
 type UserRow = { id: string; username: string; email: string; role: 'admin' | 'pm' | 'employee' };
 
@@ -14,6 +15,9 @@ export function Users() {
   ]);
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({ username: '', email: '', role: 'employee' as UserRow['role'] });
+  const adminCount = useMemo(() => rows.filter((row) => row.role === 'admin').length, [rows]);
+  const pmCount = useMemo(() => rows.filter((row) => row.role === 'pm').length, [rows]);
+  const employeeCount = useMemo(() => rows.filter((row) => row.role === 'employee').length, [rows]);
 
   const createUser = () => {
     setRows((prev) => [...prev, { id: `USR-${String(prev.length + 1).padStart(2, '0')}`, ...form }]);
@@ -25,24 +29,48 @@ export function Users() {
     <div className="space-y-6">
       <PageHeader
         title="Users"
-        description="Create user accounts, assign roles, and perform password reset actions for demo." 
-        action={<button onClick={() => setOpen(true)} className="px-4 py-2.5 bg-cyan-500 text-white rounded-lg inline-flex items-center gap-2"><Plus className="w-4 h-4" /> Create User</button>}
+        description="Control access identities, role assignments, and account security operations for the platform." 
+        className="from-indigo-50 via-cyan-50 to-slate-50"
+        action={<button onClick={() => setOpen(true)} className="px-4 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-lg inline-flex items-center gap-2 shadow-lg shadow-cyan-900/20"><Plus className="w-4 h-4" /> Create User</button>}
       />
 
-      <DataTable headers={['User ID', 'Username', 'Email', 'Role', 'Actions']}>
-        {rows.map((row) => (
-          <tr key={row.id}>
-            <td className="px-4 py-3 text-gray-700">{row.id}</td>
-            <td className="px-4 py-3 font-medium text-gray-900">{row.username}</td>
-            <td className="px-4 py-3 text-gray-700">{row.email}</td>
-            <td className="px-4 py-3 text-gray-700 uppercase">{row.role}</td>
-            <td className="px-4 py-3 space-x-3">
-              <button className="text-cyan-700 hover:underline">Assign Role</button>
-              <button className="text-amber-700 hover:underline inline-flex items-center gap-1"><RotateCcw className="w-3.5 h-3.5" /> Reset Password</button>
-            </td>
-          </tr>
-        ))}
-      </DataTable>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <StatCard label="Admin Accounts" value={adminCount} hint="High-privilege controls" className="from-violet-50 to-indigo-100/60 border-indigo-200" />
+        <StatCard label="PM Accounts" value={pmCount} hint="Project governance users" className="from-cyan-50 to-sky-100/60 border-cyan-200" />
+        <StatCard label="Employee Accounts" value={employeeCount} hint="Execution users" className="from-teal-50 to-emerald-100/60 border-emerald-200" />
+      </div>
+
+      <div className="rounded-2xl border border-indigo-100 bg-gradient-to-br from-white via-indigo-50/25 to-cyan-50/25 shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-indigo-100 bg-gradient-to-r from-indigo-50/70 to-cyan-50/70 flex items-center justify-between">
+          <div className="flex items-center gap-2 text-slate-800 font-semibold">
+            <UserCog className="w-4 h-4 text-cyan-600" />
+            Account Directory
+          </div>
+          <div className="text-xs text-slate-500 inline-flex items-center gap-3">
+            <span className="inline-flex items-center gap-1"><Shield className="w-3.5 h-3.5 text-cyan-700" /> RBAC enabled</span>
+            <span className="inline-flex items-center gap-1"><UserCheck className="w-3.5 h-3.5 text-emerald-700" /> {rows.length} users</span>
+          </div>
+        </div>
+
+        <DataTable headers={['User ID', 'Username', 'Email', 'Role', 'Actions']}>
+          {rows.map((row) => (
+            <tr key={row.id} className="hover:bg-slate-50/80 transition-colors">
+              <td className="px-4 py-3 text-gray-700">{row.id}</td>
+              <td className="px-4 py-3 font-medium text-gray-900">{row.username}</td>
+              <td className="px-4 py-3 text-gray-700">{row.email}</td>
+              <td className="px-4 py-3">
+                <span className="inline-flex px-2.5 py-1 rounded-full text-xs font-semibold uppercase bg-slate-100 text-slate-700 border border-slate-200">
+                  {row.role}
+                </span>
+              </td>
+              <td className="px-4 py-3 space-x-3">
+                <button className="text-cyan-700 hover:underline">Assign Role</button>
+                <button className="text-amber-700 hover:underline inline-flex items-center gap-1"><RotateCcw className="w-3.5 h-3.5" /> Reset Password</button>
+              </td>
+            </tr>
+          ))}
+        </DataTable>
+      </div>
 
       <Modal open={open} title="Create User Account" onClose={() => setOpen(false)}>
         <div className="space-y-4">
