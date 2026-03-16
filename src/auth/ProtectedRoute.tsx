@@ -12,6 +12,7 @@ const roleAllowedPrefix: Record<UserRole, string> = {
   pm: '/pm',
   leadership: '/leadership/executive',
   admin: '/admin',
+  'saas-admin': '/saas-admin',
 }
 
 export function ProtectedRoute({ role, children }: ProtectedRouteProps) {

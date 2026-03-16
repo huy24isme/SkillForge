@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { PageHeader } from '@/components/dashboard/PageHeader';
-import { TimeRangeFilter } from '@/features/admin/app/components/analytics/TimeRangeFilter';
-import { DataTableCard } from '@/features/admin/app/components/analytics/DataTableCard';
-import { payments } from '@/features/admin/app/data/mockAnalytics';
-import type { PaymentRow, TimeRange } from '@/features/admin/app/types/analytics';
+import { TimeRangeFilter } from '@/features/saas-admin/app/components/analytics/TimeRangeFilter';
+import { DataTableCard } from '@/features/saas-admin/app/components/analytics/DataTableCard';
+import { payments } from '@/features/saas-admin/app/data/mockAnalytics';
+import type { PaymentRow, TimeRange } from '@/features/saas-admin/app/types/analytics';
 
 const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 

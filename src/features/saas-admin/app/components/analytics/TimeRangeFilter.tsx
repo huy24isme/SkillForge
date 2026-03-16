@@ -1,4 +1,4 @@
-import type { TimeRange } from '@/features/admin/app/types/analytics';
+import type { TimeRange } from '@/features/saas-admin/app/types/analytics';
 
 const options: Array<{ value: TimeRange; label: string }> = [
   { value: '7d', label: 'Last 7 days' },

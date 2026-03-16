@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { PageHeader } from '@/components/dashboard/PageHeader';
-import { TimeRangeFilter } from '@/features/admin/app/components/analytics/TimeRangeFilter';
-import { ChartPanel } from '@/features/admin/app/components/analytics/ChartPanel';
-import { LineMetricChart } from '@/features/admin/app/components/analytics/LineMetricChart';
-import { PieMetricChart } from '@/features/admin/app/components/analytics/PieMetricChart';
-import { monthlyFinance, planRevenue, topCustomers } from '@/features/admin/app/data/mockAnalytics';
-import { DataTableCard } from '@/features/admin/app/components/analytics/DataTableCard';
-import type { TimeRange, TopCustomerRow } from '@/features/admin/app/types/analytics';
+import { TimeRangeFilter } from '@/features/saas-admin/app/components/analytics/TimeRangeFilter';
+import { ChartPanel } from '@/features/saas-admin/app/components/analytics/ChartPanel';
+import { LineMetricChart } from '@/features/saas-admin/app/components/analytics/LineMetricChart';
+import { PieMetricChart } from '@/features/saas-admin/app/components/analytics/PieMetricChart';
+import { monthlyFinance, planRevenue, topCustomers } from '@/features/saas-admin/app/data/mockAnalytics';
+import { DataTableCard } from '@/features/saas-admin/app/components/analytics/DataTableCard';
+import type { TimeRange, TopCustomerRow } from '@/features/saas-admin/app/types/analytics';
 
 const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 

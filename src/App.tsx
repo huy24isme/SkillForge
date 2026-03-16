@@ -3,6 +3,7 @@ import EmployeeApp from '@/features/employee/app/App'
 import PMApp from '@/features/pm/app/App'
 import LeadershipApp from '@/features/leadership/app/App'
 import AdminApp from '@/features/admin/app/App'
+import SaasAdminApp from '@/features/saas-admin/app/App'
 import { AuthProvider, useAuth } from '@/auth/AuthContext'
 import { ProtectedRoute } from '@/auth/ProtectedRoute'
 import { LoginPage } from '@/features/auth/LoginPage'
@@ -60,6 +61,15 @@ function App() {
             element={
               <ProtectedRoute role="admin">
                 <AdminApp />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/saas-admin/*"
+            element={
+              <ProtectedRoute role="saas-admin">
+                <SaasAdminApp />
               </ProtectedRoute>
             }
           />

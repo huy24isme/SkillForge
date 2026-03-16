@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { PageHeader } from '@/components/dashboard/PageHeader';
-import { TimeRangeFilter } from '@/features/admin/app/components/analytics/TimeRangeFilter';
-import { ChartPanel } from '@/features/admin/app/components/analytics/ChartPanel';
-import { monthlyUsers } from '@/features/admin/app/data/mockAnalytics';
-import { LineMetricChart } from '@/features/admin/app/components/analytics/LineMetricChart';
-import { BarMetricChart } from '@/features/admin/app/components/analytics/BarMetricChart';
-import type { TimeRange } from '@/features/admin/app/types/analytics';
+import { TimeRangeFilter } from '@/features/saas-admin/app/components/analytics/TimeRangeFilter';
+import { ChartPanel } from '@/features/saas-admin/app/components/analytics/ChartPanel';
+import { monthlyUsers } from '@/features/saas-admin/app/data/mockAnalytics';
+import { LineMetricChart } from '@/features/saas-admin/app/components/analytics/LineMetricChart';
+import { BarMetricChart } from '@/features/saas-admin/app/components/analytics/BarMetricChart';
+import type { TimeRange } from '@/features/saas-admin/app/types/analytics';
 
 export function UsersScreen() {
   const [timeRange, setTimeRange] = useState<TimeRange>('30d');

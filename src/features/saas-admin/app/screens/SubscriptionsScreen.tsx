@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
 import { PageHeader } from '@/components/dashboard/PageHeader';
-import { DataTableCard } from '@/features/admin/app/components/analytics/DataTableCard';
-import { subscriptions } from '@/features/admin/app/data/mockAnalytics';
-import type { SubscriptionRow } from '@/features/admin/app/types/analytics';
+import { DataTableCard } from '@/features/saas-admin/app/components/analytics/DataTableCard';
+import { subscriptions } from '@/features/saas-admin/app/data/mockAnalytics';
+import type { SubscriptionRow } from '@/features/saas-admin/app/types/analytics';
 
 const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 

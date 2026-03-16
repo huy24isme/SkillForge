@@ -22,7 +22,8 @@ export function LoginPage() {
     { role: 'Employee', username: 'employee01', password: '123456', color: 'from-emerald-500 to-teal-500', icon: '👤' },
     { role: 'PM', username: 'pm01', password: '123456', color: 'from-blue-500 to-cyan-500', icon: '📊' },
     { role: 'Leadership', username: 'leader01', password: '123456', color: 'from-violet-500 to-purple-500', icon: '👑' },
-    { role: 'Admin', username: 'admin01', password: '123456', color: 'from-orange-500 to-amber-500', icon: '🛡️' }
+    { role: 'Admin', username: 'admin01', password: '123456', color: 'from-orange-500 to-amber-500', icon: '🛡️' },
+    { role: 'SaaS Admin', username: 'admin02', password: '123456', color: 'from-indigo-500 to-violet-500', icon: '📈' }
   ]
 
   const handleQuickFill = (username: string, password: string, role: string) => {

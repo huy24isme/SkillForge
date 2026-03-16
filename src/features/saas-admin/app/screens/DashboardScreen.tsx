@@ -1,15 +1,15 @@
 import { useMemo, useState } from 'react';
 import { Users, UserCheck, CreditCard, TrendingUp, DollarSign, BarChart2 } from 'lucide-react';
 import { PageHeader } from '@/components/dashboard/PageHeader';
-import { kpiSummary, monthlyFinance, monthlyUsers, payments, planRevenue, subscriptions, systemLogs, topCustomers, featureUsage } from '@/features/admin/app/data/mockAnalytics';
-import { ChartPanel } from '@/features/admin/app/components/analytics/ChartPanel';
-import { DataTableCard } from '@/features/admin/app/components/analytics/DataTableCard';
-import { KpiCard } from '@/features/admin/app/components/analytics/KpiCard';
-import { LineMetricChart } from '@/features/admin/app/components/analytics/LineMetricChart';
-import { PieMetricChart } from '@/features/admin/app/components/analytics/PieMetricChart';
-import { BarMetricChart } from '@/features/admin/app/components/analytics/BarMetricChart';
-import { TimeRangeFilter } from '@/features/admin/app/components/analytics/TimeRangeFilter';
-import type { PaymentRow, SubscriptionRow, SystemLogRow, TimeRange, TopCustomerRow } from '@/features/admin/app/types/analytics';
+import { kpiSummary, monthlyFinance, monthlyUsers, payments, planRevenue, subscriptions, systemLogs, topCustomers, featureUsage } from '@/features/saas-admin/app/data/mockAnalytics';
+import { ChartPanel } from '@/features/saas-admin/app/components/analytics/ChartPanel';
+import { DataTableCard } from '@/features/saas-admin/app/components/analytics/DataTableCard';
+import { KpiCard } from '@/features/saas-admin/app/components/analytics/KpiCard';
+import { LineMetricChart } from '@/features/saas-admin/app/components/analytics/LineMetricChart';
+import { PieMetricChart } from '@/features/saas-admin/app/components/analytics/PieMetricChart';
+import { BarMetricChart } from '@/features/saas-admin/app/components/analytics/BarMetricChart';
+import { TimeRangeFilter } from '@/features/saas-admin/app/components/analytics/TimeRangeFilter';
+import type { PaymentRow, SubscriptionRow, SystemLogRow, TimeRange, TopCustomerRow } from '@/features/saas-admin/app/types/analytics';
 
 const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
 
